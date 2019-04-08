@@ -6,7 +6,7 @@ exports.health = (req, res)=>{
     status: 200,
     name: 'OK',
     message: `i\'m healthy`,
-    customMessage: 'API Analizapp en funcionamiento'
+    customMessage: 'API Users en funcionamiento'
   })
 }
 

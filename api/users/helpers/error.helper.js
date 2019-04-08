@@ -128,7 +128,7 @@ exports.imATeapot = (err, req, res) => {
 exports.internal = (err, req, res) => {
     res.status(500).send({
         status: 500,
-        name: 'internalServerError',
+        name: 'internal',
         customMessage: 'Internal Server Error' + (err.message ? ': ' + err.message : ''),
         message: 'Error Interno en el Servidor'
     });

@@ -4,10 +4,15 @@ const express = require('express');
 const router = express.Router();
 //Rutas de controladores
 const globalController = require('../controllers/global.controller');
+const userController = require('../controllers/user.controller');
 //Rutas de helpers
 const errorHelper = require('../helpers/error.helper');
 
 module.exports = (() => {
+  // Users =========================================================
+  router.get('/users', userController.getUsers);
+  router.get('/user',  userController.getUser);
+  router.get('/user/:username', userController.getUser);
 
   // General =========================================================
   //Maneja /

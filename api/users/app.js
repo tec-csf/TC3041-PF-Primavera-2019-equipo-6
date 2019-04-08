@@ -20,8 +20,6 @@ app.use(compression()); //Hace el api más ligera y más rápida
 app.use(helmet()); // Añade seguridad a las cabezaras http
 app.use("/user_data", express.static(path.join(__dirname, 'user_data')));
 
-// DB  =========================================================
-
 // Rutas =========================================================
 app.use('/', router);
 
