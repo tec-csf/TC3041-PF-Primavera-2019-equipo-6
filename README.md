@@ -4,7 +4,7 @@
 ---
 
 ##### Integrantes:
-1. Antony Adrian Morales rOSAS
+1. Antony Adrian Morales Rosas
 2. *[Poner aquí Nombre y Apellidos del integrante 2]*
 
 
@@ -51,7 +51,7 @@ Como parte de la entrega final del proyecto, se debe incluir la siguiente inform
 
 ## 2. Descripción del proyecto
 
-*[Incluya aquí la descripción del proyecto seleccionado.]*
+Red social que ofrece un servicio de microblogging. Este permite a los usuarios realizar y recibir mensajes breves a tráves de la plataforma.
 
 ## 3. Solución
 
@@ -70,8 +70,12 @@ A continuación aparecen descritos los diferentes elementos que forman parte de 
 *[Incluya aquí una explicación de la solución utilizada para el frontend del proyecto. No olvide incluir las ligas o referencias donde se puede encontrar información de los lenguajes de programación, frameworks y librerías utilizadas.]*
 
 #### 3.3.1 Lenguaje de programación
+
 #### 3.3.2 Framework
+
 #### 3.3.3 Librerías de funciones o dependencias
+- [Reactjs](https://reactjs.org/): Una biblioteca de JavaScript para construir interfaces de usuario
+- [Create React App](https://facebook.github.io/create-react-app/) : Herramienta para crear aplicaciones react. Ofrece una configuración de construcción moderna sin configuración.
 
 ### 3.4 Backend
 
@@ -85,8 +89,11 @@ A continuación aparecen descritos los diferentes elementos que forman parte de 
 
 *[Incluya aquí una explicación de la solución utilizada para implementar la API del proyecto. No olvide incluir las ligas o referencias donde se puede encontrar información de los lenguajes de programación, frameworks y librerías utilizadas.]*
 
+- [Node.js](https://nodejs.org/es/docs/): Node.js es un entorno de ejecución para JavaScript construido con el motor de JavaScript V8 de Chrome.
+
 #### 3.5.1 Lenguaje de programación
 #### 3.5.2 Framework
+- [Express](https://expressjs.com/es/guide/routing.html): Framework de aplicaciónes web para Node.js
 #### 3.5.3 Librerías de funciones o dependencias
 
 *[Incluya aquí una explicación de cada uno de los endpoints que forman parte de la API. Cada endpoint debe estar correctamente documentado.]*
