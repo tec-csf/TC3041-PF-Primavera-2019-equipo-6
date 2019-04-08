@@ -4,7 +4,7 @@
 ---
 
 ##### Integrantes:
-1. *[Poner aquí Nombre y Apellidos del integrante 1]*
+1. Antony Adrian Morales rOSAS
 2. *[Poner aquí Nombre y Apellidos del integrante 2]*
 
 
