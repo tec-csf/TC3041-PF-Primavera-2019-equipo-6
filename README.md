@@ -96,16 +96,28 @@ A continuación aparecen descritos los diferentes elementos que forman parte de 
 - [Express](https://expressjs.com/es/guide/routing.html): Framework de aplicaciónes web para Node.js
 #### 3.5.3 Librerías de funciones o dependencias
 
-*[Incluya aquí una explicación de cada uno de los endpoints que forman parte de la API. Cada endpoint debe estar correctamente documentado.]*
+#### Obtener un usuario (GET) ![#c5f015](https://placehold.it/15/c5f015/000000?text=+)
+    /user/:username
 
-*[Por cada endpoint debe incluir lo siguiente:]*
+##### Header
+    'authorization':'$token'
 
-* **Descripción**:
-* **URL**:
-* **Verbos HTTP**:
-* **Headers**:
-* **Formato JSON del cuerpo de la solicitud**: 
-* **Formato JSON de la respuesta**:
+##### Body
+    {
+        "mail":"ejemplo@gmail.com",
+        "username": "ejemplo1",
+        "password":"querty"
+    }
+
+##### Respuesta esperada
+    {
+        "status": 201,
+        "name": "Created",
+        "customMessage": "El usuario fue creado con exito",
+        "message": "Recurso creado",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVzbWVtYWc5NiIsImlhdCI6MTU1NDg0NjM0OCwiZXhwIjoxNTU0OTMyNzQ4fQ.j8uZqbTArkmYfYUyvsNotG_dEfF6JyGBL6QBD-4yR6c"
+    }
+
 
 
 ## 3.6 Pasos a seguir para utilizar el proyecto

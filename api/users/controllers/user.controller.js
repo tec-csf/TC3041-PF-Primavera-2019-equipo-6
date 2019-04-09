@@ -100,3 +100,128 @@ exports.registerUser = (req, res, next) => {
     })
   });
 }
+
+/*
+//Obtener mi usuario ********************************************************************************
+exports.getMyUser = (req, res, next) => {
+  db.query(
+    'SELECT id, nombre, apellido, correo, img, imgSubidas, empresa, puesto, area FROM Usuarios WHERE correo=\'' + res.locals.tokenDecoded.correo + '\'',
+    function(err, results, fields) {
+      if (err) {
+        let e = new Error(err);
+        e.name = "internal";
+        return next(e);
+      }
+      if (results.length == 0) {
+        let e = new Error('Usuario no encontrado');
+        e.name = "notFound";
+        return next(e);
+      }
+      //Convierte el array en objeto
+      let finalResults = results[0]
+
+      res.send(finalResults)
+    }
+  );
+
+}
+*/
+
+/*
+///LOGIN/ ingresar con un usuario ********************************************************************************
+exports.loginUser = (req, res, next) => {
+  if ((req.body.correo == null || req.body.correo == undefined) || (req.body.contrasenia == null || req.body.contrasenia == undefined)) {
+    let e = new Error('Se debe ingresar correo y contraseña');
+    e.name = "badRequest";
+    return next(e);
+  }
+
+  let hash = "";
+
+  db.query(
+    'SELECT id, privilegios, contrasenia FROM Usuarios WHERE correo=\'' + req.body.correo + '\'',
+    function(err, results, fields) {
+      if (err) {
+        let e = new Error(err);
+        e.name = "internal";
+        return next(e);
+      }
+      if (results.length == 0) {
+        let e = new Error('Usuario no encontrado');
+        e.name = "notFound";
+        return next(e);
+      }
+      //Convierte el array en objeto
+      let finalResults = results[0]
+      hash = finalResults.contrasenia;
+      let admin = false;
+
+      if(finalResults.privilegios == "admin"){
+        admin = true;
+      }
+
+
+      bcrypt.compare(req.body.contrasenia, hash, function(err, resp) {
+        if(resp == false){
+          let e = new Error('Las credenciales no son válidas');
+          e.name = "unautorized";
+          return next(e);
+        }else{
+          res.status(200).send({
+            status: 200,
+            name: 'Ok',
+            customMessage: 'Autenticación correcta',
+            message: 'Ok',
+            token: authHelper.createToken({"correo": req.body.correo, "id": finalResults.id, "admin": admin })
+          })
+        }
+      });
+    }
+  );
+}
+
+//Recuperar cuenta ( Mandar correo ) ********************************************************************************
+exports.recovery = (req, res, next) =>{
+  if (req.body.correo == null || req.body.correo == undefined) {
+    let e = new Error('Se debe ingresar un correo');
+    e.name = "badRequest";
+    return next(e);
+  }
+
+  let mailToken = "";
+
+  //Crear un mailToken
+  try {
+    mailToken = authHelper.createMailToken();
+  } catch (err) {
+    let e = new Error('No se pudo verificar la información del usuario');
+    e.name = "internal";
+    return next(e);
+  }
+  res.send({"mailToken" : mailToken})
+}
+
+//Recuperar cuenta ( Cambiar contraseña ) ********************************************************************************
+exports.changePassword = (req, res, next)=>{
+  res.send("jeloww2")
+}
+
+//Añadir imágen subida usuario ********************************************************************************
+exports.addUploadedImage = (req, res, next) => {
+  db.query(
+    'UPDATE Usuarios SET imgSubidas = imgSubidas + 1  WHERE correo=\'' + res.locals.tokenDecoded.correo + '\'',
+    function(err, results, fields) {
+      if (err) {
+        let e = new Error(err);
+        e.name = "internal";
+        return next(e);
+      }
+      res.status(200).send({
+        status: 200,
+        name: 'OK',
+        customMessage: 'El usuario sumó una imágen correctamente',
+        message: 'Recurso actualizado',
+      });
+  });
+}
+*/
