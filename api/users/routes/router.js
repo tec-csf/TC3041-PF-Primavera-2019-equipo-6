@@ -10,9 +10,13 @@ const errorHelper = require('../helpers/error.helper');
 
 module.exports = (() => {
   // Users =========================================================
+  //Obtiene todos los usuarios de la aplicacion (ADMIN ONLY)
   router.get('/users', userController.getUsers);
+  //Obtiene un usuario
   router.get('/user',  userController.getUser);
   router.get('/user/:username', userController.getUser);
+  //Registra un usuario en la aplicación
+  router.post('/user', userController.registerUser);
 
   // General =========================================================
   //Maneja /

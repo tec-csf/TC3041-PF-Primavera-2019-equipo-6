@@ -1,0 +1,14 @@
+n:Person{
+    id: Integer, (Unique)
+    username: String,
+    mail: String, (Unique)
+    password: String,
+    name: String,
+    location: String,
+    description: String,
+    verified: bool,
+    created_at: String,
+    lang: String,
+    profile_banner_url: String
+    profile_image_url: String,
+}
