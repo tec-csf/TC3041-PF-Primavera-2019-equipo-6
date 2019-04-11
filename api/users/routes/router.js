@@ -7,6 +7,8 @@ const globalController = require('../controllers/global.controller');
 const userController = require('../controllers/user.controller');
 //Rutas de helpers
 const errorHelper = require('../helpers/error.helper');
+//Rutas middleware
+const authMiddleware = require('../middlewares/auth.middleware');
 
 module.exports = (() => {
   // Users =========================================================
@@ -14,9 +16,13 @@ module.exports = (() => {
   router.get('/users', userController.getUsers);
   //Obtiene un usuario
   router.get('/user',  userController.getUser);
+  //Obtiene tu proppio usuario a traves del token
+  router.get('/user/me',authMiddleware.isAuth, userController.getMyUser);
   router.get('/user/:username', userController.getUser);
   //Registra un usuario en la aplicación
   router.post('/user', userController.registerUser);
+  //Logea a un usuario entregandole un token único
+  router.post('/user/login', userController.loginUser);
 
   // General =========================================================
   //Maneja /

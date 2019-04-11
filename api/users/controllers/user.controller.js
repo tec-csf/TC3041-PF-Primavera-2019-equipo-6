@@ -27,12 +27,12 @@ exports.getUsers = (req, res, next) => {
 //Obtener un usuario ********************************************************************************
 exports.getUser = (req, res, next) => {
   if (req.params.username == null || req.params.username == undefined) {
-    let e = new Error('Se debe ingresar un id');
+    let e = new Error('Se debe ingresar un username');
     e.name = "badRequest";
     return next(e);
   }
   let username = req.params.username;
-
+  
   session
     .run('Match (n:User {username:"' + username + '"}) RETURN (n)')
     .then(function(result){
@@ -51,6 +51,28 @@ exports.getUser = (req, res, next) => {
       return next(e);
     })
 }
+
+//Obtener mi usuario ********************************************************************************
+exports.getMyUser = (req, res, next) => {
+  session
+    .run('Match (n:User {username:"' + res.locals.tokenDecoded.username + '"}) RETURN (n)')
+    .then(function(result){
+      if(result.records.length == 0){
+        let e = new Error("Usuario no encontrado");
+        e.name = "notFound";
+        return next(e);
+      }else{
+        res.status(200).send(result.records[0]);
+        session.close();
+      }
+    })
+    .catch(function(error){
+      let e = new Error(error);
+      e.name = "internalServerError";
+      return next(e);
+    })
+}
+
 
 //Registrar un usuario ********************************************************************************
 exports.registerUser = (req, res, next) => {
@@ -101,127 +123,43 @@ exports.registerUser = (req, res, next) => {
   });
 }
 
-/*
-//Obtener mi usuario ********************************************************************************
-exports.getMyUser = (req, res, next) => {
-  db.query(
-    'SELECT id, nombre, apellido, correo, img, imgSubidas, empresa, puesto, area FROM Usuarios WHERE correo=\'' + res.locals.tokenDecoded.correo + '\'',
-    function(err, results, fields) {
-      if (err) {
-        let e = new Error(err);
-        e.name = "internal";
-        return next(e);
-      }
-      if (results.length == 0) {
-        let e = new Error('Usuario no encontrado');
-        e.name = "notFound";
-        return next(e);
-      }
-      //Convierte el array en objeto
-      let finalResults = results[0]
-
-      res.send(finalResults)
-    }
-  );
-
-}
-*/
-
-/*
 ///LOGIN/ ingresar con un usuario ********************************************************************************
 exports.loginUser = (req, res, next) => {
-  if ((req.body.correo == null || req.body.correo == undefined) || (req.body.contrasenia == null || req.body.contrasenia == undefined)) {
-    let e = new Error('Se debe ingresar correo y contraseña');
+  if ((req.body.username == null || req.body.username == undefined) || (req.body.password == null || req.body.password == undefined)) {
+    let e = new Error('Se debe ingresar username y password');
     e.name = "badRequest";
     return next(e);
   }
 
-  let hash = "";
-
-  db.query(
-    'SELECT id, privilegios, contrasenia FROM Usuarios WHERE correo=\'' + req.body.correo + '\'',
-    function(err, results, fields) {
-      if (err) {
-        let e = new Error(err);
-        e.name = "internal";
-        return next(e);
-      }
-      if (results.length == 0) {
-        let e = new Error('Usuario no encontrado');
-        e.name = "notFound";
-        return next(e);
-      }
-      //Convierte el array en objeto
-      let finalResults = results[0]
-      hash = finalResults.contrasenia;
-      let admin = false;
-
-      if(finalResults.privilegios == "admin"){
-        admin = true;
-      }
-
-
-      bcrypt.compare(req.body.contrasenia, hash, function(err, resp) {
-        if(resp == false){
-          let e = new Error('Las credenciales no son válidas');
-          e.name = "unautorized";
-          return next(e);
-        }else{
-          res.status(200).send({
-            status: 200,
-            name: 'Ok',
-            customMessage: 'Autenticación correcta',
-            message: 'Ok',
-            token: authHelper.createToken({"correo": req.body.correo, "id": finalResults.id, "admin": admin })
-          })
-        }
-      });
+  session
+  .run('MATCH(u:User) WHERE(u.username = "' + req.body.username + '") RETURN u.password AS password, u.mail AS mail, u.username AS usename')
+  .then(function(result){
+    if(result.records.length == 0){
+      let e = new Error("Usuario no encontrado");
+      e.name = "notFound";
+      return next(e);
     }
-  );
-}
+    let fields = result.records[0]._fields;
 
-//Recuperar cuenta ( Mandar correo ) ********************************************************************************
-exports.recovery = (req, res, next) =>{
-  if (req.body.correo == null || req.body.correo == undefined) {
-    let e = new Error('Se debe ingresar un correo');
-    e.name = "badRequest";
-    return next(e);
-  }
-
-  let mailToken = "";
-
-  //Crear un mailToken
-  try {
-    mailToken = authHelper.createMailToken();
-  } catch (err) {
-    let e = new Error('No se pudo verificar la información del usuario');
-    e.name = "internal";
-    return next(e);
-  }
-  res.send({"mailToken" : mailToken})
-}
-
-//Recuperar cuenta ( Cambiar contraseña ) ********************************************************************************
-exports.changePassword = (req, res, next)=>{
-  res.send("jeloww2")
-}
-
-//Añadir imágen subida usuario ********************************************************************************
-exports.addUploadedImage = (req, res, next) => {
-  db.query(
-    'UPDATE Usuarios SET imgSubidas = imgSubidas + 1  WHERE correo=\'' + res.locals.tokenDecoded.correo + '\'',
-    function(err, results, fields) {
-      if (err) {
-        let e = new Error(err);
-        e.name = "internal";
+    bcrypt.compare(req.body.password, fields[0], function(err, resp) {
+      if(resp == false){
+        let e = new Error('Las credenciales no son válidas');
+        e.name = "unautorized";
         return next(e);
+      }else{
+        res.status(200).send({
+          status: 200,
+          name: 'Ok',
+          customMessage: 'Autenticación correcta',
+          message: 'Ok',
+          token: authHelper.createToken({"correo": fields[1], "username": fields[2]})
+        })
       }
-      res.status(200).send({
-        status: 200,
-        name: 'OK',
-        customMessage: 'El usuario sumó una imágen correctamente',
-        message: 'Recurso actualizado',
-      });
-  });
+    });
+  })
+  .catch(function(error){
+    let e = new Error(error);
+    e.name = "internalServerError";
+    return next(e);
+  })
 }
-*/
