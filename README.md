@@ -96,11 +96,11 @@ A continuación aparecen descritos los diferentes elementos que forman parte de 
 - [Express](https://expressjs.com/es/guide/routing.html): Framework de aplicaciónes web para Node.js
 #### 3.5.3 Librerías de funciones o dependencias
 
-#### Obtener un usuario (GET) ![#c5f015](https://placehold.it/15/c5f015/000000?text=+)
+#### Obtener un usuario (POST) ![#c5f015](https://placehold.it/15/c5f015/000000?text=+)
     /user/:username
 
 ##### Header
-    'authorization':'$token'
+    *NO HAY*
 
 ##### Body
     {

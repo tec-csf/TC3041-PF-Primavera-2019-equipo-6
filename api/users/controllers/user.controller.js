@@ -163,3 +163,50 @@ exports.loginUser = (req, res, next) => {
     return next(e);
   })
 }
+/*
+
+//Recuperar cuenta ( Mandar correo ) ********************************************************************************
+exports.recovery = (req, res, next) =>{
+  if (req.body.correo == null || req.body.correo == undefined) {
+    let e = new Error('Se debe ingresar un correo');
+    e.name = "badRequest";
+    return next(e);
+  }
+
+  let mailToken = "";
+
+  //Crear un mailToken
+  try {
+    mailToken = authHelper.createMailToken();
+  } catch (err) {
+    let e = new Error('No se pudo verificar la información del usuario');
+    e.name = "internal";
+    return next(e);
+  }
+  res.send({"mailToken" : mailToken})
+}
+
+//Recuperar cuenta ( Cambiar contraseña ) ********************************************************************************
+exports.changePassword = (req, res, next)=>{
+  res.send("jeloww2")
+}
+
+//Añadir imágen subida usuario ********************************************************************************
+exports.addUploadedImage = (req, res, next) => {
+  db.query(
+    'UPDATE Usuarios SET imgSubidas = imgSubidas + 1  WHERE correo=\'' + res.locals.tokenDecoded.correo + '\'',
+    function(err, results, fields) {
+      if (err) {
+        let e = new Error(err);
+        e.name = "internal";
+        return next(e);
+      }
+      res.status(200).send({
+        status: 200,
+        name: 'OK',
+        customMessage: 'El usuario sumó una imágen correctamente',
+        message: 'Recurso actualizado',
+      });
+  });
+}
+*/
