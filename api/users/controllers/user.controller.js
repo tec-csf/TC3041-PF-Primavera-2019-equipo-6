@@ -5,7 +5,7 @@ const neo4j = require('neo4j-driver').v1;
 const driver = neo4j.driver('bolt://localhost',neo4j.auth.basic('neo4j','qwerty'));
 const session = driver.session();
 const debug = require('debug')('dev'); //Herramienta para imprimir log en dev mode
-const authHelper = require('../helpers/auth.helper');
+const authHelper = require('../helpers/auth.helper'); //Auth ayuda a gestionar Json Web Tokens (jwt)
 const bcrypt = require('bcrypt'); //Libreria para encriptar las contraseñas de los usuarios
 const saltRounds = 13; //Numero de veces que se va a hashear la contraseña
 

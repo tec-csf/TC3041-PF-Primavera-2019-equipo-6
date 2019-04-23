@@ -1,0 +1,16 @@
+{
+  "name": "posts_api",
+  "version": "1.0.0",
+  "description": "Posts api",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "nodemon app.js",
+    "dev": "DEBUG=dev NODE_ENV=develop nodemon app.js"
+  },
+  "keywords": [
+    "api"
+  ],
+  "author": "antony999k",
+  "license": "ISC"
+}

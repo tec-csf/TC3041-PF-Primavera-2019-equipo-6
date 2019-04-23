@@ -16,7 +16,7 @@ exports.createToken30 = function(user) {
 }
 
 //Desencriptar token para sesiones
-var decodeToken = function(token) {
+let decodeToken = function(token) {
   let decoded = jwt.verify(token, process.env.SECRET_KEY)
   return decoded
 }
