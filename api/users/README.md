@@ -1,15 +1,42 @@
-# API (Posts)
+# API (Users)
 
 Creado: @antony999k
 
 [![version](https://img.shields.io/badge/version-1.0.0-ff69b4.svg)]()
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/wasabeef/awesome-android-ui)
 
-Gestiona el CRUD de los posts
+Gestiona el registro de usuarios, perfiles de usuarios
+
+# Microservicio en Docker
+
+Se debe crear el Dockerfile con su respectivo .dockerignore que incluya node_modules
+
+- Hacer build de la imagen:  `docker build -t pf_api_user:<version_api> .`
+- Correr docker: `docker run -p 8000:8000 pf_api_user:<version_api>`
 
 # Endpoints
 
 Ruta Desarrollo: http://127.0.0.1:8000/
+
+## Registar Usuario (POST) ![#c5f015](https://placehold.it/15/c5f015/000000?text=+)
+    /user
+    
+### Header
+    'N/A'
+    
+### Body
+    
+
+## Revisar estado del api (GET) ![#c5f015](https://placehold.it/15/c5f015/000000?text=+)
+/health
+
+#### Respuesta esperada
+    {
+    "status": 200,
+    "name": "OK",
+    "message": "i'm healthy",
+    "customMessage": "API Analizapp en funcionamiento"
+    }
 
 
 # Errores
