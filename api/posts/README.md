@@ -52,12 +52,12 @@ Los errores son retornados en JSON. Cada error tiene un **status**, **name**, **
 El campo **message** es personalizado y debe estar en ingles
 
 ### Ejemplo de un status 400
-{
-"status": 400,
-"name": 'badRequest',
-"message": 'Bad Request' + (err.message ? ': ' + err.message : ''),
-"customMessage": 'Solicitud Erronea'
-}
+    {
+        "status": 400,
+        "name": 'badRequest',
+        "message": 'Bad Request' + (err.message ? ': ' + err.message : ''),
+        "customMessage": 'Solicitud Erronea'
+    }
 
 # Contribuir con el API
 

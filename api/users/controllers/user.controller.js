@@ -2,7 +2,7 @@
 'use strict';
 // Bases de datos =================================================
 const neo4j = require('neo4j-driver').v1;
-const driver = neo4j.driver('bolt://localhost',neo4j.auth.basic('neo4j','qwerty'));
+const driver = neo4j.driver('bolt://localhost',neo4j.auth.basic('neo4j','querty'));
 const session = driver.session();
 const debug = require('debug')('dev'); //Herramienta para imprimir log en dev mode
 const authHelper = require('../helpers/auth.helper'); //Auth ayuda a gestionar Json Web Tokens (jwt)
@@ -81,11 +81,14 @@ exports.registerUser = (req, res, next) => {
     e.name = "badRequest";
     return next(e);
   }
+
   //Variable temporal que almacena los datos de usuario
   let Usuario = {
     "mail":req.body.mail,
     "username":req.body.username,
-    "password":req.body.password 
+    "password":req.body.password,
+    "verified": false,
+    "created_at": new Date().toISOString()
   }
 
   //Hashea la contraseña para que pueda ser guardada en la base de datos
@@ -96,14 +99,18 @@ exports.registerUser = (req, res, next) => {
       return next(e);
     }
     Usuario.password = hash;
-    Usuario.created_at = new Date().toISOString();
     //Query inicial
-    let query = 'CREATE (x:User {password:"' + Usuario.password + '",mail:"' + Usuario.mail + '",username:"' + Usuario.username + '",created_at:"' + Usuario.created_at;
+    let query = 'CREATE (x:User {username:"' + Usuario.username + '",password:"' + Usuario.password + '",mail:"' + Usuario.mail + '",created_at:"' + Usuario.created_at+ '",verified:"' + Usuario.verified;
     if(req.body.name != undefined){
       Usuario.name = req.body.name;
       query = query + '",name:"' + Usuario.name;
     }
+    if(req.body.description != undefined){
+      Usuario.description = req.body.description;
+      query = query + '",description:"' + Usuario.description;
+    }
     query = query + '"})'
+    debug(query);
 
     session
     .run(query)
