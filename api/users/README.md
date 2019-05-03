@@ -29,8 +29,8 @@ Ruta Desarrollo: http://127.0.0.1:8000/
         "mail":"antony999k@gmail.com",
         "username": "antony999k",
         "password":"querty",
-        "name": "Antony Adrian Morales", <em>Opcional</em>
-        "description": "el hijo del papá" <em>Opcional</em>
+        "name": "Antony Adrian Morales", **Opcional**
+        "description": "el hijo del papá" **Opcional**
     }
 
 #### Respuesta esperada
