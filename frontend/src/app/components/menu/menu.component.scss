@@ -1,0 +1,11 @@
+#nav{
+    background-color: white;
+    border-bottom: 1px solid rgba(0,0,0,0.3);
+
+    .navContainer{
+        display: flex;
+        flex-direction: row;
+        height: 55px;
+        align-items: center;
+    }
+}
