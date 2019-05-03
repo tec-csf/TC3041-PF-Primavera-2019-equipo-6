@@ -25,7 +25,121 @@ Ruta Desarrollo: http://127.0.0.1:8000/
     'N/A'
     
 ### Body
+    {
+        "mail":"antony999k@gmail.com",
+        "username": "antony999k",
+        "password":"querty",
+        "name": "Antony Adrian Morales", <em>Opcional</em>
+        "description": "el hijo del papá" <em>Opcional</em>
+    }
+
+#### Respuesta esperada
+    {
+    "status": 201,
+    "name": "Created",
+    "customMessage": "El usuario fue creado con exito",
+    "message": "Recurso creado",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFudG9ueTk5OWsiLCJpYXQiOjE1NTY5MTg4NDYsImV4cCI6MTU1NzAwNTI0Nn0.6m0updWXTGkI441XXI4CkSsyGiYIBmjdDjyXVqrgHaA"
+    }
+
+## Login Usuario (POST) ![#c5f015](https://placehold.it/15/c5f015/000000?text=+)
+    /user/login
     
+### Header
+    'N/A'
+    
+### Body
+    {
+	"username":"antony999k",
+	"password":"querty"
+    }
+    
+#### Respuesta esperada
+    {
+        "status": 200,
+        "name": "Ok",
+        "customMessage": "Autenticación correcta",
+        "message": "Ok",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJhbnRvbnk5OTlrQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiYW50b255OTk5ayIsImlhdCI6MTU1NjkxODkwOCwiZXhwIjoxNTU3MDA1MzA4fQ.FO4gVBM9-H_b_ASIVFOfA67IJU7p8pmIN0jNJ4AVqxg"
+    }
+
+## Obtener un usuario (GET) ![#c5f015](https://placehold.it/15/c5f015/000000?text=+)
+    /user/:id
+    
+### Header
+    N/A
+    
+### Body
+    'N/A'
+    
+#### Respuesta esperada
+    {
+        "keys": [
+            "n"
+        ],
+        "length": 1,
+        "_fields": [
+            {
+                "identity": {
+                    "low": 0,
+                    "high": 0
+                },
+                "labels": [
+                    "User"
+                ],
+                "properties": {
+                    "name": "Antony Adrian Morales",
+                    "description": "el hijo del papá",
+                    "created_at": "2019-05-02T18:55:05.805Z",
+                    "password": "$2b$13$5enGKok6D2Wfogpj0/gzZuPMBuBrLBO0RBbmkU9TPAa34b0aX5qlS",
+                    "mail": "antony999k@gmail.com",
+                    "username": "antony999k"
+                }
+            }
+        ],
+        "_fieldLookup": {
+            "n": 0
+        }
+    }
+    
+## Obtener propio usuario (GET) ![#c5f015](https://placehold.it/15/c5f015/000000?text=+)
+    /user/me
+    
+### Header
+    Authorization: $token
+    
+### Body
+    'N/A'
+    
+#### Respuesta esperada
+    {
+        "keys": [
+            "n"
+        ],
+        "length": 1,
+        "_fields": [
+            {
+                "identity": {
+                    "low": 0,
+                    "high": 0
+                },
+                "labels": [
+                    "User"
+                ],
+                "properties": {
+                    "name": "Antony Adrian Morales",
+                    "description": "el hijo del papá",
+                    "created_at": "2019-05-02T18:55:05.805Z",
+                    "password": "$2b$13$5enGKok6D2Wfogpj0/gzZuPMBuBrLBO0RBbmkU9TPAa34b0aX5qlS",
+                    "mail": "antony999k@gmail.com",
+                    "username": "antony999k"
+                }
+            }
+        ],
+        "_fieldLookup": {
+            "n": 0
+        }
+    }
 
 ## Revisar estado del api (GET) ![#c5f015](https://placehold.it/15/c5f015/000000?text=+)
 /health

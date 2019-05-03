@@ -28,7 +28,7 @@ exports.validateRequest = function(token, callback){
   } catch (err) {
     let e;
     if (err.message == "jwt expired") {
-      e = new Error('El token ah expirado');
+      e = new Error('El token ha expirado');
       e.name = "unautorized";
     } else {
       e = new Error('No se pudo verificar la información del usuario');

@@ -16,7 +16,7 @@ module.exports = (() => {
   router.get('/users', userController.getUsers);
   //Obtiene un usuario
   router.get('/user',  userController.getUser);
-  //Obtiene tu proppio usuario a traves del token
+  //Obtiene tu propio usuario a traves del token
   router.get('/user/me',authMiddleware.isAuth, userController.getMyUser);
   router.get('/user/:username', userController.getUser);
   //Registra un usuario en la aplicación
