@@ -1,0 +1,36 @@
+.profile{
+    .profileHeader{
+        img{
+            width: 100%;
+        }
+    }
+
+    .profileInfo{
+        .profileInfoPic{
+            width: 124px;
+            height: 124px;
+            border-radius: 100%;
+            border: 6px solid #fff;
+            overflow: hidden;
+            background-color: #FDFBEE;
+
+            img{
+                width: 100%;
+                border-radius: 0;
+                max-width: unset;
+                overflow: hidden;
+                border-radius: 100%;
+                vertical-align: middle;
+                border-style: none;
+            }
+        }
+
+        .profileInfoName{
+            font-size: 20px;
+        }
+        .profileInfoUsername{
+            font-size: 18px;
+            color: #606060;
+        }
+    }
+}

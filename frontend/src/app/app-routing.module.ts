@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: "home", redirectTo: "", pathMatch: "full" },
   { path: "tendencia", component: TrendingComponent, data: { header: true}},
   { path: "notificaciones", component: NotificationComponent, data: { header: true}},
+  { path: "perfil", component: ProfileComponent, data: { header: true}},
   { path: "perfil/:id", component: ProfileComponent, data: { header: true}},
   { path: "**", component: NotFoundComponent, data: { header: false}},
 ];
