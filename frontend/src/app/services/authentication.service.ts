@@ -66,4 +66,20 @@ export class AuthService {
   changeLoginValue(val) {
     this.configObservable.next(val);
   }
+
+  register(usuario: Usuario){
+    const httpOptions = {headers: new HttpHeaders({'Content-Type':  'application/json'})};
+    return this.http.post(Config.dbURL + '/user', usuario, httpOptions)
+    .pipe(/*catchError(err => {
+      console.log("Next Error is handled: ");
+      console.error(err.message);
+      return err;
+    }),*/map(res => {
+      let response:any = res;
+      if(response.status == 200 || response.status == 201){
+        localStorage.setItem('token_colibri', response.token);
+      }
+      return response;
+  }));
+  }
 }

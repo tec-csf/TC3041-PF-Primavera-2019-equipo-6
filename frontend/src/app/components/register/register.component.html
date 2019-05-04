@@ -1,1 +1,14 @@
-<h1>Registro</h1>
+<section class="register">
+        <div class="registerInner">
+            <h1>Registro</h1>
+            <form class="formCredentials" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <input type="text" name="usuario" placeholder="Usuario" formControlName="username">
+
+                <input type="email" name="email" placeholder="Email" formControlName="mail">
+    
+                <input type="password" name="contraseña" placeholder="Contraseña" formControlName="password">
+                
+                <button type="submit" title="Completa los datos"><p *ngIf="!isLoading">Regístrate</p></button>
+            </form>
+        </div>
+    </section>

@@ -58,15 +58,15 @@ export class LoginComponent implements OnInit {
     this.usuario.password = this.loginForm.value.password;
     this.currentUserSubscription = this.authService.login(this.usuario)
     .subscribe(loginStatus => {
-      if(loginStatus.status == 200 || loginStatus.status == 201){
-        this.isLogin = true;
-        this.location.replaceState('/');
-        this.router.navigate(['/']);
-        this.loginError = false;
-      }else{
-        this.loginError = true;
-      }
+      this.isLogin = true;
+      this.location.replaceState('/');
+      this.router.navigate(['/']);
+      this.loginError = false;
       this.isLoading = false;
-    })
+    },err => {
+      console.error(err);
+      this.loginError = true;
+      this.isLoading = false;
+    }/*,() => console.log('Observer got a complete notification')*/)
   }
 }
