@@ -15,7 +15,7 @@ driver = GraphDatabase.driver(uri, auth=(username, password))
 
 def getPosts(session, id_):
 	return session.run("MATCH (n:Post)"
-				"RETURN n.id, n.text, n.created_at", id=id_).values()
+				"RETURN id(n), n.text, n.created_at", id=id_).values()
 app = Flask(__name__)
 
 def getPostID(session, id_, query):
@@ -26,7 +26,7 @@ def getPostID(session, id_, query):
 @app.route('/posts/', methods= ['GET'])
 def test_posts():
 	with driver.session() as session:
-		query = "MATCH (n:Post) return n.id as NodeID, n.text as PostText, n.created_at as CreationDate"
+		query = "MATCH (n:Post) return id(n) as NodeID, n.text as PostText, n.created_at as CreationDate"
 		result = session.run(query, id=1).values()
 		dictionaries = (dict() for  x in range(0,len(result)))
 		i=0
@@ -76,7 +76,7 @@ def get_all_in_db(): #doesn't work yet. Must bring all of the home page posts.
 @app.route('/posts/me/', methods= ['GET']) #doesn't work yet. Must bring all of my own posts
 def get_all_me():
 	with driver.session() as session:
-			query = "MATCH (n:Post) return n.id as NodeID, n.text as PostText, n.created_at as CreationDate"
+			query = "MATCH (n:Post) return id(n) as NodeID, n.text as PostText, n.created_at as CreationDate"
 			result = session.run(query, id=1).values()
 			dictionaries = (dict() for  x in range(0,len(result)))
 			i=0
