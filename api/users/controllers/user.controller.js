@@ -235,7 +235,34 @@ exports.unfollowUser = (req, res, next) => {
       e.name = "internalServerError";
       return next(e);
     })
+}
 
+exports.getFollowers = (req, res, next)=>{
+  session
+  .run('MATCH ()-[r:FOLLOWS]->(n:User {username:"'+req.params.username+'"}) RETURN count(r) as followers')
+  .then(function (result) {
+    res.status(200).send(result.records[0]);
+    session.close();
+  })
+  .catch(function (error) {
+    let e = new Error(error);
+    e.name = "internalServerError";
+    return next(e);
+  })
+}
+
+exports.getFollowing = (req, res, next)=>{
+  session
+  .run('MATCH ()<-[r:FOLLOWS]-(n:User {username:"'+req.params.username+'"}) RETURN count(r) as followers')
+  .then(function (result) {
+    res.status(200).send(result.records[0]);
+    session.close();
+  })
+  .catch(function (error) {
+    let e = new Error(error);
+    e.name = "internalServerError";
+    return next(e);
+  })
 }
 
 /*

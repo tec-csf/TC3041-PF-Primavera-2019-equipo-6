@@ -27,6 +27,11 @@ module.exports = (() => {
   router.post('/user/follow', userController.followUser);
   //Unfollow a un usuario
   router.delete('/user/follow', userController.unfollowUser);
+  //Regresa los followers de un usuario
+  router.get('/user/:username/followers', userController.getFollowers);
+  //Regresa a cuantos sigue un usuario
+  router.get('/user/:username/following', userController.getFollowing);
+
   // General =========================================================
   //Maneja /
   router.get('/', globalController.initPath);

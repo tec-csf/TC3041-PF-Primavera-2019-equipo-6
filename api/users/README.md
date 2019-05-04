@@ -181,6 +181,58 @@ Ruta Desarrollo: http://127.0.0.1:8000/
         "message": "Recurso eliminado"
     }
 
+## Obtener total de followers (GET) ![#c5f015](https://placehold.it/15/c5f015/000000?text=+)
+    /user/:username/followers
+    
+### Header
+    'N/A'
+    
+### Body
+    'N/A'
+    
+#### Respuesta esperada
+    {
+        "keys": [
+            "followers"
+        ],
+        "length": 1,
+        "_fields": [
+            {
+                "low": 2,
+                "high": 0
+            }
+        ],
+        "_fieldLookup": {
+            "followers": 0
+        }
+    }
+
+## Obtener total de gente a la que sigue un usuario (GET) ![#c5f015](https://placehold.it/15/c5f015/000000?text=+)
+    /user/:username/following
+    
+### Header
+    'N/A'
+    
+### Body
+    'N/A'
+    
+#### Respuesta esperada
+    {
+        "keys": [
+            "followers"
+        ],
+        "length": 1,
+        "_fields": [
+            {
+                "low": 1,
+                "high": 0
+            }
+        ],
+        "_fieldLookup": {
+            "followers": 0
+        }
+    }
+
 
 ## Revisar estado del api (GET) ![#c5f015](https://placehold.it/15/c5f015/000000?text=+)
 /health
