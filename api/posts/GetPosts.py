@@ -24,7 +24,7 @@ def getPostID(session, id_, query):
 #************************************Posts endpoints ********************************
 
 @app.route('/posts/', methods= ['GET'])
-def test_posts():
+def get_all_in_db():
 	with driver.session() as session:
 		query = "MATCH (n:Post) return id(n) as NodeID, n.text as PostText, n.created_at as CreationDate"
 		result = session.run(query, id=1).values()
@@ -39,14 +39,17 @@ def test_posts():
 			r.append(diction)
 			i=i+1
 		#print(dictionaries)
-		return jsonify([
-    	{
-        	"id": item["id"],
-        	"text": item["text"],
-        	"created_at": item["created_at"]
-    	}
-    	for item in r
-		])
+		if len(r)>0: 
+			return jsonify([
+	    	{
+	        	"id": item["id"],
+	        	"text": item["text"],
+	        	"created_at": item["created_at"]
+	    	}
+	    	for item in r
+			])
+		else:
+			return jsonify({"error": 404})
 
 		#return jsonify(jsonarr)
 
@@ -56,22 +59,11 @@ def get_post(id):
 	with driver.session() as session:
 		query = "MATCH (n:Post) WHERE id(n) = " + id + " RETURN n.id, n.text, n.created_at"
 		result = getPostID(session,id, query)
-		arr = {'id': result[0][0], 'text': result[0][1], 'created_at': result[0][2]}
-	return jsonify()
-
-@app.route('/posts/', methods= ['GET'])
-def get_all_in_db(): #doesn't work yet. Must bring all of the home page posts. 
-
-	nodeJSON = []
-	with driver.session() as session:
-		# Iterating over the resposes from the graph db
-		result= getPosts(session,1)
-		for i in range(0,2):
-			temp = result[i]
-			nodeJSON.append(jsonify({'id': temp[0], 'text': temp[1], 'created_at': temp[2]}))
-	
-	return jsonify({'id': result[0][0], 'text': result[0][1], 'created_at': result[0][2]})
-	#return jsonify(result = nodeJSON)
+		if(len(result)>0):
+			arr = {'id': result[0][0], 'text': result[0][1], 'created_at': result[0][2]}
+			return jsonify(arr)
+		else:
+			return jsonify({"error": 404})
 
 @app.route('/posts/me/', methods= ['GET']) #doesn't work yet. Must bring all of my own posts
 def get_all_me():
