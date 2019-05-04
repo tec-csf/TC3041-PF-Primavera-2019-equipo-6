@@ -7,8 +7,8 @@
         </div>
 
         <div>
-            <h2 class="profileInfoName">Antony Morales</h2>
-            <p class="profileInfoUsername">@Antony999k</p>
+            <h2 class="profileInfoName">{{ usuario.name }}</h2>
+            <p class="profileInfoUsername">@{{ usuario.username }}</p>
         </div>
     </div>
 
@@ -20,12 +20,12 @@
             </div>
 
             <div class="profileInfoInnerStat">
-                <span>231</span>
+                <span>{{ usuario.followers }}</span>
                 <p>Seguidores</p>
             </div>
 
             <div class="profileInfoInnerStat">
-                <span>1231</span>
+                <span>{{ usuario.following }}</span>
                 <p>Seguidos</p>
             </div>
 

@@ -11,6 +11,11 @@ export class Usuario{
     public lang: string;
     public profile_banner_url: string;
     public profile_img_url: string;
+    //Not in db
+    public likes: number;
+    public followers: number;
+    public following: number;
+    public posts: number;
   /*
     constructor(){
       this.username = "";

@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   usuario = new Usuario();
   errorMessage: string;
-  returnUrl: string;
 
   constructor(private authService: AuthService, private router: Router, private location: Location, private formBuilder: FormBuilder) {
     this.isLoading = false;

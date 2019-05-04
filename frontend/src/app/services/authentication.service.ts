@@ -18,41 +18,40 @@ export class AuthService {
     this.isLoaded = false;
   }
 
-  health(){
-    const httpOptions = {headers: new HttpHeaders({'Content-Type':  'application/json'})};
-    return this.http.get(Config.dbURL + '/health',httpOptions)
-    .pipe(/*catchError(err => {
+  health() {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.get(Config.dbURL + '/health', httpOptions)
+      .pipe(/*catchError(err => {
       console.log("Next Error is handled: ");
       console.error(err.message);
       return err;
     }),*/map(res => {
-      let response:any = res;
-      if(response.status == 200 || response.status == 201){
-        //localStorage.setItem('token', res.json().token);
-      }
-      return response;
-  }));
+        let response: any = res;
+        if (response.status == 200 || response.status == 201) {
+          //localStorage.setItem('token', res.json().token);
+        }
+        return response;
+      }));
   }
 
-  login(usuario: Usuario){
-    const httpOptions = {headers: new HttpHeaders({'Content-Type':  'application/json'})};
-    //let response = new HttpResponse;
+  login(usuario: Usuario) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
     return this.http.post(Config.dbURL + '/user/login', usuario, httpOptions)
-    .pipe(/*catchError(err => {
+      .pipe(/*catchError(err => {
       console.log("Next Error is handled: ");
       console.error(err.message);
       return err;
     }),*/map(res => {
-      let response:any = res;
-      if(response.status == 200 || response.status == 201){
-        localStorage.setItem('token_colibri', response.token);
-      }
-      return response;
-  }));
+        let response: any = res;
+        if (response.status == 200 || response.status == 201) {
+          localStorage.setItem('token_colibri', response.token);
+        }
+        return response;
+      }));
   }
 
   isLoggedIn(): boolean {
-    if(localStorage.getItem("token_colibri")){
+    if (localStorage.getItem("token_colibri")) {
       return true;
     }
     return false;
@@ -67,19 +66,19 @@ export class AuthService {
     this.configObservable.next(val);
   }
 
-  register(usuario: Usuario){
-    const httpOptions = {headers: new HttpHeaders({'Content-Type':  'application/json'})};
+  register(usuario: Usuario) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
     return this.http.post(Config.dbURL + '/user', usuario, httpOptions)
-    .pipe(/*catchError(err => {
+      .pipe(/*catchError(err => {
       console.log("Next Error is handled: ");
       console.error(err.message);
       return err;
     }),*/map(res => {
-      let response:any = res;
-      if(response.status == 200 || response.status == 201){
-        localStorage.setItem('token_colibri', response.token);
-      }
-      return response;
-  }));
+        let response: any = res;
+        if (response.status == 200 || response.status == 201) {
+          localStorage.setItem('token_colibri', response.token);
+        }
+        return response;
+      }));
   }
 }

@@ -7,7 +7,8 @@ n:Person{
     location: String,
     description: String,
     verified: bool,
-    created_at: String,
+    created_at: Date,
+    birthday: Date
     lang: String,
     profile_banner_url: String
     profile_image_url: String,

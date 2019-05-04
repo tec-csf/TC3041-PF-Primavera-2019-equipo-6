@@ -26,6 +26,8 @@ MATCH (a:User)-[r:CREATED]->(b:Post) RETURN a,COUNT(r) ORDER BY COUNT(r) LIMIT 5
 MATCH(u:User {username:"antony999k"}) CREATE (u)-[:CREATED]->(:Post {text:"Este es mi primer post en colibrí", created_at:"2019-05-04T05:41:19.717Z"})
 //Ejemplo eliminar un post
 MATCH(u:Post) where ID(u)=30 DETACH DELETE(u)
+//Ejemplo obtener todos los post de las cuentas que sigues
+
 //Ejemplo likear un post
 MATCH(n:User {username:"itzel15"}),(m:Post) WHERE ID(m) = 30 MERGE (n)-[r:LIKES]->(m)
 //Ejemplo deslikear in post

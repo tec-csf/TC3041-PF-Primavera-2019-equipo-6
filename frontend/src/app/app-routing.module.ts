@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: "tendencia", component: TrendingComponent, canActivate:[AuthGuard], data: { header: true}},
   { path: "notificaciones", component: NotificationComponent, canActivate:[AuthGuard], data: { header: true}},
   { path: "perfil", component: ProfileComponent,canActivate:[AuthGuard], data: { header: true}},
-  { path: "perfil/:id", component: ProfileComponent, canActivate:[AuthGuard],data: { header: true}},
+  { path: "perfil/:username", component: ProfileComponent, canActivate:[AuthGuard],data: { header: true}},
   { path: "**", component: NotFoundComponent, data: { header: false}},
 ];
 
