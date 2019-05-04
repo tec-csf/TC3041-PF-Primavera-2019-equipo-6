@@ -141,6 +141,47 @@ Ruta Desarrollo: http://127.0.0.1:8000/
         }
     }
 
+## Follow a un usuario (POST) ![#c5f015](https://placehold.it/15/c5f015/000000?text=+)
+    /user/follow
+    
+### Header
+    'N/A'
+    
+### Body
+    {
+        "username": "$username",
+        "usernameTarget": "usernameASeguir"
+    }
+    
+#### Respuesta esperada
+    {
+        "status": 201,
+        "name": "Created",
+        "customMessage": "Se siguio al usuario con éxito",
+        "message": "Recurso creado"
+    }
+
+## Unfollow a un usuario (DELETE) ![#c5f015](https://placehold.it/15/c5f015/000000?text=+)
+    /user/follow
+    
+### Header
+    'N/A'
+    
+### Body
+    {
+        "username": "$username",
+        "usernameTarget": "usernameASeguir"
+    }
+    
+#### Respuesta esperada
+    {
+        "status": 200,
+        "name": "Created",
+        "customMessage": "Se dejo de seguir al usuario con éxito",
+        "message": "Recurso eliminado"
+    }
+
+
 ## Revisar estado del api (GET) ![#c5f015](https://placehold.it/15/c5f015/000000?text=+)
 /health
 

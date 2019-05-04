@@ -1,0 +1,5 @@
+n:Post{
+    id: Integer, (Unique)
+    text: String
+    created_at: String,
+}

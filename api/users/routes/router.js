@@ -23,7 +23,10 @@ module.exports = (() => {
   router.post('/user', userController.registerUser);
   //Logea a un usuario entregandole un token único
   router.post('/user/login', userController.loginUser);
-
+  //Follow a un usuario
+  router.post('/user/follow', userController.followUser);
+  //Unfollow a un usuario
+  router.delete('/user/follow', userController.unfollowUser);
   // General =========================================================
   //Maneja /
   router.get('/', globalController.initPath);

@@ -11,7 +11,7 @@ export class Usuario{
     public lang: string;
     public profile_banner_url: string;
     public profile_img_url: string;
-  
+  /*
     constructor(){
       this.username = "";
       this.mail = "";
@@ -23,6 +23,6 @@ export class Usuario{
       this.lang = "";
       this.profile_banner_url = "";
       this.profile_img_url = "";
-    }
+    }*/
   
   }

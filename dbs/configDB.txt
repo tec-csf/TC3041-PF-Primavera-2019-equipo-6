@@ -1,1 +1,3 @@
+//Crear contenedor de neo4j
+ 
 docker run --publish=7474:7474 --publish=7687:7687 -d --volume=$HOME/Desktop/neo4j/data:/data --env=NEO4J_AUTH=neo4j/querty neo4j

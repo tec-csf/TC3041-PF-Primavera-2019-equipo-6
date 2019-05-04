@@ -2,7 +2,7 @@
 'use strict';
 // Bases de datos =================================================
 const neo4j = require('neo4j-driver').v1;
-const driver = neo4j.driver('bolt://localhost',neo4j.auth.basic('neo4j','querty'));
+const driver = neo4j.driver('bolt://localhost', neo4j.auth.basic('neo4j', 'querty'));
 const session = driver.session();
 const debug = require('debug')('dev'); //Herramienta para imprimir log en dev mode
 const authHelper = require('../helpers/auth.helper'); //Auth ayuda a gestionar Json Web Tokens (jwt)
@@ -13,11 +13,11 @@ const saltRounds = 13; //Numero de veces que se va a hashear la contraseña
 exports.getUsers = (req, res, next) => {
   session
     .run('MATCH (n:User) RETURN n ')
-    .then(function(result){
+    .then(function (result) {
       res.status(200).send(result.records);
       session.close();
     })
-    .catch(function(error){
+    .catch(function (error) {
       let e = new Error(error);
       e.name = "internalServerError";
       return next(e);
@@ -32,20 +32,20 @@ exports.getUser = (req, res, next) => {
     return next(e);
   }
   let username = req.params.username;
-  
+
   session
     .run('Match (n:User {username:"' + username + '"}) RETURN (n)')
-    .then(function(result){
-      if(result.records.length == 0){
+    .then(function (result) {
+      if (result.records.length == 0) {
         let e = new Error("Usuario no encontrado");
         e.name = "notFound";
         return next(e);
-      }else{
+      } else {
         res.status(200).send(result.records[0]);
         session.close();
       }
     })
-    .catch(function(error){
+    .catch(function (error) {
       let e = new Error(error);
       e.name = "internalServerError";
       return next(e);
@@ -56,17 +56,17 @@ exports.getUser = (req, res, next) => {
 exports.getMyUser = (req, res, next) => {
   session
     .run('Match (n:User {username:"' + res.locals.tokenDecoded.username + '"}) RETURN (n)')
-    .then(function(result){
-      if(result.records.length == 0){
+    .then(function (result) {
+      if (result.records.length == 0) {
         let e = new Error("Usuario no encontrado");
         e.name = "notFound";
         return next(e);
-      }else{
+      } else {
         res.status(200).send(result.records[0]);
         session.close();
       }
     })
-    .catch(function(error){
+    .catch(function (error) {
       let e = new Error(error);
       e.name = "internalServerError";
       return next(e);
@@ -84,15 +84,15 @@ exports.registerUser = (req, res, next) => {
 
   //Variable temporal que almacena los datos de usuario
   let Usuario = {
-    "mail":req.body.mail,
-    "username":req.body.username,
-    "password":req.body.password,
+    "mail": req.body.mail,
+    "username": req.body.username,
+    "password": req.body.password,
     "verified": false,
     "created_at": new Date().toISOString()
   }
 
   //Hashea la contraseña para que pueda ser guardada en la base de datos
-  bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+  bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
     if (err) {
       let e = new Error('Error al guardar usuario');
       e.name = "internal";
@@ -100,12 +100,12 @@ exports.registerUser = (req, res, next) => {
     }
     Usuario.password = hash;
     //Query inicial
-    let query = 'CREATE (x:User {username:"' + Usuario.username + '",password:"' + Usuario.password + '",mail:"' + Usuario.mail + '",created_at:"' + Usuario.created_at+ '",verified:"' + Usuario.verified;
-    if(req.body.name != undefined){
+    let query = 'CREATE (x:User {username:"' + Usuario.username + '",password:"' + Usuario.password + '",mail:"' + Usuario.mail + '",created_at:"' + Usuario.created_at + '",verified:"' + Usuario.verified;
+    if (req.body.name != undefined) {
       Usuario.name = req.body.name;
       query = query + '",name:"' + Usuario.name;
     }
-    if(req.body.description != undefined){
+    if (req.body.description != undefined) {
       Usuario.description = req.body.description;
       query = query + '",description:"' + Usuario.description;
     }
@@ -113,20 +113,20 @@ exports.registerUser = (req, res, next) => {
     debug(query);
 
     session
-    .run(query)
-    .then(function(result){
-      res.status(201).send({
-        status: 201,
-        name: 'Created',
-        customMessage: 'El usuario fue creado con exito',
-        message: 'Recurso creado',
-        token: authHelper.createToken({"correo": Usuario.correo, "username": Usuario.username})
-      });
-    }).catch(function(error){
-      let e = new Error(error);
-      e.name = "internalServerError";
-      return next(e);
-    })
+      .run(query)
+      .then(function (result) {
+        res.status(201).send({
+          status: 201,
+          name: 'Created',
+          customMessage: 'El usuario fue creado con éxito',
+          message: 'Recurso creado',
+          token: authHelper.createToken({ "correo": Usuario.correo, "username": Usuario.username })
+        });
+      }).catch(function (error) {
+        let e = new Error(error);
+        e.name = "internalServerError";
+        return next(e);
+      })
   });
 }
 
@@ -139,38 +139,105 @@ exports.loginUser = (req, res, next) => {
   }
 
   session
-  .run('MATCH(u:User) WHERE(u.username = "' + req.body.username + '") RETURN u.password AS password, u.mail AS mail, u.username AS usename')
-  .then(function(result){
-    if(result.records.length == 0){
-      let e = new Error("Usuario no encontrado");
-      e.name = "notFound";
-      return next(e);
-    }
-    let fields = result.records[0]._fields;
-
-    bcrypt.compare(req.body.password, fields[0], function(err, resp) {
-      if(resp == false){
-        let e = new Error('Las credenciales no son válidas');
-        e.name = "unautorized";
+    .run('MATCH(u:User) WHERE(u.username = "' + req.body.username + '") RETURN u.password AS password, u.mail AS mail, u.username AS usename')
+    .then(function (result) {
+      if (result.records.length == 0) {
+        let e = new Error("Usuario no encontrado");
+        e.name = "notFound";
         return next(e);
-      }else{
+      }
+      let fields = result.records[0]._fields;
+
+      bcrypt.compare(req.body.password, fields[0], function (err, resp) {
+        if (resp == false) {
+          let e = new Error('Las credenciales no son válidas');
+          e.name = "unautorized";
+          return next(e);
+        } else {
+          res.status(200).send({
+            status: 200,
+            name: 'Ok',
+            customMessage: 'Autenticación correcta',
+            message: 'Ok',
+            token: authHelper.createToken({ "correo": fields[1], "username": fields[2] })
+          })
+        }
+      });
+    })
+    .catch(function (error) {
+      let e = new Error(error);
+      e.name = "internalServerError";
+      debug(e);
+      return next(e);
+    })
+}
+
+//FOLLOW follow a un usuario ********************************************************************************
+exports.followUser = (req, res, next) => {
+  if ((req.body.username == null || req.body.username == undefined) || (req.body.usernameTarget == null || req.body.usernameTarget == undefined)) {
+    let e = new Error('Se debe ingresar un username y un usernameTarget');
+    e.name = "badRequest";
+    return next(e);
+  }
+
+  session
+    .run('MATCH (n:User {username:"' + req.body.username + '"}), (m:User {username:"' + req.body.usernameTarget + '"}) WHERE NOT (n)-[:FOLLOWS]->(m) CREATE (n)-[:FOLLOWS]->(m)')
+    .then(function (result) {
+      if (result.summary.updateStatistics._stats.relationshipsCreated == 0) {
+        let e = new Error("No se pudo seguir al usuario, es posible que ya lo sigas");
+        e.name = "conflict";
+        return next(e);
+      } else {
+        res.status(201).send({
+          status: 201,
+          name: 'Created',
+          customMessage: 'Se siguio al usuario con éxito',
+          message: 'Recurso creado',
+        });
+        session.close();
+      }
+    })
+    .catch(function (error) {
+      let e = new Error(error);
+      e.name = "internalServerError";
+      return next(e);
+    })
+
+}
+
+//UNFOLLOW unfollow a un usuario ********************************************************************************
+exports.unfollowUser = (req, res, next) => {
+  if ((req.body.username == null || req.body.username == undefined) || (req.body.usernameTarget == null || req.body.usernameTarget == undefined)) {
+    let e = new Error('Se debe ingresar un username y un usernameTarget');
+    e.name = "badRequest";
+    return next(e);
+  }
+
+  session
+    .run('MATCH (n:User {username:"' + req.body.username + '"})-[r:FOLLOWS]->(m:User {username:"' + req.body.usernameTarget + '"}) delete(r)')
+    .then(function (result) {
+      if (result.summary.updateStatistics._stats.relationshipsDeleted == 0) {
+        let e = new Error("No se pudo dejar de seguir al usuario, es posible que no lo sigas");
+        e.name = "conflict";
+        return next(e);
+      } else {
         res.status(200).send({
           status: 200,
-          name: 'Ok',
-          customMessage: 'Autenticación correcta',
-          message: 'Ok',
-          token: authHelper.createToken({"correo": fields[1], "username": fields[2]})
-        })
+          name: 'Created',
+          customMessage: 'Se dejo de seguir al usuario con éxito',
+          message: 'Recurso eliminado'
+        });
+        session.close();
       }
-    });
-  })
-  .catch(function(error){
-    let e = new Error(error);
-    e.name = "internalServerError";
-    debug(e);
-    return next(e);
-  })
+    })
+    .catch(function (error) {
+      let e = new Error(error);
+      e.name = "internalServerError";
+      return next(e);
+    })
+
 }
+
 /*
 
 //Recuperar cuenta ( Mandar correo ) ********************************************************************************
