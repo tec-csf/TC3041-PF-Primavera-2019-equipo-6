@@ -25,7 +25,7 @@ def getPostID(session, id_, query):
 @app.route('/post/<string:id>', methods= ['GET'])
 def get_post(id):
 	with driver.session() as session:
-		query = "MATCH (n:Post) WHERE n.id = " + id + " RETURN n.id, n.text, n.created_at"
+		query = "MATCH (n:Post) WHERE id(n) = " + id + " RETURN n.id, n.text, n.created_at"
 		result = getPostID(session,id, query)
 	return jsonify({'id': result[0][0], 'text': result[0][1], 'created_at': result[0][2]})
 
@@ -40,7 +40,7 @@ def get_all_in_db(): #doesn't work yet. Must bring all of the home page posts.
 			temp = result[i]
 			nodeJSON.append(jsonify({'id': temp[0], 'text': temp[1], 'created_at': temp[2]}))
 	
-	return jsonify({'nodes':nodeJSON})
+	return jsonify(nodeJSON = nodeJSON)
 
 @app.route('/posts/me/', methods= ['GET']) #doesn't work yet. Must bring all of my own posts
 def get_all_me():
