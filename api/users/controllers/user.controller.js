@@ -88,7 +88,7 @@ exports.registerUser = (req, res, next) => {
     "username": req.body.username,
     "password": req.body.password,
     "verified": false,
-    "created_at": new Date().toISOString()
+    "created_at": new Date().toISOString(),
   }
 
   //Hashea la contraseña para que pueda ser guardada en la base de datos
@@ -109,6 +109,15 @@ exports.registerUser = (req, res, next) => {
       Usuario.description = req.body.description;
       query = query + '",description:"' + Usuario.description;
     }
+    if (req.body.profile_img_url != undefined) {
+      Usuario.profile_img_url = req.body.profile_img_url;
+      query = query + '",profile_img_url:"' + Usuario.profile_img_url;
+    }
+    if (req.body.profile_banner_url != undefined) {
+      Usuario.profile_banner_url = req.body.profile_banner_url;
+      query = query + '",profile_banner_url:"' + Usuario.profile_banner_url;
+    }
+    
     query = query + '"})'
     debug(query);
 

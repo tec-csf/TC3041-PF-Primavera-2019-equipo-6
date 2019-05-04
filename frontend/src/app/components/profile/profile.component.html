@@ -3,7 +3,8 @@
 
     <div class="profilePic">
         <div class="profilePicCircle">
-            <img src="./assets/images/test/profilePic.jpg" alt="profilePic">
+            <img *ngIf=!usuario.profile_img_url src="./assets/images/profileTemporal/profile_0.jpg" alt="profilePic">
+            <img *ngIf=usuario.profile_img_url src="./assets/images/profileTemporal/{{ usuario.profile_img_url }}" alt="profilePic">
         </div>
 
         <div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { UserService } from '../../services/user.service';
 import { Usuario } from '../../models/user.model';
@@ -27,7 +28,7 @@ export class ProfileComponent implements OnInit{
   usuario = new Usuario();
   usernameRoute: string; //Username colacado en los paramotreos de la liga
 
-  constructor(private userService:UserService, private route: ActivatedRoute) {
+  constructor(private userService:UserService, private route: ActivatedRoute, private sanitizer: DomSanitizer) {
     this.isLoadingGetUser = false;
     this.isLoadingGetFollowers = false;
     this.isLoadingGetFollowing = false;

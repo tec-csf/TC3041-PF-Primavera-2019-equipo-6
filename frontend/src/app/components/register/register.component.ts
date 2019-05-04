@@ -58,6 +58,7 @@ export class RegisterComponent implements OnInit{
     this.usuario.username = this.registerForm.value.username;
     this.usuario.password = this.registerForm.value.password;
     this.usuario.mail = this.registerForm.value.mail;
+    this.usuario.profile_img_url = this.getRandomTemporalProfileImage();
     this.currentUserSubscription = this.authService.register(this.usuario)
     .subscribe(loginStatus => {
       this.isRegister = true;
@@ -72,5 +73,9 @@ export class RegisterComponent implements OnInit{
     }/*,() => console.log('Observer got a complete notification')*/)
   }
 
+  getRandomTemporalProfileImage(): string{
+    let n = Math.floor((Math.random() * 7) + 1);
+    return "profile_" + n + ".png";
+  }
 
 }
