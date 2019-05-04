@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const compression = require('compression');
 const helmet = require('helmet');
 const path = require('path');
+var cors = require('cors');
 const debug = require('debug')('dev');
 require('dotenv').config({path: __dirname + '/.env'})
 //Archivos
@@ -19,6 +20,10 @@ app.use(bodyParser.json());
 app.use(compression()); //Hace el api más ligera y más rápida
 app.use(helmet()); // Añade seguridad a las cabezaras http
 app.use("/user_data", express.static(path.join(__dirname, 'user_data')));
+
+// Cors ===============================================================
+app.use(cors());
+app.options('*', cors());
 
 // Rutas =========================================================
 app.use('/', router);

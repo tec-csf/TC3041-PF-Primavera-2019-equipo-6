@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../services/authentication.service';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'menuView',
@@ -7,6 +10,11 @@ import { Component } from '@angular/core';
 })
 
 export class MenuComponent{
-  constructor() { }
+  constructor(private authService:AuthService, private router: Router, private location: Location) { }
 
+  logout(){
+    this.authService.logout(true);
+    this.location.replaceState('/login');
+    this.router.navigate(['/login']);
+  }
 }

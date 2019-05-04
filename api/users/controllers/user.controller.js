@@ -167,6 +167,7 @@ exports.loginUser = (req, res, next) => {
   .catch(function(error){
     let e = new Error(error);
     e.name = "internalServerError";
+    debug(e);
     return next(e);
   })
 }

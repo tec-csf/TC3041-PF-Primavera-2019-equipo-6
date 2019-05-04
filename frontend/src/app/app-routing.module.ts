@@ -14,15 +14,15 @@ import { LoginComponent } from './components/login/login.component';
 import { NotFoundComponent } from './components/notFound/notFound.component';
 
 const routes: Routes = [
-  { path: "", component: HomeComponent, data: { header: true}},
+  { path: "", component: HomeComponent, canActivate:[AuthGuard], data: { header: true}},
   { path: "inicio", redirectTo: "", pathMatch: "full" },
   { path: "home", redirectTo: "", pathMatch: "full" },
   { path: "login", component: LoginComponent, data: { header: false}},
   { path: "registro", component: RegisterComponent, data: { header: false}},
-  { path: "tendencia", component: TrendingComponent, data: { header: true}},
+  { path: "tendencia", component: TrendingComponent, canActivate:[AuthGuard], data: { header: true}},
   { path: "notificaciones", component: NotificationComponent, canActivate:[AuthGuard], data: { header: true}},
-  { path: "perfil", component: ProfileComponent, data: { header: true}},
-  { path: "perfil/:id", component: ProfileComponent, data: { header: true}},
+  { path: "perfil", component: ProfileComponent,canActivate:[AuthGuard], data: { header: true}},
+  { path: "perfil/:id", component: ProfileComponent, canActivate:[AuthGuard],data: { header: true}},
   { path: "**", component: NotFoundComponent, data: { header: false}},
 ];
 
