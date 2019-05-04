@@ -181,7 +181,7 @@ exports.followUser = (req, res, next) => {
   }
 
   session
-    .run('MATCH (n:User {username:"' + req.body.username + '"}), (m:User {username:"' + req.body.usernameTarget + '"}) WHERE NOT (n)-[:FOLLOWS]->(m) CREATE (n)-[:FOLLOWS]->(m)')
+    .run('MATCH(n:User {username:"'+req.body.username+'"}),(m:User {username:"'+req.body.usernameTarget+'"}) MERGE (n)-[r:FOLLOWS]->(m)')
     .then(function (result) {
       if (result.summary.updateStatistics._stats.relationshipsCreated == 0) {
         let e = new Error("No se pudo seguir al usuario, es posible que ya lo sigas");
