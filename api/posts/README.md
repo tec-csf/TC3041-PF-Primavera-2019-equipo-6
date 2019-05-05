@@ -39,6 +39,14 @@ Posibles Rutas: /posts/
 
 - Se puede verificar la creación de la relación con el siguiente query:
 	- match(a:Person)-[r:CREATED]->(b:Post) return a,r,b
+
+# Pruebas de Endpoints:
+
+## /posts/
+
+- /posts/ Se encarga de traer la información de todos los posts existentes. 
+- [figure1: Results of looking for all posts](/readme_images/all_posts.png)
+
 # Errores
 
 

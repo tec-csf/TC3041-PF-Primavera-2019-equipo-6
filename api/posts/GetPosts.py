@@ -21,21 +21,6 @@ app = Flask(__name__)
 def getPostID(session, id_, query):
 	return session.run(query, id=id_).values()
 
-	#RELATIONSHIP POSIBILITY:
-	#Match(a:Alumno) where id(a)=20 and a.Nombre = "Pedro"
-	#Match(b:Alumno) where id(b) =0 and b.Nombre = "Alberto"
-	#Create (a)-[r:FOLLOWS{fecha: "10/10/2018"}]->(b)
-	#return r
-	#match(a:Alumno)-[r:FOLLOWS]->(b:Alumno) return a.Nombre + " Follows " + b.Nombre + " since " + r.fecha as RelationType
-
-
-	#******************************************
-	#CREATED:
-	# Match(a:Person) where id(a) =27 and a.username = "BetoPascal"
-	#Match(b:Post) where id(b) = 2 and b.text= "Este es un post de prueba ligado a usuario" and b.id=3
-	#Create (a)-[r:CREATED{fecha: "05/05/2019"}]->(b)
-	#return r
-	# match(a:Person)-[r:CREATED]->(b:Post) return a,r,b
 
 #************************************Posts endpoints ********************************
 
@@ -65,7 +50,7 @@ def get_all_in_db():
 	    	for item in r
 			])
 		else:
-			return jsonify({"error": 404})
+			return jsonify({"error": 404, "description": "Posts not found"})
 
 		#return jsonify(jsonarr)
 
@@ -84,7 +69,7 @@ def get_post(id):
 				arr = {'id': result[0][0], 'text': result[0][1], 'created_at': result[0][2]}
 				return jsonify(arr)
 			else:
-				return jsonify({"error": 404})
+				return jsonify({"error": 404, "description": "Post not found. It is possible that the post does not exist or has been erased"})
 
 @app.route('/posts/<string:username>/', methods= ['GET']) #Gets all posts from user. Needs to be changed so query brings the relation
 def get_all_me(username):
