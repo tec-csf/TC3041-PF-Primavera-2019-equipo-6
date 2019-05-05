@@ -23,7 +23,7 @@ def getPostID(session, id_, query):
 
 #************************************Posts endpoints ********************************
 
-@app.route('/posts/', methods= ['GET'])
+@app.route('/posts/', methods= ['GET']) #gets all posts available in database. Possible needs to be changed to get only those from people I follow
 def get_all_in_db():
 	with driver.session() as session:
 		query = "MATCH (n:Post) return id(n) as NodeID, n.text as PostText, n.created_at as CreationDate"
@@ -54,7 +54,7 @@ def get_all_in_db():
 		#return jsonify(jsonarr)
 
 
-@app.route('/post/<string:id>', methods= ['GET'])
+@app.route('/post/<string:id>', methods= ['GET']) #brings individual post id
 def get_post(id):
 	with driver.session() as session:
 		try:
@@ -70,7 +70,7 @@ def get_post(id):
 			else:
 				return jsonify({"error": 404})
 
-@app.route('/posts/me/', methods= ['GET']) #doesn't work yet. Must bring all of my own posts
+@app.route('/posts/me/', methods= ['GET']) #Gets all posts from user. Needs to be changed so query brings the relation
 def get_all_me():
 	with driver.session() as session:
 			query = "MATCH (n:Post) return id(n) as NodeID, n.text as PostText, n.created_at as CreationDate"
