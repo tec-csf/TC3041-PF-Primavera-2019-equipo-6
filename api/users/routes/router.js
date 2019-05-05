@@ -21,9 +21,9 @@ module.exports = (() => {
   //Logea a un usuario entregandole un token único
   router.post('/user/login', userController.loginUser);
   //Follow a un usuario
-  router.post('/user/follow', userController.followUser);
+  router.post('/user/follow', authMiddleware.isAuth, userController.followUser);
   //Unfollow a un usuario
-  router.delete('/user/follow', userController.unfollowUser);
+  router.delete('/user/follow', authMiddleware.isAuth, userController.unfollowUser);
   //Regresa los followers de un usuario
   router.get('/user/:username/followers', userController.getFollowers);
   //Regresa a cuantos sigue un usuario
