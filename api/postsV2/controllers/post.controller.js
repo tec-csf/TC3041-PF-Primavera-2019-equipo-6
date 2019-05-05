@@ -48,6 +48,37 @@ exports.createPost = (req, res, next) => {
     })
 }
 
+//Eliminar un ********************************************************************************
+exports.deletePost = (req, res, next) =>{
+    if(!req.body.id){
+        let e = new Error('Se debe ingresar los campos requeridos (id)');
+        e.name = "badRequest";
+        return next(e);
+    }
+    if (!req.headers.authorization) {
+        let e = new Error('No tienes permiso para eliminar posts');
+        e.name = "unautorized";
+        return next(e);
+    }
+
+    session
+    .run('MATCH(u:Post) where ID(u)='+req.body.id+' DETACH DELETE(u)')
+    .then(function (result) {
+        res.status(200).send({
+            status: 200,
+            name: 'OK',
+            customMessage: 'El post fue eliminado con éxito',
+            message: 'OK'
+        });
+        session.close();
+    })
+    .catch(function (error) {
+        let e = new Error(error);
+        e.name = "internalServerError";
+        return next(e);
+    })
+}
+
 //Obtener todos los Post (Limitado) ********************************************************************************
 exports.getAllPosts = (req, res, next) => {
     session

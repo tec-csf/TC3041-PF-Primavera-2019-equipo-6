@@ -38,7 +38,7 @@ Ruta Desarrollo: http://127.0.0.1:8001/
     }
 
 ## Revisar estado del api (GET) ![#c5f015](https://placehold.it/15/c5f015/000000?text=+)
-/health
+    /health
 
 #### Respuesta esperada
     {

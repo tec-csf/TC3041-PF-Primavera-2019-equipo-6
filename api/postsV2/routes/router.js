@@ -13,7 +13,7 @@ module.exports = (() => {
   //Crear un post
   router.post('/post', postController.createPost);
   //Eliminar un post
-
+  router.delete('/post', postController.deletePost);
   //Obtener un post
 
   //Obtener losultimos post disponibles limitado a 30
