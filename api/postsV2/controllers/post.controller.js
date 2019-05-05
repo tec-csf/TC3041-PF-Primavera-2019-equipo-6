@@ -81,7 +81,7 @@ exports.deletePost = (req, res, next) => {
 //Obtener todos los Post (Limitado) ********************************************************************************
 exports.getAllPosts = (req, res, next) => {
     session
-        .run('MATCH (n:Post) return n LIMIT 30')
+        .run('MATCH (u:User)-[:CREATED]->(n:Post) return n LIMIT 30')
         .then(function (result) {
             res.status(200).send(result.records);
             session.close();
@@ -96,7 +96,7 @@ exports.getAllPosts = (req, res, next) => {
 //Obtener un post por su id ********************************************************************************
 exports.getPost = (req, res, next) => {
     session
-        .run('MATCH (n:Post) WHERE ID(n) = '+ req.params.id +' RETURN n')
+        .run('MATCH (u:User)-[:CREATED]->(n:Post) WHERE ID(n) = '+ req.params.id +' RETURN n.text, n.created_at, u.username, u.name, u.profile_img_url')
         .then(function (result) {
             if(result.records.length == 0){
                 let e = new Error("Post no encontrado");
@@ -117,14 +117,14 @@ exports.getPost = (req, res, next) => {
 //Obtener un posts de un usuario ********************************************************************************
 exports.getUserPosts = (req, res, next) => {
     session
-    .run('MATCH(a:User)-[:CREATED]->(b:Post) WHERE a.username ="'+ req.params.username +'" RETURN b')
+    .run('MATCH(u:User)-[:CREATED]->(n:Post) WHERE u.username ="'+ req.params.username +'" RETURN n.text, n.created_at, u.username, u.name, u.profile_img_url')
     .then(function (result) {
         if(result.records.length == 0){
             let e = new Error(req.params.username + " No existe o no tiene ningún post");
             e.name = "notFound";
             return next(e);
         }else{
-            res.status(200).send(result.records[0]);
+            res.status(200).send(result.records);
             session.close();
         }
     })
