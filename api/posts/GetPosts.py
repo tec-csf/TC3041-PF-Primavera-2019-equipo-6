@@ -104,7 +104,7 @@ def get_all_me(username):
 			   	for item in r
 					])
 			else:
-				return jsonify({"error":404, "description": "user does not exist"})
+				return jsonify({"error":601, "description": "user does not exist"})
 
 if __name__ == '__main__':
 	app.run(debug=True)
