@@ -9,14 +9,14 @@ const request = require('request');
 
 //Crear un post ********************************************************************************
 exports.createPost = (req, res, next) => {
-    if(!req.body.text){
-        let e = new Error('Se debe ingresar los campos requeridos (text)');
-        e.name = "badRequest";
-        return next(e);
-    }
     if (!req.headers.authorization) {
         let e = new Error('No tienes permiso para crear posts');
         e.name = "unautorized";
+        return next(e);
+    }
+    if (!req.body.text) {
+        let e = new Error('Se debe ingresar los campos requeridos (text)');
+        e.name = "badRequest";
         return next(e);
     }
     //Auth token de usuario
@@ -27,7 +27,7 @@ exports.createPost = (req, res, next) => {
     request(options, function (error, response, body) {
         if (!error && response.statusCode == 200 || response.statusCode == 201) {
             session
-                .run('MATCH(u:User {username:"'+ JSON.parse(body).username +'"}) CREATE (u)-[:CREATED]->(:Post {text:"'+ req.body.text +'", created_at:datetime("'+ new Date().toISOString() +'")})')
+                .run('MATCH(u:User {username:"' + JSON.parse(body).username + '"}) CREATE (u)-[:CREATED]->(:Post {text:"' + req.body.text + '", created_at:datetime("' + new Date().toISOString() + '")})')
                 .then(function (result) {
                     res.status(201).send({
                         status: 201,
@@ -48,41 +48,40 @@ exports.createPost = (req, res, next) => {
     })
 }
 
-//Eliminar un ********************************************************************************
-exports.deletePost = (req, res, next) =>{
-    if(!req.body.id){
-        let e = new Error('Se debe ingresar los campos requeridos (id)');
-        e.name = "badRequest";
-        return next(e);
-    }
+//Eliminar un post ********************************************************************************
+exports.deletePost = (req, res, next) => {
     if (!req.headers.authorization) {
         let e = new Error('No tienes permiso para eliminar posts');
         e.name = "unautorized";
         return next(e);
     }
-
-    session
-    .run('MATCH(u:Post) where ID(u)='+req.body.id+' DETACH DELETE(u)')
-    .then(function (result) {
-        res.status(200).send({
-            status: 200,
-            name: 'OK',
-            customMessage: 'El post fue eliminado con éxito',
-            message: 'OK'
-        });
-        session.close();
-    })
-    .catch(function (error) {
-        let e = new Error(error);
-        e.name = "internalServerError";
+    if (!req.body.id) {
+        let e = new Error('Se debe ingresar los campos requeridos (id)');
+        e.name = "badRequest";
         return next(e);
-    })
+    }
+    session
+        .run('MATCH(u:Post) where ID(u)=' + req.body.id + ' DETACH DELETE(u)')
+        .then(function (result) {
+            res.status(200).send({
+                status: 200,
+                name: 'OK',
+                customMessage: 'El post fue eliminado con éxito',
+                message: 'OK'
+            });
+            session.close();
+        })
+        .catch(function (error) {
+            let e = new Error(error);
+            e.name = "internalServerError";
+            return next(e);
+        })
 }
 
 //Obtener todos los Post (Limitado) ********************************************************************************
 exports.getAllPosts = (req, res, next) => {
     session
-        .run('MATCH (n:Post) return n')
+        .run('MATCH (n:Post) return n LIMIT 30')
         .then(function (result) {
             res.status(200).send(result.records);
             session.close();
@@ -93,3 +92,65 @@ exports.getAllPosts = (req, res, next) => {
             return next(e);
         })
 }
+
+//Obtener un post por su id ********************************************************************************
+exports.getPost = (req, res, next) => {
+
+}
+
+//Obtener un posts de un usuario ********************************************************************************
+exports.getUserPosts = (req, res, next) => {
+
+}
+
+//Likear un post ********************************************************************************
+exports.likePost = (req, res, next) => {
+    if (!req.headers.authorization) {
+        let e = new Error('No tienes permiso para eliminar posts');
+        e.name = "unautorized";
+        return next(e);
+    }
+    //Auth token de usuario
+    let options = {
+        url: 'http://localhost:8000/auth',
+        headers: { 'Authorization': req.headers.authorization }
+    };
+    request(options, function (error, response, body) {
+        if (!error && response.statusCode == 200 || response.statusCode == 201) {
+            session
+                .run('MATCH(n:User {username:"'+ JSON.parse(body).username +'"}),(m:Post) WHERE ID(m) = '+ req.params.id +' MERGE (n)-[r:LIKES]->(m)')
+                .then(function (result) {
+                    if(result.summary.counters._stats.relationshipsCreated == 0){
+                        let e = new Error("El post ya fue likeado");
+                        e.name = "conflict";
+                        return next(e);
+                    }else{
+                        res.status(201).send({
+                            status: 201,
+                            name: 'Created',
+                            customMessage: 'El post('+ req.params.id +') fue likeado',
+                            message: 'Recurso creado'
+                        });
+                    }
+                    session.close();
+                })
+                .catch(function (error) {
+                    let e = new Error(error);
+                    e.name = "internalServerError";
+                    return next(e);
+                })
+        } else {
+            res.status(response.statusCode).send(JSON.parse(body))
+        }
+    })
+}
+
+//Deslikear un post ********************************************************************************
+exports.dislikePost = (req, res, next) => {
+    if (!req.headers.authorization) {
+        let e = new Error('No tienes permiso para eliminar posts');
+        e.name = "unautorized";
+        return next(e);
+    }
+}
+

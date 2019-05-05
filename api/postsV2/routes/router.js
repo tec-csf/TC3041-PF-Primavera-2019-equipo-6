@@ -14,11 +14,16 @@ module.exports = (() => {
   router.post('/post', postController.createPost);
   //Eliminar un post
   router.delete('/post', postController.deletePost);
-  //Obtener un post
-
   //Obtener losultimos post disponibles limitado a 30
   router.get('/posts', postController.getAllPosts);
-  //Obtener un post de un usuario
+  //Obtener un post por su id
+  router.get('/post/:id', postController.getPost);
+  //Obtener un posts de un usuario
+  router.get('/posts/:username', postController.getUserPosts);
+  //Likear un post
+  router.post('/post/:id/like', postController.likePost);
+  //Deslikear un post
+  router.delete('/post/:id/like', postController.dislikePost);
 
 
   // General =========================================================

@@ -9,7 +9,7 @@ Gestiona el CRUD de los posts
 
 # Endpoints
 
-Ruta Desarrollo: http://127.0.0.1:8000/
+Ruta Desarrollo: http://127.0.0.1:5000/
 Posibles Rutas: /posts/
 		/posts/<string:username>
 		/post/<int:id>
