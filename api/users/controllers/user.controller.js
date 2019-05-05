@@ -118,7 +118,7 @@ exports.registerUser = (req, res, next) => {
     }
     
     query = query + '"})'
-    debug(query);
+    //debug(query);
 
     session
       .run(query)
@@ -131,9 +131,15 @@ exports.registerUser = (req, res, next) => {
           token: authHelper.createToken({ "correo": Usuario.correo, "username": Usuario.username })
         });
       }).catch(function (error) {
-        let e = new Error(error);
-        e.name = "internalServerError";
-        return next(e);
+        if(error.code == "Neo.ClientError.Schema.ConstraintValidationFailed"){
+          let e = new Error("Ya existe un usuario con ese username o correo");
+          e.name = "badRequest";
+          return next(e);
+        }else{
+          let e = new Error(error);
+          e.name = "internalServerError";
+          return next(e);
+        }
       })
   });
 }

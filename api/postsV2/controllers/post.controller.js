@@ -81,7 +81,7 @@ exports.deletePost = (req, res, next) => {
 //Obtener todos los Post (Limitado) ********************************************************************************
 exports.getAllPosts = (req, res, next) => {
     session
-        .run('MATCH (u:User)-[:CREATED]->(n:Post) return n LIMIT 30')
+        .run('MATCH (u:User)-[:CREATED]->(n:Post) RETURN n.text, n.created_at, u.username, u.name, u.profile_img_url LIMIT 30')
         .then(function (result) {
             res.status(200).send(result.records);
             session.close();
@@ -91,6 +91,10 @@ exports.getAllPosts = (req, res, next) => {
             e.name = "internalServerError";
             return next(e);
         })
+}
+
+exports.getFeedPosts = (req, res, next) =>{
+    
 }
 
 //Obtener un post por su id ********************************************************************************
