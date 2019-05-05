@@ -56,7 +56,7 @@ Posibles Rutas: /posts/
 ## /post/<string:username>
 - /post/<string:username> Se encarga de traer todos los posts que haya publicado un usuario en específico. Sirve para ver tanto los posts que tú mismo has publicado como los posts que cualquier otro usuario tendría en su perfil. 
 
-	![](readme_images/user_posts.png)
+	![](/readme_images/posts_username.png)
 
 # Errores
 
@@ -70,15 +70,15 @@ Código de error  | ErrorType (e.name)
 
 ## Error 103: 
 
-	![](readme_files/not_a_number.png)
+	![](readme_images/not_a_number.png)
 
 ## Error 404:
 
-	![](readme_files/unexistant_post_id.png)
+	![](readme_images/unexistant_post_id.png)
 
 ## Error 601:
 
-	![](readme_files/unexistent_user.png)
+	![](readme_images/unexistent_user.png)
 
 # Contribuir con el API
 
