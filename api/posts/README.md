@@ -69,15 +69,15 @@ Código de error  | ErrorType (e.name)
 601  | User does not exist
 
 ## Error 103: 
-
+	
 	![](readme_images/not_a_number.png)
 
 ## Error 404:
-
+	
 	![](readme_images/unexistant_post_id.png)
 
 ## Error 601:
-
+	
 	![](readme_images/unexistent_user.png)
 
 # Contribuir con el API
