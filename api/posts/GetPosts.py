@@ -57,13 +57,18 @@ def get_all_in_db():
 @app.route('/post/<string:id>', methods= ['GET'])
 def get_post(id):
 	with driver.session() as session:
-		query = "MATCH (n:Post) WHERE id(n) = " + id + " RETURN n.id, n.text, n.created_at"
-		result = getPostID(session,id, query)
-		if(len(result)>0):
-			arr = {'id': result[0][0], 'text': result[0][1], 'created_at': result[0][2]}
-			return jsonify(arr)
+		try:
+			val = int(id)
+		except ValueError:
+			return jsonify({"error": 103, "description": "Not a number"})
 		else:
-			return jsonify({"error": 404})
+			query = "MATCH (n:Post) WHERE id(n) = " + id + " RETURN n.id, n.text, n.created_at"
+			result = getPostID(session,id, query)
+			if(len(result)>0):
+				arr = {'id': result[0][0], 'text': result[0][1], 'created_at': result[0][2]}
+				return jsonify(arr)
+			else:
+				return jsonify({"error": 404})
 
 @app.route('/posts/me/', methods= ['GET']) #doesn't work yet. Must bring all of my own posts
 def get_all_me():
