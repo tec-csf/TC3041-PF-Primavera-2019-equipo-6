@@ -45,10 +45,40 @@ Posibles Rutas: /posts/
 ## /posts/
 
 - /posts/ Se encarga de traer la información de todos los posts existentes. 
-- ![](readme_images/all_posts.png)
+
+	![](readme_images/all_posts.png)
+
+## /post/<int:id>
+- /post/<int:id> Se encarga de traer la información de un post en específico. Sirve para cuando se quieren ver los detalles del post que alguien más publicó. 
+	
+	![](readme_images/post_details.png)
+
+## /post/<string:username>
+- /post/<string:username> Se encarga de traer todos los posts que haya publicado un usuario en específico. Sirve para ver tanto los posts que tú mismo has publicado como los posts que cualquier otro usuario tendría en su perfil. 
+
+	![](/readme_images/posts_username.png)
 
 # Errores
 
+- A la hora de acceder a los endpoints, es posible que la información que mandemos sea incorrecta. Por esto mismo, los siguientes errores se encargan de enviar la información de que no se recibió lo esperado:
+
+Código de error  | ErrorType (e.name)
+------------- | -------------
+103  | id provided is not a number
+404  | Post not found. Possible erased or non-existant
+601  | User does not exist
+
+## Error 103: 
+
+	![](readme_files/not_a_number.png)
+
+## Error 404:
+
+	![](readme_files/unexistant_post_id.png)
+
+## Error 601:
+
+	![](readme_files/unexistent_user.png)
 
 # Contribuir con el API
 
