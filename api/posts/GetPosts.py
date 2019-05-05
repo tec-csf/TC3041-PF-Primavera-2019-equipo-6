@@ -21,6 +21,22 @@ app = Flask(__name__)
 def getPostID(session, id_, query):
 	return session.run(query, id=id_).values()
 
+	#RELATIONSHIP POSIBILITY:
+	#Match(a:Alumno) where id(a)=20 and a.Nombre = "Pedro"
+	#Match(b:Alumno) where id(b) =0 and b.Nombre = "Alberto"
+	#Create (a)-[r:FOLLOWS{fecha: "10/10/2018"}]->(b)
+	#return r
+	#match(a:Alumno)-[r:FOLLOWS]->(b:Alumno) return a.Nombre + " Follows " + b.Nombre + " since " + r.fecha as RelationType
+
+
+	#******************************************
+	#CREATED:
+	# Match(a:Person) where id(a) =27 and a.username = "BetoPascal"
+	#Match(b:Post) where id(b) = 2 and b.text= "Este es un post de prueba ligado a usuario" and b.id=3
+	#Create (a)-[r:CREATED{fecha: "05/05/2019"}]->(b)
+	#return r
+	# match(a:Person)-[r:CREATED]->(b:Post) return a,r,b
+
 #************************************Posts endpoints ********************************
 
 @app.route('/posts/', methods= ['GET']) #gets all posts available in database. Possible needs to be changed to get only those from people I follow
@@ -70,30 +86,40 @@ def get_post(id):
 			else:
 				return jsonify({"error": 404})
 
-@app.route('/posts/me/', methods= ['GET']) #Gets all posts from user. Needs to be changed so query brings the relation
-def get_all_me():
+@app.route('/posts/<string:username>/', methods= ['GET']) #Gets all posts from user. Needs to be changed so query brings the relation
+def get_all_me(username):
 	with driver.session() as session:
-			query = "MATCH (n:Post) return id(n) as NodeID, n.text as PostText, n.created_at as CreationDate"
+			query = "match(a:Person)-[r:CREATED]->(b:Post) where a.username = '" + str(username) + "' return b.id, b.text, b.created_at"
+			query2= "match(a:Person) where a.username = '" + str(username) + "'"
+			#query = "MATCH (n:Post) return id(n) as NodeID, n.text as PostText, n.created_at as CreationDate"
+			validator = session.run(query,id=1).values()
 			result = session.run(query, id=1).values()
 			dictionaries = (dict() for  x in range(0,len(result)))
 			i=0
 			r = []
-			for item in result:
-				diction = dict()
-				diction["id"] = item[0]
-				diction["text"] = item[1]
-				diction["created_at"] = item[2]
-				r.append(diction)
-				i=i+1
-			#print(dictionaries)
-			return jsonify([
-	    	{
-	        	"id": item["id"],
-	        	"text": item["text"],
-	        	"created_at": item["created_at"]
-	    	}
-	    	for item in r
-			])
+			val_iter=0
+			for z in validator:
+				val_iter=val_iter+1
+
+			if val_iter>0:
+				for item in result:
+					diction = dict()
+					diction["id"] = item[0]
+					diction["text"] = item[1]
+					diction["created_at"] = item[2]
+					r.append(diction)
+					i=i+1
+				#print(dictionaries)
+				return jsonify([
+			    {
+			    	"id": item["id"],
+			    	"text": item["text"],
+			    	"created_at": item["created_at"]
+			    }
+			   	for item in r
+					])
+			else:
+				return jsonify({"error":404, "description": "user does not exist"})
 
 if __name__ == '__main__':
 	app.run(debug=True)
