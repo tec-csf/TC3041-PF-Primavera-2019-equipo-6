@@ -45,7 +45,7 @@ Posibles Rutas: /posts/
 ## /posts/
 
 - /posts/ Se encarga de traer la información de todos los posts existentes. 
-- [figure1: Results of looking for all posts](/readme_images/all_posts.png)
+- [figure1: Results of looking for all posts](https://github.com/tec-csf/TC3041-PF-Primavera-2019-equipo-6/api/posts/readme_images/all_posts.png)
 
 # Errores
 
