@@ -28,6 +28,8 @@ MATCH(u:User {username:"antony999k"}) CREATE (u)-[:CREATED]->(:Post {text:"Este 
 MATCH(u:Post) where ID(u)=30 DETACH DELETE(u)
 //Ejemplo obtener todos los post de las cuentas que sigues
 MATCH (n:Post) WHERE ID(n) = 30 RETURN n
+//Ejemplo obtener un post por su id
+MATCH (n:Post) WHERE ID(n) = 30 RETURN n
 //Ejemplo likear un post
 MATCH(n:User {username:"itzel15"}),(m:Post) WHERE ID(m) = 30 MERGE (n)-[r:LIKES]->(m)
 //Ejemplo deslikear in post

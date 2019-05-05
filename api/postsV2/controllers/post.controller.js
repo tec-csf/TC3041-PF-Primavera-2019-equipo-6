@@ -95,12 +95,44 @@ exports.getAllPosts = (req, res, next) => {
 
 //Obtener un post por su id ********************************************************************************
 exports.getPost = (req, res, next) => {
-
+    session
+        .run('MATCH (n:Post) WHERE ID(n) = '+ req.params.id +' RETURN n')
+        .then(function (result) {
+            if(result.records.length == 0){
+                let e = new Error("Post no encontrado");
+                e.name = "notFound";
+                return next(e);
+            }else{
+                res.status(200).send(result.records[0]);
+                session.close();
+            }
+        })
+        .catch(function (error) {
+            let e = new Error(error);
+            e.name = "internalServerError";
+            return next(e);
+        })
 }
 
 //Obtener un posts de un usuario ********************************************************************************
 exports.getUserPosts = (req, res, next) => {
-
+    session
+    .run('MATCH(a:User)-[:CREATED]->(b:Post) WHERE a.username ="'+ req.params.username +'" RETURN b')
+    .then(function (result) {
+        if(result.records.length == 0){
+            let e = new Error(req.params.username + " No existe o no tiene ningún post");
+            e.name = "notFound";
+            return next(e);
+        }else{
+            res.status(200).send(result.records[0]);
+            session.close();
+        }
+    })
+    .catch(function (error) {
+      let e = new Error(error);
+      e.name = "internalServerError";
+      return next(e);
+    })
 }
 
 //Likear un post ********************************************************************************

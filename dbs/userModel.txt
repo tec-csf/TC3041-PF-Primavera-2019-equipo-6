@@ -1,4 +1,4 @@
-n:Person{
+n:User{
     id: Integer, (Unique)
     username: String,
     mail: String, (Unique)
