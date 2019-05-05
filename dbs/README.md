@@ -4,7 +4,7 @@
 ## Neo4j
 
 
-#Creación de ejemplo de datos para las relaciones:
+###Creación de ejemplo de datos para las relaciones:
 - FOLLOWS:
 	
 	Match(a:Alumno) where id(a)=20 and a.Nombre = "Pedro"
