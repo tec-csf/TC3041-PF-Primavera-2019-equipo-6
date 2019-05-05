@@ -93,8 +93,25 @@ exports.getAllPosts = (req, res, next) => {
         })
 }
 
+//Obtener los posts de usuarios a los que sigue un usuario ********************************************************************************
 exports.getFeedPosts = (req, res, next) =>{
-    
+    session
+    .run('MATCH (u:User {username:"'+ req.params.username +'"})-[r:FOLLOWS]->(u2:User)-[:CREATED]->(p:Post) return p')
+    .then(function (result) {
+        if(result.records.length == 0){
+            let e = new Error(req.params.username + " No sigue a ninguna cuenta con posts");
+            e.name = "notFound";
+            return next(e);
+        }else{
+            res.status(200).send(result.records);
+            session.close();
+        }
+    })
+    .catch(function (error) {
+      let e = new Error(error);
+      e.name = "internalServerError";
+      return next(e);
+    })
 }
 
 //Obtener un post por su id ********************************************************************************
