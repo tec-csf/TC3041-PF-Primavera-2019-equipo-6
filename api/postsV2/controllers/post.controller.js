@@ -106,7 +106,7 @@ exports.getUserPosts = (req, res, next) => {
 //Likear un post ********************************************************************************
 exports.likePost = (req, res, next) => {
     if (!req.headers.authorization) {
-        let e = new Error('No tienes permiso para eliminar posts');
+        let e = new Error('No tienes permiso para dar me gusta');
         e.name = "unautorized";
         return next(e);
     }
@@ -120,8 +120,9 @@ exports.likePost = (req, res, next) => {
             session
                 .run('MATCH(n:User {username:"'+ JSON.parse(body).username +'"}),(m:Post) WHERE ID(m) = '+ req.params.id +' MERGE (n)-[r:LIKES]->(m)')
                 .then(function (result) {
+                    console.log(result)
                     if(result.summary.counters._stats.relationshipsCreated == 0){
-                        let e = new Error("El post ya fue likeado");
+                        let e = new Error("El post no existe o ya fue likeado");
                         e.name = "conflict";
                         return next(e);
                     }else{
@@ -148,9 +149,42 @@ exports.likePost = (req, res, next) => {
 //Deslikear un post ********************************************************************************
 exports.dislikePost = (req, res, next) => {
     if (!req.headers.authorization) {
-        let e = new Error('No tienes permiso para eliminar posts');
+        let e = new Error('No tienes permiso para quitar me gusta');
         e.name = "unautorized";
         return next(e);
     }
+        //Auth token de usuario
+        let options = {
+            url: 'http://localhost:8000/auth',
+            headers: { 'Authorization': req.headers.authorization }
+        };
+        request(options, function (error, response, body) {
+            if (!error && response.statusCode == 200 || response.statusCode == 201) {
+                session
+                    .run('MATCH (n:User {username:"'+ JSON.parse(body).username +'"})-[r:LIKES]->(m:Post) WHERE ID(m) = '+ req.params.id +' delete(r)')
+                    .then(function (result) {
+                        if(result.summary.counters._stats.relationshipsDeleted == 0){
+                            let e = new Error("El post no existe o no esta likeado");
+                            e.name = "conflict";
+                            return next(e);
+                        }else{
+                            res.status(201).send({
+                                status: 201,
+                                name: 'Created',
+                                customMessage: 'El post('+ req.params.id +') fue deslikeado',
+                                message: 'Recurso creado'
+                            });
+                        }
+                        session.close();
+                    })
+                    .catch(function (error) {
+                        let e = new Error(error);
+                        e.name = "internalServerError";
+                        return next(e);
+                    })
+            } else {
+                res.status(response.statusCode).send(JSON.parse(body))
+            }
+        })
 }
 
