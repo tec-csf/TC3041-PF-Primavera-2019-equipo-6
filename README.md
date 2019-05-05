@@ -5,7 +5,7 @@
 
 ##### Integrantes:
 1. Antony Adrian Morales Rosas
-2. *[Poner aquí Nombre y Apellidos del integrante 2]*
+2. Alberto Pascal Garza
 
 
 ---
@@ -90,7 +90,7 @@ A continuación aparecen descritos los diferentes elementos que forman parte de 
 *[Incluya aquí una explicación de la solución utilizada para implementar la API del proyecto. No olvide incluir las ligas o referencias donde se puede encontrar información de los lenguajes de programación, frameworks y librerías utilizadas.]*
 
 - [Node.js](https://nodejs.org/es/docs/): Node.js es un entorno de ejecución para JavaScript construido con el motor de JavaScript V8 de Chrome.
-
+- [Python Flask](http://flask.pocoo.org/): Flask es un framework minimalista escrito en Python que permite crear aplicaciones web rápidamente. Está basado en la especificación WSGI de Werkzeug y el motor de templates Jinja2.
 #### 3.5.1 Lenguaje de programación
 #### 3.5.2 Framework
 - [Express](https://expressjs.com/es/guide/routing.html): Framework de aplicaciónes web para Node.js
