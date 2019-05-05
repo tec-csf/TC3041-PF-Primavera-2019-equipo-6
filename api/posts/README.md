@@ -56,7 +56,7 @@ Posibles Rutas: /posts/
 ## /post/<string:username>
 - /post/<string:username> Se encarga de traer todos los posts que haya publicado un usuario en específico. Sirve para ver tanto los posts que tú mismo has publicado como los posts que cualquier otro usuario tendría en su perfil. 
 
-	![](/readme_images/posts_username.png)
+	![](/readme_images/user_posts.png)
 
 # Errores
 
