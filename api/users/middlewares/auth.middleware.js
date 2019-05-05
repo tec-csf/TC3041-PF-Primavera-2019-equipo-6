@@ -15,9 +15,34 @@ exports.isAuth = (req, res, next) => {
   let token = req.headers.authorization;
   
   authHelper.validateRequest(token, function(err, tokenDecoded){
-    if (err) return next(err);
+    if (err){
+      let e = new Error("Token de usuario inválido");
+      e.name = "internal"
+      return next(e);
+    }
     res.locals.tokenDecoded = tokenDecoded;
     next();
+  });
+}
+
+exports.validateAuth = (req, res, next) =>{
+  //Revisa si authorization esta en la cabezera
+  if (!req.headers.authorization) {
+    let e = new Error('No tienes permiso para acceder a este contenido');
+    e.name = "forbidden";
+    return next(e);
+  }
+
+  let token = req.headers.authorization;
+  
+  authHelper.validateRequest(token, function(err, tokenDecoded){
+    if (err){
+      let e = new Error("Token de usuario inválido");
+      e.name = "internal"
+      return next(e);
+    }
+    res.locals.tokenDecoded = tokenDecoded;
+    res.status(200).send(res.locals.tokenDecoded);
   });
 }
 /*

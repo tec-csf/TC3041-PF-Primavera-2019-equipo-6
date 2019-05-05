@@ -1,0 +1,28 @@
+{
+  "name": "post_api",
+  "version": "1.0.0",
+  "description": "Post api",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "nodemon app.js",
+    "dev": "DEBUG=dev NODE_ENV=develop nodemon app.js"
+  },
+  "author": "antony999k",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.5",
+    "body-parser": "^1.18.3",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "debug": "^4.1.1",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "helmet": "^3.16.0",
+    "jsonwebtoken": "^8.5.1",
+    "neo4j-driver": "^1.7.3",
+    "node-code-generator": "^1.0.3",
+    "path": "^0.12.7",
+    "request": "^2.88.0"
+  }
+}

@@ -233,6 +233,23 @@ Ruta Desarrollo: http://127.0.0.1:8000/
         }
     }
 
+## Verificar token válido (GET) ![#c5f015](https://placehold.it/15/c5f015/000000?text=+)
+    /auth
+    
+### Header
+    Authorization: $token
+    
+### Body
+    'N/A'
+    
+#### Respuesta esperada
+    {
+        "correo": "lv999k@hotmail.com",
+        "username": "antony999k",
+        "iat": 1557085023,
+        "exp": 1557171423
+    }
+
 
 ## Revisar estado del api (GET) ![#c5f015](https://placehold.it/15/c5f015/000000?text=+)
 /health

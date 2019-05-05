@@ -4,37 +4,22 @@ const express = require('express');
 const router = express.Router();
 //Rutas de controladores
 const globalController = require('../controllers/global.controller');
-const userController = require('../controllers/user.controller');
+const postController = require('../controllers/post.controller');
 //Rutas de helpers
 const errorHelper = require('../helpers/error.helper');
-//Rutas middleware
-const authMiddleware = require('../middlewares/auth.middleware');
 
 module.exports = (() => {
-  // Users =========================================================
-  //Obtiene todos los usuarios de la aplicacion (ADMIN ONLY)
-  router.get('/users', userController.getUsers);
-  //Obtiene un usuario
-  router.get('/user',  userController.getUser);
-  //Registra un usuario en la aplicación
-  router.post('/user', userController.registerUser);
-  //Logea a un usuario entregandole un token único
-  router.post('/user/login', userController.loginUser);
-  //Follow a un usuario
-  router.post('/user/follow', userController.followUser);
-  //Unfollow a un usuario
-  router.delete('/user/follow', userController.unfollowUser);
-  //Regresa los followers de un usuario
-  router.get('/user/:username/followers', userController.getFollowers);
-  //Regresa a cuantos sigue un usuario
-  router.get('/user/:username/following', userController.getFollowing);
-  //Obtiene tu propio usuario a traves del token
-  router.get('/user/me',authMiddleware.isAuth, userController.getMyUser);
-  router.get('/user/:username', userController.getUser);
+  // Posts =========================================================
+  //Crear un post
+  router.post('/post', postController.createPost);
+  //Eliminar un post
 
-  //Authorization =========================================================
-  //Validar token de usuario
-  router.get('/auth', authMiddleware.validateAuth);
+  //Obtener un post
+
+  //Obtener losultimos post disponibles limitado a 30
+  router.get('/posts', postController.getAllPosts);
+  //Obtener un post de un usuario
+
 
   // General =========================================================
   //Maneja /

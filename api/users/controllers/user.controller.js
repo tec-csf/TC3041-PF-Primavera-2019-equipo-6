@@ -73,7 +73,6 @@ exports.getMyUser = (req, res, next) => {
     })
 }
 
-
 //Registrar un usuario ********************************************************************************
 exports.registerUser = (req, res, next) => {
   if (req.body.mail == undefined || req.body.username == undefined || req.body.password == undefined) {
@@ -100,7 +99,7 @@ exports.registerUser = (req, res, next) => {
     }
     Usuario.password = hash;
     //Query inicial
-    let query = 'CREATE (x:User {username:"' + Usuario.username + '",password:"' + Usuario.password + '",mail:"' + Usuario.mail + '",created_at:"' + Usuario.created_at + '",verified:"' + Usuario.verified;
+    let query = 'CREATE (x:User {username:"' + Usuario.username + '",password:"' + Usuario.password + '",mail:"' + Usuario.mail + '",created_at:datetime("' + Usuario.created_at + '"),verified:"' + Usuario.verified;
     if (req.body.name != undefined) {
       Usuario.name = req.body.name;
       query = query + '",name:"' + Usuario.name;
