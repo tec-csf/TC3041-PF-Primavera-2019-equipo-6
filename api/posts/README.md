@@ -46,17 +46,17 @@ Posibles Rutas: /posts/
 
 - /posts/ Se encarga de traer la información de todos los posts existentes. 
 
-	![](/readme_images/all_posts.png)
+	![](readme_images/all_posts.png)
 
 ## /post/<int:id>
 - /post/<int:id> Se encarga de traer la información de un post en específico. Sirve para cuando se quieren ver los detalles del post que alguien más publicó. 
 	
-	![](/readme_images/post_details.png)
+	![](readme_images/post_details.png)
 
 ## /post/<string:username>
 - /post/<string:username> Se encarga de traer todos los posts que haya publicado un usuario en específico. Sirve para ver tanto los posts que tú mismo has publicado como los posts que cualquier otro usuario tendría en su perfil. 
 
-	![](/readme_images/user_posts.png)
+	![](readme_images/user_posts.png)
 
 # Errores
 
