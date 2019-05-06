@@ -1,0 +1,69 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.17.0 (a74acad)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: core2
+  name: core2
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: core2
+    spec:
+      containers:
+      - env:
+        - name: NEO4J_ACCEPT_LICENSE_AGREEMENT
+          value: "yes"
+        - name: NEO4J_AUTH
+          value: neo4j/querty
+        - name: NEO4J_causalClustering_expectedCoreClusterSize
+          value: "3"
+        - name: NEO4J_causalClustering_initialDiscoveryMembers
+          value: core1:5000,core2:5000,core3:5000
+        - name: NEO4J_dbms_connector_bolt_listen__address
+          value: :7688
+        - name: NEO4J_dbms_connector_http_listen__address
+          value: :7475
+        - name: NEO4J_dbms_connector_https_listen__address
+          value: :6478
+        - name: NEO4J_dbms_mode
+          value: CORE
+        image: neo4j:3.3.1-enterprise
+        name: core2
+        ports:
+        - containerPort: 7475
+        - containerPort: 6478
+        - containerPort: 7688
+        resources: {}
+        volumeMounts:
+        - mountPath: /conf
+          name: core2-claim0
+        - mountPath: /data
+          name: core2-claim1
+        - mountPath: /logs
+          name: core2-claim2
+        - mountPath: /plugins
+          name: core2-claim3
+      restartPolicy: Always
+      volumes:
+      - name: core2-claim0
+        persistentVolumeClaim:
+          claimName: core2-claim0
+      - name: core2-claim1
+        persistentVolumeClaim:
+          claimName: core2-claim1
+      - name: core2-claim2
+        persistentVolumeClaim:
+          claimName: core2-claim2
+      - name: core2-claim3
+        persistentVolumeClaim:
+          claimName: core2-claim3
+status: {}
