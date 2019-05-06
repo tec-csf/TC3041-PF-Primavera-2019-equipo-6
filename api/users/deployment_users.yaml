@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-users
+  labels:
+    app: api-users
+spec:
+  selector:
+    matchLabels:
+      app: api-users
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: api-users
+    spec:
+      containers:
+      - name: api-users
+        image: antony999k/colibri_api_users:1
+        ports:
+        - containerPort: 8000
