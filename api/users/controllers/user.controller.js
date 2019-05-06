@@ -12,7 +12,7 @@ const saltRounds = 13; //Numero de veces que se va a hashear la contraseña
 const redis = require('redis')
 
 // create and connect redis client to local instance.
-const client = redis.createClient({ host: 'redis-13513.c114.us-east-1-4.ec2.cloud.redislabs.com', port: 13513, password: '7UNAL22ib5zRVBA4woxGU8YtsPdV1GD4' })
+const client = redis.createClient({ host: process.env.REDIS_HOST, port: process.env.REDIS_PORT, password: process.env.REDIS_PASSWORD })
 // echo redis errors to the console
 client.on('error', (err) => {
   debug("Error " + err)
@@ -25,7 +25,6 @@ exports.getUsers = (req, res, next) => {
   const usersRedisKey = 'users:all';
 
   return client.get(usersRedisKey, (err, data) => {
-
     // If that key exists in Redis store
     if (data) {
       return res.json(JSON.parse(data))
@@ -34,7 +33,7 @@ exports.getUsers = (req, res, next) => {
       .run('MATCH (n:User) RETURN n ')
       .then(function (result) {
         // Save the  API response in Redis store,  data expire time in 3600 seconds, it means one hour
-        client.setex(usersRedisKey, 3600, JSON.stringify(result))
+        client.setex(usersRedisKey, 3600, JSON.stringify(result.records))
         res.status(200).send(result.records);
         session.close();
       })
@@ -77,23 +76,34 @@ exports.getUser = (req, res, next) => {
 
 //Obtener mi usuario ********************************************************************************
 exports.getMyUser = (req, res, next) => {
-  session
-    .run('Match (n:User {username:"' + res.locals.tokenDecoded.username + '"}) RETURN (n)')
-    .then(function (result) {
-      if (result.records.length == 0) {
-        let e = new Error("Usuario no encontrado");
-        e.name = "notFound";
+  // key to store results in Redis store
+  const usersRedisKey = 'users:my' + res.locals.tokenDecoded.username;
+  return client.get(usersRedisKey, (err, data) => {
+    // If that key exists in Redis store
+    if (data) {
+      return res.json(JSON.parse(data))
+    } else { // Key does not exist in Redis store
+      session
+      .run('Match (n:User {username:"' + res.locals.tokenDecoded.username + '"}) RETURN (n)')
+      .then(function (result) {
+        if (result.records.length == 0) {
+          let e = new Error("Usuario no encontrado");
+          e.name = "notFound";
+          return next(e);
+        } else {
+          // Save the  API response in Redis store,  data expire time in 3600 seconds, it means one hour
+          client.setex(usersRedisKey, 3600, JSON.stringify(result.records[0]))
+          res.status(200).send(result.records[0]);
+          session.close();
+        }
+      })
+      .catch(function (error) {
+        let e = new Error(error);
+        e.name = "internalServerError";
         return next(e);
-      } else {
-        res.status(200).send(result.records[0]);
-        session.close();
-      }
-    })
-    .catch(function (error) {
-      let e = new Error(error);
-      e.name = "internalServerError";
-      return next(e);
-    })
+      })
+    }
+  });
 }
 
 //Registrar un usuario ********************************************************************************
