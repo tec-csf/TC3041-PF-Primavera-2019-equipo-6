@@ -20,7 +20,7 @@ services:
       - $HOME/neo4j/neo4j-core1/plugins:/plugins
     environment:
 #      - NEO4J_AUTH=none
-      - NEO4J_AUTH=neo4j/changeme
+      - NEO4J_AUTH=neo4j/querty
       - NEO4J_dbms_mode=CORE
       - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes      
       - NEO4J_causalClustering_expectedCoreClusterSize=3
@@ -43,7 +43,7 @@ services:
       - $HOME/neo4j/neo4j-core2/logs:/logs
       - $HOME/neo4j/neo4j-core1/plugins:/plugins      
     environment:
-      - NEO4J_AUTH=neo4j/changeme
+      - NEO4J_AUTH=neo4j/querty
       - NEO4J_dbms_mode=CORE
       - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes      
       - NEO4J_causalClustering_expectedCoreClusterSize=3
@@ -66,7 +66,7 @@ services:
       - $HOME/neo4j/neo4j-core3/logs:/logs
       - $HOME/neo4j/neo4j-core1/plugins:/plugins
     environment:
-      - NEO4J_AUTH=neo4j/changeme
+      - NEO4J_AUTH=neo4j/querty
       - NEO4J_dbms_mode=CORE
       - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
       - NEO4J_causalClustering_expectedCoreClusterSize=3
@@ -89,7 +89,7 @@ services:
       - $HOME/neo4j/neo4j-read1/logs:/logs
       - $HOME/neo4j/neo4j-core1/plugins:/plugins
     environment:
-      - NEO4J_AUTH=neo4j/changeme
+      - NEO4J_AUTH=neo4j/querty
       - NEO4J_dbms_mode=READ_REPLICA
       - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes      
       - NEO4J_causalClustering_initialDiscoveryMembers=core1:5000,core2:5000,core3:5000
@@ -112,7 +112,7 @@ services:
       - $HOME/neo4j/neo4j-core4/logs:/logs
       - $HOME/neo4j/neo4j-core1/plugins:/plugins
     environment:
-      - NEO4J_AUTH=neo4j/changeme
+      - NEO4J_AUTH=neo4j/querty
       - NEO4J_dbms_mode=CORE
       - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes      
 #      - NEO4J_causalClustering_expectedCoreClusterSize=3
