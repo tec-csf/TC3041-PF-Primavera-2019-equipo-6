@@ -8,20 +8,43 @@ const debug = require('debug')('dev'); //Herramienta para imprimir log en dev mo
 const authHelper = require('../helpers/auth.helper'); //Auth ayuda a gestionar Json Web Tokens (jwt)
 const bcrypt = require('bcrypt'); //Libreria para encriptar las contraseñas de los usuarios
 const saltRounds = 13; //Numero de veces que se va a hashear la contraseña
+//const fetch = require("node-fetch");
+const redis = require('redis')
+
+// create and connect redis client to local instance.
+const client = redis.createClient({ host: 'redis-13513.c114.us-east-1-4.ec2.cloud.redislabs.com', port: 13513, password: '7UNAL22ib5zRVBA4woxGU8YtsPdV1GD4' })
+// echo redis errors to the console
+client.on('error', (err) => {
+  debug("Error " + err)
+});
+
 
 //Obtener todos los Usuarios ********************************************************************************
 exports.getUsers = (req, res, next) => {
-  session
-    .run('MATCH (n:User) RETURN n ')
-    .then(function (result) {
-      res.status(200).send(result.records);
-      session.close();
-    })
-    .catch(function (error) {
-      let e = new Error(error);
-      e.name = "internalServerError";
-      return next(e);
-    })
+  // key to store results in Redis store
+  const usersRedisKey = 'users:all';
+
+  return client.get(usersRedisKey, (err, data) => {
+
+    // If that key exists in Redis store
+    if (data) {
+      return res.json(JSON.parse(data))
+    } else { // Key does not exist in Redis store
+      session
+      .run('MATCH (n:User) RETURN n ')
+      .then(function (result) {
+        // Save the  API response in Redis store,  data expire time in 3600 seconds, it means one hour
+        client.setex(usersRedisKey, 3600, JSON.stringify(result))
+        res.status(200).send(result.records);
+        session.close();
+      })
+      .catch(function (error) {
+        let e = new Error(error);
+        e.name = "internalServerError";
+        return next(e);
+      })
+    }
+  });
 }
 
 //Obtener un usuario ********************************************************************************
@@ -116,7 +139,7 @@ exports.registerUser = (req, res, next) => {
       Usuario.profile_banner_url = req.body.profile_banner_url;
       query = query + '",profile_banner_url:"' + Usuario.profile_banner_url;
     }
-    
+
     query = query + '"})'
     //debug(query);
 
@@ -131,11 +154,11 @@ exports.registerUser = (req, res, next) => {
           token: authHelper.createToken({ "correo": Usuario.correo, "username": Usuario.username })
         });
       }).catch(function (error) {
-        if(error.code == "Neo.ClientError.Schema.ConstraintValidationFailed"){
+        if (error.code == "Neo.ClientError.Schema.ConstraintValidationFailed") {
           let e = new Error("Ya existe un usuario con ese username o correo");
           e.name = "badRequest";
           return next(e);
-        }else{
+        } else {
           let e = new Error(error);
           e.name = "internalServerError";
           return next(e);
@@ -195,7 +218,7 @@ exports.followUser = (req, res, next) => {
   }
 
   session
-    .run('MATCH(n:User {username:"'+req.body.username+'"}),(m:User {username:"'+req.body.usernameTarget+'"}) MERGE (n)-[r:FOLLOWS]->(m)')
+    .run('MATCH(n:User {username:"' + req.body.username + '"}),(m:User {username:"' + req.body.usernameTarget + '"}) MERGE (n)-[r:FOLLOWS]->(m)')
     .then(function (result) {
       if (result.summary.updateStatistics._stats.relationshipsCreated == 0) {
         let e = new Error("No se pudo seguir al usuario, es posible que ya lo sigas");
@@ -252,63 +275,63 @@ exports.unfollowUser = (req, res, next) => {
 }
 
 //Regresa los followers de un usuario ********************************************************************************
-exports.getFollowers = (req, res, next)=>{
+exports.getFollowers = (req, res, next) => {
   session
-  .run('MATCH ()-[r:FOLLOWS]->(n:User {username:"'+req.params.username+'"}) RETURN count(r) as followers')
-  .then(function (result) {
-    res.status(200).send(result.records[0]);
-    session.close();
-  })
-  .catch(function (error) {
-    let e = new Error(error);
-    e.name = "internalServerError";
-    return next(e);
-  })
+    .run('MATCH ()-[r:FOLLOWS]->(n:User {username:"' + req.params.username + '"}) RETURN count(r) as followers')
+    .then(function (result) {
+      res.status(200).send(result.records[0]);
+      session.close();
+    })
+    .catch(function (error) {
+      let e = new Error(error);
+      e.name = "internalServerError";
+      return next(e);
+    })
 }
 
 // Regresa a cuantos sigue un usuario ********************************************************************************
-exports.getFollowing = (req, res, next)=>{
+exports.getFollowing = (req, res, next) => {
   session
-  .run('MATCH ()<-[r:FOLLOWS]-(n:User {username:"'+req.params.username+'"}) RETURN count(r) as followers')
-  .then(function (result) {
-    res.status(200).send(result.records[0]);
-    session.close();
-  })
-  .catch(function (error) {
-    let e = new Error(error);
-    e.name = "internalServerError";
-    return next(e);
-  })
+    .run('MATCH ()<-[r:FOLLOWS]-(n:User {username:"' + req.params.username + '"}) RETURN count(r) as followers')
+    .then(function (result) {
+      res.status(200).send(result.records[0]);
+      session.close();
+    })
+    .catch(function (error) {
+      let e = new Error(error);
+      e.name = "internalServerError";
+      return next(e);
+    })
 }
 
 //Regresa los followers de mi usuario ********************************************************************************
-exports.getMyFollowers = (req, res, next)=>{
+exports.getMyFollowers = (req, res, next) => {
   session
-  .run('MATCH ()-[r:FOLLOWS]->(n:User {username:"'+res.locals.tokenDecoded.username+'"}) RETURN count(r) as followers')
-  .then(function (result) {
-    res.status(200).send(result.records[0]);
-    session.close();
-  })
-  .catch(function (error) {
-    let e = new Error(error);
-    e.name = "internalServerError";
-    return next(e);
-  })
+    .run('MATCH ()-[r:FOLLOWS]->(n:User {username:"' + res.locals.tokenDecoded.username + '"}) RETURN count(r) as followers')
+    .then(function (result) {
+      res.status(200).send(result.records[0]);
+      session.close();
+    })
+    .catch(function (error) {
+      let e = new Error(error);
+      e.name = "internalServerError";
+      return next(e);
+    })
 }
 
 // Regresa a cuantos sigue mi usuario ********************************************************************************
-exports.getMyFollowing = (req, res, next)=>{
+exports.getMyFollowing = (req, res, next) => {
   session
-  .run('MATCH ()<-[r:FOLLOWS]-(n:User {username:"'+res.locals.tokenDecoded.username+'"}) RETURN count(r) as followers')
-  .then(function (result) {
-    res.status(200).send(result.records[0]);
-    session.close();
-  })
-  .catch(function (error) {
-    let e = new Error(error);
-    e.name = "internalServerError";
-    return next(e);
-  })
+    .run('MATCH ()<-[r:FOLLOWS]-(n:User {username:"' + res.locals.tokenDecoded.username + '"}) RETURN count(r) as followers')
+    .then(function (result) {
+      res.status(200).send(result.records[0]);
+      session.close();
+    })
+    .catch(function (error) {
+      let e = new Error(error);
+      e.name = "internalServerError";
+      return next(e);
+    })
 }
 
 /*
