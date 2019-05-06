@@ -29,5 +29,7 @@ export class Usuario{
       this.profile_banner_url = "";
       this.profile_img_url = "";
     }*/
+    constructor(){
+    }
   
   }

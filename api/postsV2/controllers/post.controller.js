@@ -119,7 +119,7 @@ exports.getFeedPosts = (req, res, next) =>{
         request(options, function (error, response, body) {
             if (!error && response.statusCode == 200 || response.statusCode == 201) {
                 session
-                .run('MATCH (u:User {username:"'+ JSON.parse(body).username  +'"})-[r:FOLLOWS]->(u2:User)-[:CREATED]->(p:Post) RETURN p.text, p.created_at, u2.username, u2.name, u2.profile_img_url')
+                .run('MATCH (u:User {username:"'+ JSON.parse(body).username  +'"})-[r:FOLLOWS]->(u2:User)-[:CREATED]->(p:Post) RETURN p.text, p.created_at, u2.username, u2.name, u2.profile_img_url ORDER BY p.created_at DESC')
                 .then(function (result) {
                     if(result.records.length == 0){
                         let e = new Error(JSON.parse(body).username  + " No sigue a ninguna cuenta con posts");
@@ -165,7 +165,7 @@ exports.getPost = (req, res, next) => {
 //Obtener un posts de un usuario ********************************************************************************
 exports.getUserPosts = (req, res, next) => {
     session
-    .run('MATCH(u:User)-[:CREATED]->(n:Post) WHERE u.username ="'+ req.params.username +'" RETURN n.text, n.created_at, u.username, u.name, u.profile_img_url')
+    .run('MATCH(u:User)-[:CREATED]->(n:Post) WHERE u.username ="'+ req.params.username +'" RETURN n.text, n.created_at, u.username, u.name, u.profile_img_url ORDER BY n.created_at DESC')
     .then(function (result) {
         if(result.records.length == 0){
             let e = new Error(req.params.username + " No existe o no tiene ningún post");
@@ -198,7 +198,7 @@ exports.getMyPosts = (req, res, next) => {
         request(options, function (error, response, body) {
             if (!error && response.statusCode == 200 || response.statusCode == 201) {
                 session
-                .run('MATCH(u:User)-[:CREATED]->(n:Post) WHERE u.username ="'+ JSON.parse(body).username +'" RETURN n.text, n.created_at, u.username, u.name, u.profile_img_url')
+                .run('MATCH(u:User)-[:CREATED]->(n:Post) WHERE u.username ="'+ JSON.parse(body).username +'" RETURN n.text, n.created_at, u.username, u.name, u.profile_img_url ORDER BY n.created_at DESC')
                 .then(function (result) {
                     if(result.records.length == 0){
                         let e = new Error(JSON.parse(body).username + " No existe o no tiene ningún post");

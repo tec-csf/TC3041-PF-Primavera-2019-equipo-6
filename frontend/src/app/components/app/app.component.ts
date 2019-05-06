@@ -14,6 +14,7 @@ export class AppComponent {
   title = 'Colibrí';
   showHeader: boolean = true;
   showFooter: boolean = true;
+  showCreatePost: boolean = true;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
 
@@ -35,6 +36,11 @@ export class AppComponent {
       this.showHeader = options.header;
     } else {
       this.showHeader = true;
+    }
+    if((typeof options.createPost) == 'boolean'){
+      this.showCreatePost = options.createPost;
+    }else{
+      this.showCreatePost = true;
     }
   }
 }

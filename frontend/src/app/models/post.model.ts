@@ -5,4 +5,8 @@ export class Post{
     public username: string;
     public name: string;
     public profile_img_url: string;
+    
+    constructor(){
+    }
   }
+  

@@ -25,6 +25,7 @@ import { LoginComponent } from './components/login/login.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { NotFoundComponent } from './components/notFound/notFound.component';
 import { PostsComponent } from './templates/posts/posts.component';
+import { CreatePostComponent } from './templates/create-post/create-post.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { PostsComponent } from './templates/posts/posts.component';
     TrendingComponent,
     RegisterComponent,
     LoginComponent,
-    PostsComponent
+    PostsComponent,
+    CreatePostComponent
   ],
   imports: [
     BrowserModule,

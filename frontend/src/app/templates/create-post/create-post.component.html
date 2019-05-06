@@ -1,0 +1,13 @@
+<button class="createPostButton" (click)="changeValue(isOpen)">
+  Abrir modal
+</button>
+
+<div class="createPost" *ngIf="isOpen">
+  <div class="createPostInner">
+    <button (click)="changeValue(isOpen)">Cerrar</button>
+      <form class="formPost" [formGroup]="postForm" (ngSubmit)="onSubmit()">
+          <textarea name="textarea" rows="10" cols="50" placeholder="¿Qué estás pensando?" formControlName="text"></textarea>
+          <button *ngIf="!isLoading">Compartir</button>
+        </form>
+  </div>
+</div>
