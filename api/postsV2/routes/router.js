@@ -10,14 +10,16 @@ const errorHelper = require('../helpers/error.helper');
 
 module.exports = (() => {
   // Posts =========================================================
+  //Obtener los posts de usuarios a los que sigue un usuario
+  router.get('/posts/feed', postController.getFeedPosts);
   //Crear un post
   router.post('/post', postController.createPost);
   //Eliminar un post
   router.delete('/post', postController.deletePost);
   //Obtener losultimos post disponibles limitado a 30
   router.get('/posts/latest', postController.getAllPosts);
-  //Obtener los posts de usuarios a los que sigue un usuario
-  router.get('/posts/:username/feed', postController.getFeedPosts);
+  // Obtener un posts de mi usuario
+  router.get('/posts/me',postController.getMyPosts);
   //Obtener un post por su id
   router.get('/post/:id', postController.getPost);
   //Obtener un posts de un usuario

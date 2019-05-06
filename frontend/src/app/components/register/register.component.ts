@@ -8,7 +8,6 @@ import { Usuario } from '../../models/user.model';
 import { AuthService } from '../../services/authentication.service';
 
 @Component({
-  selector: 'registerView',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
   providers: [AuthService]

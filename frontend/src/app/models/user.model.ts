@@ -7,7 +7,7 @@ export class Usuario{
     public description: string;
     public verified: boolean;
     public created_at: Date;
-    public birthday: DataCue;
+    public birthday: Date;
     public lang: string;
     public profile_banner_url: string;
     public profile_img_url: string;

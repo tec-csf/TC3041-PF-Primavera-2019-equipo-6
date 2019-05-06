@@ -8,7 +8,6 @@ import { Usuario } from '../../models/user.model';
 import { AuthService } from '../../services/authentication.service';
 
 @Component({
-  selector: 'loginView',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   providers: [AuthService]

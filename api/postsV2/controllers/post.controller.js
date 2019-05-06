@@ -60,21 +60,32 @@ exports.deletePost = (req, res, next) => {
         e.name = "badRequest";
         return next(e);
     }
-    session
-        .run('MATCH(u:Post) where ID(u)=' + req.body.id + ' DETACH DELETE(u)')
-        .then(function (result) {
-            res.status(200).send({
-                status: 200,
-                name: 'OK',
-                customMessage: 'El post fue eliminado con éxito',
-                message: 'OK'
-            });
-            session.close();
-        })
-        .catch(function (error) {
-            let e = new Error(error);
-            e.name = "internalServerError";
-            return next(e);
+        //Auth token de usuario
+        let options = {
+            url: 'http://localhost:8000/auth',
+            headers: { 'Authorization': req.headers.authorization }
+        };
+        request(options, function (error, response, body) {
+            if (!error && response.statusCode == 200 || response.statusCode == 201) {
+                session
+                .run('MATCH(u:Post) where ID(u)=' + req.body.id + ' DETACH DELETE(u)')
+                .then(function (result) {
+                    res.status(200).send({
+                        status: 200,
+                        name: 'OK',
+                        customMessage: 'El post fue eliminado con éxito',
+                        message: 'OK'
+                    });
+                    session.close();
+                })
+                .catch(function (error) {
+                    let e = new Error(error);
+                    e.name = "internalServerError";
+                    return next(e);
+                })
+            } else {
+                res.status(response.statusCode).send(JSON.parse(body))
+            }
         })
 }
 
@@ -95,23 +106,39 @@ exports.getAllPosts = (req, res, next) => {
 
 //Obtener los posts de usuarios a los que sigue un usuario ********************************************************************************
 exports.getFeedPosts = (req, res, next) =>{
-    session
-    .run('MATCH (u:User {username:"'+ req.params.username +'"})-[r:FOLLOWS]->(u2:User)-[:CREATED]->(p:Post) return p')
-    .then(function (result) {
-        if(result.records.length == 0){
-            let e = new Error(req.params.username + " No sigue a ninguna cuenta con posts");
-            e.name = "notFound";
-            return next(e);
-        }else{
-            res.status(200).send(result.records);
-            session.close();
-        }
-    })
-    .catch(function (error) {
-      let e = new Error(error);
-      e.name = "internalServerError";
-      return next(e);
-    })
+    if (!req.headers.authorization) {
+        let e = new Error('No tienes permiso para eliminar posts');
+        e.name = "unautorized";
+        return next(e);
+    }
+        //Auth token de usuario
+        let options = {
+            url: 'http://localhost:8000/auth',
+            headers: { 'Authorization': req.headers.authorization }
+        };
+        request(options, function (error, response, body) {
+            if (!error && response.statusCode == 200 || response.statusCode == 201) {
+                session
+                .run('MATCH (u:User {username:"'+ JSON.parse(body).username  +'"})-[r:FOLLOWS]->(u2:User)-[:CREATED]->(p:Post) RETURN p.text, p.created_at, u2.username, u2.name, u2.profile_img_url')
+                .then(function (result) {
+                    if(result.records.length == 0){
+                        let e = new Error(JSON.parse(body).username  + " No sigue a ninguna cuenta con posts");
+                        e.name = "notFound";
+                        return next(e);
+                    }else{
+                        res.status(200).send(result.records);
+                        session.close();
+                    }
+                })
+                .catch(function (error) {
+                  let e = new Error(error);
+                  e.name = "internalServerError";
+                  return next(e);
+                })
+            } else {
+                res.status(response.statusCode).send(JSON.parse(body))
+            }
+        })
 }
 
 //Obtener un post por su id ********************************************************************************
@@ -154,6 +181,43 @@ exports.getUserPosts = (req, res, next) => {
       e.name = "internalServerError";
       return next(e);
     })
+}
+
+//Obtener un posts de mi usuario ********************************************************************************
+exports.getMyPosts = (req, res, next) => {
+    if (!req.headers.authorization) {
+        let e = new Error('No tienes permiso para eliminar posts');
+        e.name = "unautorized";
+        return next(e);
+    }
+        //Auth token de usuario
+        let options = {
+            url: 'http://localhost:8000/auth',
+            headers: { 'Authorization': req.headers.authorization }
+        };
+        request(options, function (error, response, body) {
+            if (!error && response.statusCode == 200 || response.statusCode == 201) {
+                session
+                .run('MATCH(u:User)-[:CREATED]->(n:Post) WHERE u.username ="'+ JSON.parse(body).username +'" RETURN n.text, n.created_at, u.username, u.name, u.profile_img_url')
+                .then(function (result) {
+                    if(result.records.length == 0){
+                        let e = new Error(JSON.parse(body).username + " No existe o no tiene ningún post");
+                        e.name = "notFound";
+                        return next(e);
+                    }else{
+                        res.status(200).send(result.records);
+                        session.close();
+                    }
+                })
+                .catch(function (error) {
+                  let e = new Error(error);
+                  e.name = "internalServerError";
+                  return next(e);
+                })
+            } else {
+                res.status(response.statusCode).send(JSON.parse(body))
+            }
+        })
 }
 
 //Likear un post ********************************************************************************

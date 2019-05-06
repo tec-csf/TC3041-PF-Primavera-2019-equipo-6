@@ -1,3 +1,4 @@
 export class Config{
-  public static dbURL = 'http://localhost:8000';
+  public static apiUserUrl = 'http://localhost:8000';
+  public static apiPostUrl = 'http://localhost:8001';
 }

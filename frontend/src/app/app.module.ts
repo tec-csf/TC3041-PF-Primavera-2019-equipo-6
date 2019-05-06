@@ -9,6 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 //services
 import { AuthService } from './services/authentication.service';
+import { UserService } from './services/user.service';
+import { PostService } from './services/post.service';
 
 //Componentes Unicos
 import { AppComponent } from './components/app/app.component';
@@ -22,6 +24,7 @@ import { LoginComponent } from './components/login/login.component';
 //Componentes Semi-globlaes
 import { MenuComponent } from './components/menu/menu.component';
 import { NotFoundComponent } from './components/notFound/notFound.component';
+import { PostsComponent } from './templates/posts/posts.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,8 @@ import { NotFoundComponent } from './components/notFound/notFound.component';
     ProfileComponent,
     TrendingComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    PostsComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +50,7 @@ import { NotFoundComponent } from './components/notFound/notFound.component';
     HttpClientModule,
     RouterModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, UserService, PostService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

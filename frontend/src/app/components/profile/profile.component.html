@@ -1,40 +1,47 @@
 <div class="profile">
-    <div class="profileHeader"></div>
+    <div class="profileTop">
+        <div class="profileHeader"></div>
 
-    <div class="profilePic">
-        <div class="profilePicCircle">
-            <img *ngIf=!usuario.profile_img_url src="./assets/images/profileTemporal/profile_0.jpg" alt="profilePic">
-            <img *ngIf=usuario.profile_img_url src="./assets/images/profileTemporal/{{ usuario.profile_img_url }}" alt="profilePic">
+        <div class="profilePic">
+            <div class="profilePicCircle">
+                <img *ngIf=!usuario.profile_img_url src="./assets/images/profileTemporal/profile_0.jpg"
+                    alt="profilePic">
+                <img *ngIf=usuario.profile_img_url src="./assets/images/profileTemporal/{{ usuario.profile_img_url }}"
+                    alt="profilePic">
+            </div>
+
+            <div>
+                <h2 class="profileInfoName">{{ usuario.name }}</h2>
+                <p class="profileInfoUsername">@{{ usuario.username }}</p>
+            </div>
         </div>
 
-        <div>
-            <h2 class="profileInfoName">{{ usuario.name }}</h2>
-            <p class="profileInfoUsername">@{{ usuario.username }}</p>
+        <div class="profileInfo">
+            <div class="profileInfoInner">
+                <div class="profileInfoInnerStat">
+                    <span>821</span>
+                    <p>Posts</p>
+                </div>
+
+                <div class="profileInfoInnerStat">
+                    <span>{{ usuario.followers }}</span>
+                    <p>Seguidores</p>
+                </div>
+
+                <div class="profileInfoInnerStat">
+                    <span>{{ usuario.following }}</span>
+                    <p>Seguidos</p>
+                </div>
+
+                <div class="profileInfoInnerStat">
+                    <span>218</span>
+                    <p>Favoritos</p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="profileInfo">
-        <div class="profileInfoInner">
-            <div class="profileInfoInnerStat">
-                <span>821</span>
-                <p>Posts</p>
-            </div>
+    <app-posts postsTitle="Mis posts" component="profile"></app-posts>
 
-            <div class="profileInfoInnerStat">
-                <span>{{ usuario.followers }}</span>
-                <p>Seguidores</p>
-            </div>
-
-            <div class="profileInfoInnerStat">
-                <span>{{ usuario.following }}</span>
-                <p>Seguidos</p>
-            </div>
-
-            <div class="profileInfoInnerStat">
-                <span>218</span>
-                <p>Favoritos</p>
-            </div>
-        </div>
-    </div>
 
 </div>

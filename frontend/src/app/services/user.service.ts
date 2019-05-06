@@ -8,15 +8,16 @@ import { Usuario } from '../models/user.model';
 
 @Injectable()
 export class UserService {
-  public configObservable = new Subject<boolean>();
   public token: string;
+  private apiUrl: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.apiUrl = Config.apiUserUrl;
+  }
 
   getUser(username: string) {
-    console.log()
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.get(Config.dbURL + '/user/' + username, httpOptions)
+    return this.http.get(this.apiUrl + '/user/' + username, httpOptions)
       .pipe(/*catchError(err => {
       console.log("Next Error is handled: ");
       console.error(err.message);
@@ -29,7 +30,7 @@ export class UserService {
   getMyUser() {
     let token:string = localStorage.getItem("token_colibri");
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization':token }) };
-    return this.http.get(Config.dbURL + '/user/me', httpOptions)
+    return this.http.get(this.apiUrl + '/user/me', httpOptions)
       .pipe(/*catchError(err => {
       console.log("Next Error is handled: ");
       console.error(err.message);
@@ -41,7 +42,7 @@ export class UserService {
 
   getFollowers(username: string) {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.get(Config.dbURL + '/user/' + username + '/followers', httpOptions)
+    return this.http.get(this.apiUrl + '/user/' + username + '/followers', httpOptions)
       .pipe(/*catchError(err => {
       console.log("Next Error is handled: ");
       console.error(err.message);
@@ -53,7 +54,7 @@ export class UserService {
 
   getFollowing(username: string) {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.get(Config.dbURL + '/user/' + username + '/following', httpOptions)
+    return this.http.get(this.apiUrl + '/user/' + username + '/following', httpOptions)
       .pipe(/*catchError(err => {
       console.log("Next Error is handled: ");
       console.error(err.message);

@@ -12,15 +12,17 @@ export class AuthService {
   public configObservable = new Subject<boolean>();
   public token: string;
   private isLoaded: Boolean;
+  private apiUrl: string;
 
   constructor(private http: HttpClient) {
     //this.dbURL = Config.dbURL;
     this.isLoaded = false;
+    this.apiUrl = Config.apiUserUrl;
   }
 
   health() {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.get(Config.dbURL + '/health', httpOptions)
+    return this.http.get(this.apiUrl + '/health', httpOptions)
       .pipe(/*catchError(err => {
       console.log("Next Error is handled: ");
       console.error(err.message);
@@ -36,7 +38,7 @@ export class AuthService {
 
   login(usuario: Usuario) {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.post(Config.dbURL + '/user/login', usuario, httpOptions)
+    return this.http.post(this.apiUrl + '/user/login', usuario, httpOptions)
       .pipe(/*catchError(err => {
       console.log("Next Error is handled: ");
       console.error(err.message);
@@ -68,7 +70,7 @@ export class AuthService {
 
   register(usuario: Usuario) {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.post(Config.dbURL + '/user', usuario, httpOptions)
+    return this.http.post(this.apiUrl + '/user', usuario, httpOptions)
       .pipe(/*catchError(err => {
       console.log("Next Error is handled: ");
       console.error(err.message);
