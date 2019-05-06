@@ -28,7 +28,10 @@ module.exports = (() => {
   router.post('/post/:id/like', postController.likePost);
   //Deslikear un post
   router.delete('/post/:id/like', postController.dislikePost);
-
+  //Obtener numero de post de mi usuario
+  router.get('/posts_n/me', postController.getMyPostsNumber);
+  //Obtener numero de post de un usuario
+  router.get('/posts_n/:username', postController.getPostsNumber);
 
   // General =========================================================
   //Maneja /

@@ -76,4 +76,29 @@ export class PostService {
         return res;
       }));
   }
+
+  getPostNumber(username: string){
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.get(this.apiUrl + '/posts_n/' + username, httpOptions)
+      .pipe(/*catchError(err => {
+          console.log("Next Error is handled: ");
+          console.error(err.message);
+          return err;
+        }),*/map(res => {
+        return res;
+      }));
+  }
+
+  getMyPostNumber(){
+    let token: string = localStorage.getItem("token_colibri");
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', "Authorization": token }) };
+    return this.http.get(this.apiUrl + '/posts_n/me', httpOptions)
+      .pipe(/*catchError(err => {
+          console.log("Next Error is handled: ");
+          console.error(err.message);
+          return err;
+        }),*/map(res => {
+        return res;
+      }));
+  }
 }

@@ -19,17 +19,20 @@
         <div class="profileInfo">
             <div class="profileInfoInner">
                 <div class="profileInfoInnerStat">
-                    <span>821</span>
+                    <span *ngIf=usuario.posts>{{ usuario.posts }}</span>
+                    <span *ngIf=!usuario.posts>0</span>
                     <p>Posts</p>
                 </div>
 
                 <div class="profileInfoInnerStat">
-                    <span>{{ usuario.followers }}</span>
+                    <span *ngIf=usuario.followers>{{ usuario.followers }}</span>
+                    <span *ngIf=!usuario.followers>0</span>
                     <p>Seguidores</p>
                 </div>
 
                 <div class="profileInfoInnerStat">
-                    <span>{{ usuario.following }}</span>
+                    <span *ngIf=usuario.following>{{ usuario.following }}</span>
+                    <span *ngIf=!usuario.following>0</span>
                     <p>Seguidos</p>
                 </div>
 

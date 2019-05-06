@@ -182,15 +182,8 @@ exports.getPost = (req, res, next) => {
 
 //Obtener un posts de un usuario ********************************************************************************
 exports.getUserPosts = (req, res, next) => {
-      // key to store results in Redis store
-  const usersRedisKey = 'posts:'+req.params.username;
-
-  return client.get(usersRedisKey, (err, data) => {
-    // If that key exists in Redis store
-    if (data) {
-      return res.json(JSON.parse(data))
-    } else { // Key does not exist in Redis store
-        session
+    // key to store results in Redis store
+    session
         .run('MATCH(u:User)-[:CREATED]->(n:Post) WHERE u.username ="' + req.params.username + '" RETURN n.text, n.created_at, u.username, u.name, u.profile_img_url ORDER BY n.created_at DESC')
         .then(function (result) {
             if (result.records.length == 0) {
@@ -198,7 +191,7 @@ exports.getUserPosts = (req, res, next) => {
                 e.name = "notFound";
                 return next(e);
             } else {
-                client.setex(usersRedisKey, 3600, JSON.stringify(result.records))
+
                 res.status(200).send(result.records);
                 session.close();
             }
@@ -208,8 +201,6 @@ exports.getUserPosts = (req, res, next) => {
             e.name = "internalServerError";
             return next(e);
         })
-    }
-  });
 }
 
 //Obtener un posts de mi usuario ********************************************************************************
@@ -219,45 +210,35 @@ exports.getMyPosts = (req, res, next) => {
         e.name = "unautorized";
         return next(e);
     }
-    const usersRedisKey = 'posts:me' + req.headers.authorization;
-
-    return client.get(usersRedisKey, (err, data) => {
-      // If that key exists in Redis store
-      if (data) {
-        return res.json(JSON.parse(data))
-      } else { // Key does not exist in Redis store
     //Auth token de usuario
     let options = {
         url: 'http://localhost:8000/auth',
         headers: { 'Authorization': req.headers.authorization }
     };
+
     request(options, function (error, response, body) {
         if (!error && response.statusCode == 200 || response.statusCode == 201) {
             session
-                .run('MATCH(u:User)-[:CREATED]->(n:Post) WHERE u.username ="' + JSON.parse(body).username + '" RETURN n.text, n.created_at, u.username, u.name, u.profile_img_url ORDER BY n.created_at DESC')
-                .then(function (result) {
-                    if (result.records.length == 0) {
-                        let e = new Error(JSON.parse(body).username + " No existe o no tiene ningún post");
-                        e.name = "notFound";
-                        return next(e);
-                    } else {
-                        // Save the  API response in Redis store,  data expire time in 3600 seconds, it means one hour
-                        client.setex(usersRedisKey, 3600, JSON.stringify(result.records))
-                        res.status(200).send(result.records);
-                        session.close();
-                    }
-                })
-                .catch(function (error) {
-                    let e = new Error(error);
-                    e.name = "internalServerError";
+            .run('MATCH(u:User)-[:CREATED]->(n:Post) WHERE u.username ="' + JSON.parse(body).username + '" RETURN n.text, n.created_at, u.username, u.name, u.profile_img_url ORDER BY n.created_at DESC')
+            .then(function (result) {
+                if (result.records.length == 0) {
+                    let e = new Error(JSON.parse(body).username + " No existe o no tiene ningún post");
+                    e.name = "notFound";
                     return next(e);
-                })
+                } else {
+                    res.status(200).send(result.records);
+                    session.close();
+                }
+            })
+            .catch(function (error) {
+                let e = new Error(error);
+                e.name = "internalServerError";
+                return next(e);
+            })
         } else {
             res.status(response.statusCode).send(JSON.parse(body))
         }
     })
-      }
-    });
 }
 
 //Likear un post ********************************************************************************
@@ -331,6 +312,50 @@ exports.dislikePost = (req, res, next) => {
                             message: 'Recurso creado'
                         });
                     }
+                    session.close();
+                })
+                .catch(function (error) {
+                    let e = new Error(error);
+                    e.name = "internalServerError";
+                    return next(e);
+                })
+        } else {
+            res.status(response.statusCode).send(JSON.parse(body))
+        }
+    })
+}
+
+exports.getPostsNumber = (req, res, next) => {
+    session
+        .run('MATCH(:User {username:"' + req.params.username + '"})-[:CREATED]->(p:Post) RETURN count(p) as posts')
+        .then(function (result) {
+            res.status(201).send(result.records[0]);
+            session.close();
+        })
+        .catch(function (error) {
+            let e = new Error(error);
+            e.name = "internalServerError";
+            return next(e);
+        })
+}
+
+exports.getMyPostsNumber = (req, res, next) => {
+    if (!req.headers.authorization) {
+        let e = new Error('No tienes permiso para quitar me gusta');
+        e.name = "unautorized";
+        return next(e);
+    }
+    //Auth token de usuario
+    let options = {
+        url: 'http://localhost:8000/auth',
+        headers: { 'Authorization': req.headers.authorization }
+    };
+    request(options, function (error, response, body) {
+        if (!error && response.statusCode == 200 || response.statusCode == 201) {
+            session
+                .run('MATCH(:User {username:"' + JSON.parse(body).username + '"})-[:CREATED]->(p:Post) RETURN count(p) as posts')
+                .then(function (result) {
+                    res.status(201).send(result.records[0]);
                     session.close();
                 })
                 .catch(function (error) {
