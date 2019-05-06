@@ -36,6 +36,7 @@ export class PostsComponent implements OnInit {
     switch (this.component) {
       case "home": this.getFeedPosts(); break;
       case "profile": this.getUserPosts(); break;
+      case "trending": this.getTrendingPosts(); break;
       default: console.error("Posts widget debe tener como parametro el nombre del componente"); break;
     }
   }
@@ -45,7 +46,7 @@ export class PostsComponent implements OnInit {
     this.currentPostSubscription = this.postService.getFeedPosts().
       subscribe(postsReturn => {
         this.posts = postsReturn
-        console.log(this.posts)
+        //console.log(this.posts)
         this.isloading = false;
       }, err => {
         console.error(err);
@@ -78,6 +79,20 @@ export class PostsComponent implements OnInit {
         this.isloading = false;
       }/*,() => console.log('Observer got a complete notification')*/)
     }
+  }
+
+  getTrendingPosts(){
+    this.isloading = true;
+    this.currentPostSubscription = this.postService.getTrendingPosts().
+      subscribe(postsReturn => {
+        this.posts = postsReturn
+        //console.log(this.posts)
+        this.isloading = false;
+      }, err => {
+        console.error(err);
+        this.suscriptionError = true;
+        this.isloading = false;
+      }/*,() => console.log('Observer got a complete notification')*/)
   }
 
 }

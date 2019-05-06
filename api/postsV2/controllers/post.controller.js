@@ -237,7 +237,6 @@ exports.likePost = (req, res, next) => {
             session
                 .run('MATCH(n:User {username:"'+ JSON.parse(body).username +'"}),(m:Post) WHERE ID(m) = '+ req.params.id +' MERGE (n)-[r:LIKES]->(m)')
                 .then(function (result) {
-                    console.log(result)
                     if(result.summary.counters._stats.relationshipsCreated == 0){
                         let e = new Error("El post no existe o ya fue likeado");
                         e.name = "conflict";

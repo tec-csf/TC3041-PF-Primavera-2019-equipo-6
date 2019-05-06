@@ -24,6 +24,10 @@ module.exports = (() => {
   router.post('/user/follow', authMiddleware.isAuth, userController.followUser);
   //Unfollow a un usuario
   router.delete('/user/follow', authMiddleware.isAuth, userController.unfollowUser);
+    //Regresa los followers de mi usuario
+    router.get('/user/me/followers', authMiddleware.isAuth, userController.getMyFollowers);
+    //Regresa a cuantos sigue mi usuario
+    router.get('/user/me/following', authMiddleware.isAuth, userController.getMyFollowing);
   //Regresa los followers de un usuario
   router.get('/user/:username/followers', userController.getFollowers);
   //Regresa a cuantos sigue un usuario

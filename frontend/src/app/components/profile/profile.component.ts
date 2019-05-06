@@ -95,40 +95,78 @@ export class ProfileComponent implements OnInit{
   }
 
   getFollowers(){
-    this.isLoadingGetFollowers = true;
-    this.currentUserSubscription = this.userService.getFollowers(this.usernameRoute).
-    subscribe(userReturn =>{
-      let userReturnJson:any = userReturn
-      if(userReturnJson._fields){
-        this.usuario.followers = userReturnJson._fields[0].low;
-      }else{
-        this.usuario.followers = 0;
-      }
-      this.isLoadingGetFollowers = false;
-    },err => {
-      console.error(err);
-      this.suscriptionError = true;
-      this.isLoadingGetFollowers = false;
-      this.suscriptionErrorMsj = err;
-    }/*,() => console.log('Observer got a complete notification')*/)
+    if(this.usernameRoute == null || this.usernameRoute == undefined){
+      this.isLoadingGetFollowers = true;
+      this.currentUserSubscription = this.userService.getMyFollowers().
+      subscribe(userReturn =>{
+        let userReturnJson:any = userReturn
+        if(userReturnJson._fields){
+          this.usuario.followers = userReturnJson._fields[0].low;
+        }else{
+          this.usuario.followers = 0;
+        }
+        this.isLoadingGetFollowers = false;
+      },err => {
+        console.error(err);
+        this.suscriptionError = true;
+        this.isLoadingGetFollowers = false;
+        this.suscriptionErrorMsj = err;
+      }/*,() => console.log('Observer got a complete notification')*/)
+    }else{
+      this.isLoadingGetFollowers = true;
+      this.currentUserSubscription = this.userService.getFollowers(this.usernameRoute).
+      subscribe(userReturn =>{
+        let userReturnJson:any = userReturn
+        if(userReturnJson._fields){
+          this.usuario.followers = userReturnJson._fields[0].low;
+        }else{
+          this.usuario.followers = 0;
+        }
+        this.isLoadingGetFollowers = false;
+      },err => {
+        console.error(err);
+        this.suscriptionError = true;
+        this.isLoadingGetFollowers = false;
+        this.suscriptionErrorMsj = err;
+      }/*,() => console.log('Observer got a complete notification')*/)
+    }
   }
 
   getFollowing(){
-    this.isLoadingGetFollowing = true;
-    this.currentUserSubscription = this.userService.getFollowing(this.usernameRoute).
-    subscribe(userReturn =>{
-      let userReturnJson:any = userReturn
-      if(userReturnJson._fields){
-        this.usuario.following = userReturnJson._fields[0].low;
-      }else{
-        this.usuario.following = 0;
-      }
-      this.isLoadingGetFollowing = false;
-    },err => {
-      console.error(err);
-      this.suscriptionError = true;
-      this.isLoadingGetFollowing = false;
-      this.suscriptionErrorMsj = err;
-    }/*,() => console.log('Observer got a complete notification')*/)
+    if(this.usernameRoute == null || this.usernameRoute == undefined){
+      this.isLoadingGetFollowing = true;
+      this.currentUserSubscription = this.userService.getMyFollowing().
+      subscribe(userReturn =>{
+        let userReturnJson:any = userReturn
+        if(userReturnJson._fields){
+          this.usuario.following = userReturnJson._fields[0].low;
+        }else{
+          this.usuario.following = 0;
+        }
+        this.isLoadingGetFollowing = false;
+      },err => {
+        console.error(err);
+        this.suscriptionError = true;
+        this.isLoadingGetFollowing = false;
+        this.suscriptionErrorMsj = err;
+      }/*,() => console.log('Observer got a complete notification')*/)
+    }else{
+      this.isLoadingGetFollowing = true;
+      this.currentUserSubscription = this.userService.getFollowing(this.usernameRoute).
+      subscribe(userReturn =>{
+        let userReturnJson:any = userReturn
+        if(userReturnJson._fields){
+          this.usuario.following = userReturnJson._fields[0].low;
+        }else{
+          this.usuario.following = 0;
+        }
+        this.isLoadingGetFollowing = false;
+      },err => {
+        console.error(err);
+        this.suscriptionError = true;
+        this.isLoadingGetFollowing = false;
+        this.suscriptionErrorMsj = err;
+      }/*,() => console.log('Observer got a complete notification')*/)
+    }
   }
 }

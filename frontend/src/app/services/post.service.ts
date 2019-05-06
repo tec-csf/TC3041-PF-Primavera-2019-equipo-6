@@ -39,7 +39,7 @@ export class PostService {
       }));
   }
 
-  getMyPosts(username: string) {
+  getMyPosts() {
     let token: string = localStorage.getItem("token_colibri");
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', "Authorization": token }) };
     return this.http.get(this.apiUrl + '/posts/me', httpOptions)
@@ -61,6 +61,18 @@ export class PostService {
     console.error(err.message);
     return err;
   }),*/map(res => {
+        return res;
+      }));
+  }
+
+  getTrendingPosts(){
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.get(this.apiUrl + '/posts/latest', httpOptions)
+      .pipe(/*catchError(err => {
+          console.log("Next Error is handled: ");
+          console.error(err.message);
+          return err;
+        }),*/map(res => {
         return res;
       }));
   }

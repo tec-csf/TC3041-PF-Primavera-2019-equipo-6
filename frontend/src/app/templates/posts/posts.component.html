@@ -10,12 +10,12 @@
     <article>
       <div class="postCardInner" *ngIf="posts">
         <div class="postCardImage">
-          <img src="./assets/images/profileTemporal/{{post._fields[4]}}" alt="profilePic">
+          <a routerLink="/perfil/{{post._fields[2]}}"><img src="./assets/images/profileTemporal/{{post._fields[4]}}" alt="profilePic"></a>
         </div>
         <div class="postCardInfo">
           <div class="postCardInfoTop">
             <h2 class="postCardInfoTopName" *ngIf="post._fields[3]">{{post._fields[3]}}</h2>
-            <p class="postCardInfoTopUsername">@{{post._fields[2]}}</p>
+            <a routerLink="/perfil/{{post._fields[2]}}"><p class="postCardInfoTopUsername">@{{post._fields[2]}}</p></a>
 
           </div>
           <div class="postCardInfoText">

@@ -251,6 +251,7 @@ exports.unfollowUser = (req, res, next) => {
     })
 }
 
+//Regresa los followers de un usuario ********************************************************************************
 exports.getFollowers = (req, res, next)=>{
   session
   .run('MATCH ()-[r:FOLLOWS]->(n:User {username:"'+req.params.username+'"}) RETURN count(r) as followers')
@@ -265,9 +266,40 @@ exports.getFollowers = (req, res, next)=>{
   })
 }
 
+// Regresa a cuantos sigue un usuario ********************************************************************************
 exports.getFollowing = (req, res, next)=>{
   session
   .run('MATCH ()<-[r:FOLLOWS]-(n:User {username:"'+req.params.username+'"}) RETURN count(r) as followers')
+  .then(function (result) {
+    res.status(200).send(result.records[0]);
+    session.close();
+  })
+  .catch(function (error) {
+    let e = new Error(error);
+    e.name = "internalServerError";
+    return next(e);
+  })
+}
+
+//Regresa los followers de mi usuario ********************************************************************************
+exports.getMyFollowers = (req, res, next)=>{
+  session
+  .run('MATCH ()-[r:FOLLOWS]->(n:User {username:"'+res.locals.tokenDecoded.username+'"}) RETURN count(r) as followers')
+  .then(function (result) {
+    res.status(200).send(result.records[0]);
+    session.close();
+  })
+  .catch(function (error) {
+    let e = new Error(error);
+    e.name = "internalServerError";
+    return next(e);
+  })
+}
+
+// Regresa a cuantos sigue mi usuario ********************************************************************************
+exports.getMyFollowing = (req, res, next)=>{
+  session
+  .run('MATCH ()<-[r:FOLLOWS]-(n:User {username:"'+res.locals.tokenDecoded.username+'"}) RETURN count(r) as followers')
   .then(function (result) {
     res.status(200).send(result.records[0]);
     session.close();
