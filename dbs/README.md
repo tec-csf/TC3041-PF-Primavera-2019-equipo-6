@@ -1,58 +1,56 @@
 # NEO4J Cluster
 
-- Se creó un cluster de NEO4J que se puede ejecutar fácilmente dentro de docker por medio del archivo docker-compose.yml. 
+Cluster Neo4j docker con docker-compose.yml 
 
-## Ejecutar el cluster dentro de docker:
+# Cluster en Docker
 
-- Para poder ejecutar el cluster dentro de un contenedor de docker es necesario primero instalar las dependencias:
-	- sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-	- sudo chmod +x /usr/local/bin/docker-compose
+Instalar dependencias:
+`sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-'uname -s'-'uname -m' -o /usr/local/bin/docker-compose`
+`sudo chmod +x /usr/local/bin/docker-compose`
 
-- Después, únicamente es necesario colocarse dentro de la carpeta que contiene al archivo de docker-compose.yml y ejecutar el comando sudo docker-compose up
+Ejecutar en carpeta con docker-compose.yml: 
+`sudo docker-compose up`
 
-## Ejecutar el cluster dentro de Kubernetes:
+# Cluster en kubernetes
 
-- Una vez teniendo el archivo de docker-compose.yml, ejecutar en kubernetes es sencillo. 
+## Instalar y actualizar dependencias
 
-- Primero es necesario instalar las dependencias:
+`sudo apt-get update`
+`sudo apt-get install -y apt-transport-https`
 
-### Actualizar las dependendcias:
+### VirtualBox:
 
-- sudo apt-get update
-- sudo apt-get install -y apt-transport-https
+`sudo apt-get install -y virtualbox virtualbox-ext-pack`
 
-### Instalar VirtualBox
+### Kubectl:
+1. `curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -`
+2. `sudo touch /etc/apt/sources.list.d/kubernetes.list `
+3. `echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list`
+4. `curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.28.2/minikube-linux-amd64`
+5. `sudo apt-get install -y kubectl`
 
-- sudo apt-get install -y virtualbox virtualbox-ext-pack
+### Minikube
 
-### instalar kubectl
+`chmod +x minikube && sudo mv minikube /usr/local/bin/`
+Ejecutar Minikube: `minikube start`
 
-- curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-- sudo touch /etc/apt/sources.list.d/kubernetes.list 
-- echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
-- sudo apt-get update
-- sudo apt-get install -y kubectl
+### Kompose
 
-### Instalar minikube
+#### Linux
 
-- curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.28.2/minikube-linux-amd64
-- chmod +x minikube && sudo mv minikube /usr/local/bin/
+`curl -L https://github.com/kubernetes/kompose/releases/download/v1.17.0/kompose-linux-amd64 -o kompose`
 
-### Iniciar servicio de minikube:
+#### OSX
 
-- minikube start
+`curl -L https://github.com/kubernetes/kompose/releases/download/v1.17.0/kompose-darwin-amd64 -o kompose`
+`chmod +x kompose`
+`sudo mv ./kompose /usr/local/bin/kompose`
 
-### Instalar la extensión de Kompose:
+## Crear Pods
+(Ejecutar en la carpeta que contenga docker-compose.yml)
 
-- curl -L https://github.com/kubernetes/kompose/releases/download/v1.16.0/kompose-linux-amd64 -o kompose
-- chmod +x kompose
-- sudo mv ./kompose /usr/local/bin/kompose
-
-### Convertir docker-compose.yml a pods en kubernetes:
-
-- Una vez que todas las dependencias han sido instaladas, únicamente resta navegar a la carpeta donde se encuentra el docker-compose y ejecutar:
-- kompose convert (para convertir un archivo de docker-compose.yml a los equivalentes en kubernetes)
-- kompose up (para iniciar los servicios dentro de kubernetes y generar los pods)
+- Convertir yml a yaml: `kompose convert`
+- Iniciar servicios y Pods: `kompose up`
 
 # Databases
 

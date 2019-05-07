@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-posts
+  labels:
+    app: api-posts
+spec:
+  selector:
+    matchLabels:
+      name: api-posts
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: api-posts
+    spec:
+      containers:
+      - name: api-posts
+        image: antony999k/colibri_api_users:1
+        ports:
+        - containerPort: 8001

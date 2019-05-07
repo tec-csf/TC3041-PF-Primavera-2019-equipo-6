@@ -2,20 +2,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend-nginx
-  labels:
-    app: frontend-nginx
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: frontend-nginx
+      name: frontend-nginx
   template:
     metadata:
       labels:
-        app: frontend-nginx
+        name: frontend-nginx
     spec:
       containers:
       - name: frontend-nginx
         image: antony999k/colibri_webserver:1
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
