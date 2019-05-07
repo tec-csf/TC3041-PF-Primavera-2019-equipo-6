@@ -96,28 +96,6 @@ A continuación aparecen descritos los diferentes elementos que forman parte de 
 - [Express](https://expressjs.com/es/guide/routing.html): Framework de aplicaciónes web para Node.js
 #### 3.5.3 Librerías de funciones o dependencias
 
-#### Registrar un usuario (POST) ![#c5f015](https://placehold.it/15/c5f015/000000?text=+)
-    /user/:username
-
-##### Header
-    *NO HAY*
-
-##### Body
-    {
-        "mail":"ejemplo@gmail.com",
-        "username": "ejemplo1",
-        "password":"querty"
-    }
-
-##### Respuesta esperada
-    {
-        "status": 201,
-        "name": "Created",
-        "customMessage": "El usuario fue creado con exito",
-        "message": "Recurso creado",
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVzbWVtYWc5NiIsImlhdCI6MTU1NDg0NjM0OCwiZXhwIjoxNTU0OTMyNzQ4fQ.j8uZqbTArkmYfYUyvsNotG_dEfF6JyGBL6QBD-4yR6c"
-    }
-
 
 
 ## 3.6 Pasos a seguir para utilizar el proyecto
@@ -126,4 +104,5 @@ A continuación aparecen descritos los diferentes elementos que forman parte de 
 
 ## 4. Referencias
 
-*[Incluya aquí las referencias a sitios de interés, datasets y cualquier otra información que haya utilizado para realizar el proyecto y que le puedan ser de utilidad a otras personas que quieran usarlo como referencia]*
+- [Neo4j Considerations in Orchestration Environments](https://medium.com/neo4j/neo4j-considerations-in-orchestration-environments-584db747dca5)
+- [How we use Neo4J on our social network and workaround performance issues](https://blog.deimos.fr/2016/01/15/how-we-use-neo4j-on-our-social-network-and-workaround-performance-issues/)

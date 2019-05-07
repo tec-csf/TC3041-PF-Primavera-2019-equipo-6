@@ -5,12 +5,12 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: api-posts
+      name: api-posts
   replicas: 1
   template:
     metadata:
       labels:
-        app: api-posts
+        name: api-posts
     spec:
       containers:
       - name: api-posts

@@ -28,7 +28,7 @@ El binario también se puede instalar a través del instalador de línea de coma
 
 ### Crear Pods y Servicio
 
-`helm install --name neo4j-helm stable/neo4j --set acceptLicenseAgreement=yes --set neo4jPassword=qwerty`
+`helm install --name neo4j-helm stable/neo4j --set acceptLicenseAgreement=yes --set neo4jPassword=querty`
 
 ### Eliminar Pods y Servicio
 
@@ -38,7 +38,7 @@ El binario también se puede instalar a través del instalador de línea de coma
 - ¿Por qué no puedo instalar el paquete de neo4j?<br>
 R: pueba los siguientes comandos eh intenta de nuevo (`helm reset`) y (`helm init`)
 
--¿Cómo puedo probar si funciona la base de datos?
+- ¿Cómo puedo probar si funciona la base de datos?
 R: usa (`kubectl port-forward neo4j-helm-neo4j-core-0 8474:7474 8687:7687`) para probar en [localhost:8474](http://localhost:8474)
 
 ## REDIS

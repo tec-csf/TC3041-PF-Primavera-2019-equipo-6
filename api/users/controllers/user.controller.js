@@ -2,7 +2,7 @@
 'use strict';
 // Bases de datos =================================================
 const neo4j = require('neo4j-driver').v1;
-const driver = neo4j.driver('bolt://localhost', neo4j.auth.basic('neo4j', 'querty'));
+const driver = neo4j.driver('bolt://localhost', neo4j.auth.basic(process.env.NEO4J_HOST, process.env.NEO4J_PASSWORD));
 const session = driver.session();
 const debug = require('debug')('dev'); //Herramienta para imprimir log en dev mode
 const authHelper = require('../helpers/auth.helper'); //Auth ayuda a gestionar Json Web Tokens (jwt)

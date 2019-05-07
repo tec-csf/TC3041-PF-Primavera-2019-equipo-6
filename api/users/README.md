@@ -7,13 +7,6 @@ Creado: @antony999k
 
 Gestiona el registro de usuarios, perfiles de usuarios
 
-# Microservicio en Docker
-
-Se debe crear el Dockerfile con su respectivo .dockerignore que incluya node_modules
-
-- Hacer build de la imagen:  `docker build -t pf_api_user:<version_api> .`
-- Correr docker: `docker run -p 8000:8000 pf_api_user:<version_api>`
-
 # Endpoints
 
 Ruta Desarrollo: http://127.0.0.1:8000/
@@ -262,7 +255,6 @@ Ruta Desarrollo: http://127.0.0.1:8000/
     "customMessage": "API Analizapp en funcionamiento"
     }
 
-
 # Errores
 
 ## Manejo de Errores
@@ -309,6 +301,13 @@ El campo **message** es personalizado y debe estar en ingles
         "message": 'Bad Request' + (err.message ? ': ' + err.message : ''),
         "customMessage": 'Solicitud Erronea'
     }
+
+# Microservicio en Docker
+
+Se debe crear el Dockerfile con su respectivo .dockerignore que incluya node_modules
+
+- Hacer build de la imagen:  `docker build -t pf_api_user:<version_api> .`
+- Correr docker: `docker run -p 8000:8000 pf_api_user:<version_api>`
 
 # Contribuir con el API
 

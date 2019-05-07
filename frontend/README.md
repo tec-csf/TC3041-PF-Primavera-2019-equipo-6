@@ -1,8 +1,18 @@
 # Frontend
-
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
 
-## Development server
+# Contribuir con el API
+
+## Paquetes/Librerias recomendadas (Globales/Locales)
+- Angular-cli (global): `npm install -g @angular/cli`
+
+## Iniciar aplicación (Desarrollo)
+- `npm install` Instalar paquetes de npm
+- `npm start` Para iniciar con node
+- `npm test` Para iniciar con nodemon
+- `npm run dev` Para iniciar en modo desarrollo (muesta los logs)
+
+## Servidor de desarrollo
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
