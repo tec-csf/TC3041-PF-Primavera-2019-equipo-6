@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-users
-  labels:
-    app: api-users
 spec:
   selector:
     matchLabels:

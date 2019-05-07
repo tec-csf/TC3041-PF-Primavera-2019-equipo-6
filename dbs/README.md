@@ -4,7 +4,7 @@ Cluster Neo4j docker con docker-compose.yml
 
 # Cluster en Docker
 
-Instalar dependencias:
+Instalar dependencias:<br>
 `sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-'uname -s'-'uname -m' -o /usr/local/bin/docker-compose`<br>
 `sudo chmod +x /usr/local/bin/docker-compose`
 

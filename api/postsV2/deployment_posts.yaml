@@ -2,12 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-posts
-  labels:
-    app: api-posts
 spec:
   selector:
     matchLabels:
-      name: api-posts
+      app: api-posts
   replicas: 1
   template:
     metadata:
