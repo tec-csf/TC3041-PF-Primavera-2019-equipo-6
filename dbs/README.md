@@ -1,64 +1,37 @@
 # NEO4J Cluster
 
-Cluster Neo4j docker con docker-compose.yml 
+Cluster Neo4j docker con Helm
 
-# Cluster en Docker
+## Instalar Helm
 
-Instalar dependencias:<br>
-`sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-'uname -s'-'uname -m' -o /usr/local/bin/docker-compose`<br>
-`sudo chmod +x /usr/local/bin/docker-compose`
+Hay dos partes en Helm: El cliente Helm (helm) y el servidor Helm (Tiller). Esta guía muestra cómo instalar el cliente
 
-Ejecutar en carpeta con docker-compose.yml: 
-`sudo docker-compose up`
+### Instalar Helm Client
 
-# Cluster en kubernetes
+#### De binario
+1. Descargar una [Versión](https://github.com/helm/helm/releases)
+2. Descomprimir (`tar -zxvf helm-v2.0.0-linux-amd64.tgz`)
+3. Encuentre el binario helm y muevalo al directorio que desee (`mv linux-amd64/helm /usr/local/bin/helm`)
 
-## Instalar y actualizar dependencias
+Ya puede correr el cliente
 
-`sudo apt-get update`<br>
-`sudo apt-get install -y apt-transport-https`
+#### Snap (Linux)
+`sudo snap install helm --classic`
 
-### VirtualBox:
+#### Homebrew (macOS)
+`brew install kubernetes-helm`
 
-`sudo apt-get install -y virtualbox virtualbox-ext-pack`
+#### Chocolatey o scoop (Windows)
+`choco install kubernetes-helm`
 
-### Kubectl:
-1. `curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -`
-2. `sudo touch /etc/apt/sources.list.d/kubernetes.list `
-3. `echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list`
-4. `curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.28.2/minikube-linux-amd64`
-5. `sudo apt-get install -y kubectl`
+El binario también se puede instalar a través del instalador de línea de comandos de Scoop.
 
-### Minikube
-
-`chmod +x minikube && sudo mv minikube /usr/local/bin/`<br>
-Ejecutar Minikube: `minikube start`
-
-### Kompose
-
-#### Linux
-
-`curl -L https://github.com/kubernetes/kompose/releases/download/v1.17.0/kompose-linux-amd64 -o kompose`
-
-#### OSX
-
-`curl -L https://github.com/kubernetes/kompose/releases/download/v1.17.0/kompose-darwin-amd64 -o kompose`<br>
-`chmod +x kompose`<br>
-`sudo mv ./kompose /usr/local/bin/kompose`
+`scoop install helm`
 
 ## Crear Pods
-(Ejecutar en la carpeta que contenga docker-compose.yml)
 
-- Convertir yml a yaml: `kompose convert`<br>
-- Iniciar servicios y Pods: `kompose up`
+`helm install --name neo4j-helm stable/neo4j --set acceptLicenseAgreement=yes --set neo4jPassword=qwerty`
 
-# Databases
-
-
-## Neo4j
-
-
-## Redis
 
 # Changelog
 No hay cambios de ruptura
@@ -66,3 +39,6 @@ No hay cambios de ruptura
 # Ayuda
 @AlbertoPascal, beto_pascal@hotmail.com
 @antony999k, antony999k@hotmail.com
+
+# Referencias
+- [Neo4j y helm](https://github.com/helm/charts/tree/master/stable/neo4j)
