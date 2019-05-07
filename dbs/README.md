@@ -5,7 +5,7 @@ Cluster Neo4j docker con docker-compose.yml
 # Cluster en Docker
 
 Instalar dependencias:
-`sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-'uname -s'-'uname -m' -o /usr/local/bin/docker-compose`
+`sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-'uname -s'-'uname -m' -o /usr/local/bin/docker-compose`<br>
 `sudo chmod +x /usr/local/bin/docker-compose`
 
 Ejecutar en carpeta con docker-compose.yml: 
@@ -15,7 +15,7 @@ Ejecutar en carpeta con docker-compose.yml:
 
 ## Instalar y actualizar dependencias
 
-`sudo apt-get update`
+`sudo apt-get update`<br>
 `sudo apt-get install -y apt-transport-https`
 
 ### VirtualBox:
@@ -31,7 +31,7 @@ Ejecutar en carpeta con docker-compose.yml:
 
 ### Minikube
 
-`chmod +x minikube && sudo mv minikube /usr/local/bin/`
+`chmod +x minikube && sudo mv minikube /usr/local/bin/`<br>
 Ejecutar Minikube: `minikube start`
 
 ### Kompose
@@ -42,14 +42,14 @@ Ejecutar Minikube: `minikube start`
 
 #### OSX
 
-`curl -L https://github.com/kubernetes/kompose/releases/download/v1.17.0/kompose-darwin-amd64 -o kompose`
-`chmod +x kompose`
+`curl -L https://github.com/kubernetes/kompose/releases/download/v1.17.0/kompose-darwin-amd64 -o kompose`<br>
+`chmod +x kompose`<br>
 `sudo mv ./kompose /usr/local/bin/kompose`
 
 ## Crear Pods
 (Ejecutar en la carpeta que contenga docker-compose.yml)
 
-- Convertir yml a yaml: `kompose convert`
+- Convertir yml a yaml: `kompose convert`<br>
 - Iniciar servicios y Pods: `kompose up`
 
 # Databases
@@ -57,25 +57,6 @@ Ejecutar Minikube: `minikube start`
 
 ## Neo4j
 
-
-### Creación de ejemplo de datos para las relaciones:
-- FOLLOWS:
-	
-	Match(a:Alumno) where id(a)=20 and a.Nombre = "Pedro"
-	Match(b:Alumno) where id(b) =0 and b.Nombre = "Alberto"
-	Create (a)-[r:FOLLOWS{fecha: "10/10/2018"}]->(b)
-	return r
-
-	match(a:Alumno)-[r:FOLLOWS]->(b:Alumno) return a.Nombre + " Follows " + b.Nombre + " since " + r.fecha as RelationType
-
-- CREATED:
-
-	Match(a:Person) where id(a) =27 and a.username = "BetoPascal"
-	Match(b:Post) where id(b) = 2 and b.text= "Este es un post de prueba ligado a usuario" and b.id=3
-	Create (a)-[r:CREATED{fecha: "05/05/2019"}]->(b)
-	return r
-
-	match(a:Person)-[r:CREATED]->(b:Post) return a,r,b
 
 ## Redis
 
