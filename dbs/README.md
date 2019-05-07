@@ -1,12 +1,10 @@
-# NEO4J Cluster
+# Databases
 
+## NEO4J Cluster
 Cluster Neo4j docker con Helm
 
-## Instalar Helm
-
+### Instalar Helm
 Hay dos partes en Helm: El cliente Helm (helm) y el servidor Helm (Tiller). Esta guía muestra cómo instalar el cliente
-
-### Instalar Helm Client
 
 #### De binario
 1. Descargar una [Versión](https://github.com/helm/helm/releases)
@@ -32,6 +30,13 @@ El binario también se puede instalar a través del instalador de línea de coma
 
 `helm install --name neo4j-helm stable/neo4j --set acceptLicenseAgreement=yes --set neo4jPassword=qwerty`
 
+## FAQ
+- ¿Por qué no puedo instalar el paquete de neo4j?<br>
+R: pueba los soguientes comandos e intenta de nuevo `helm reset` y `helm init`
+
+## Redis
+
+La solución propuesta para redis fue [Redis Labs](https://redislabs.com/)
 
 # Changelog
 No hay cambios de ruptura
