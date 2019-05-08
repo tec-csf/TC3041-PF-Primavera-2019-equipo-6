@@ -65,6 +65,8 @@ Se utilizaron las siguientes bases de datos:
 
 - Redis: Redis nos permite usar la memoria en caché. A la hora que nuestra aplicación comenzará a obtener las peticiones de los datos, se creará una llave única de redis. De esta manera, la próxima vez que se requiera hacer uso de la información, redis ya contendrá una referencia a los datos de neo4j, permitiendo que nuestra aplicación sea mucho más rápida.
 
+Más información disponible en: [README_dbs](dbs/README.md)
+
 #### Neo4j:
 
 - Para poder levantar nuestra base de datos tuvimos que tomar en cuenta que, al ser una red social, eventualmente se podrían estar manejando una cantidad masiva de datos. Por esto mismo, se pensó en agilizar aún más el proceso mediante la creación de un cluster con tres nodos:
@@ -148,6 +150,8 @@ Para redis únicamente se necesita el uso de un objeto llave valor, como por eje
 
 *[Incluya aquí una explicación de la solución utilizada para el frontend del proyecto. No olvide incluir las ligas o referencias donde se puede encontrar información de los lenguajes de programación, frameworks y librerías utilizadas.]*
 
+Más información disponible en: [README_frontend](frontend/README.md)
+
 #### 3.3.1 Lenguaje de programación
 
 Para desarrollar tanto el front-end como los api se utilizó en conjunto:
@@ -190,11 +194,19 @@ Para desarrollar tanto el front-end como los api se utilizó en conjunto:
 Para poder crear una réplica de una red social, localizamos dos api que nos serían necesarios crear:
 
 - User: Este api se encargará de crear los endpoints para todas las funciones que el usuario pueda realizar dentro de la red social. Es decir, se encargará
+
+Más información disponible en: [README_api_user](api/users/README.md)
+
 - Post
+
+Más información disponible en: [README_api_post](api/posts/README.md)
+Más información disponible en: [README_api_postV2](api/postsV2/README.md)
+
+#### 3.5.1 Lenguaje de programación
 
 - [Node.js](https://nodejs.org/es/docs/): Node.js es un entorno de ejecución para JavaScript construido con el motor de JavaScript V8 de Chrome.
 - [Python Flask](http://flask.pocoo.org/): Flask es un framework minimalista escrito en Python que permite crear aplicaciones web rápidamente. Está basado en la especificación WSGI de Werkzeug y el motor de templates Jinja2.
-#### 3.5.1 Lenguaje de programación
+
 #### 3.5.2 Framework
 - [Express](https://expressjs.com/es/guide/routing.html): Framework de aplicaciónes web para Node.js
 #### 3.5.3 Librerías de funciones o dependencias
