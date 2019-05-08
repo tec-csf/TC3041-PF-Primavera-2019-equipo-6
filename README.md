@@ -190,8 +190,6 @@ Para desarrollar tanto el front-end como los api se utilizó en conjunto:
 #### 3.3.2 Framework
 - Angular
 
-#### 3.4.3 Librerías de funciones o dependencias
-
 ### 3.5 API
 
 Para poder crear una réplica de una red social, localizamos dos api que nos serían necesarios crear:
@@ -220,7 +218,9 @@ Para poder crear una réplica de una red social, localizamos dos api que nos ser
 
 ## 3.6 Pasos a seguir para utilizar el proyecto
 
-*[Incluya aquí una guía paso a paso para poder utilizar el proyecto, desde la clonación del repositorio hasta el despliegue de la solución en una plataforma en la nube.]*
+### Ejecución local del proyecto:
+
+- Crear un contenedor 
 
 ## 4. Referencias
 
