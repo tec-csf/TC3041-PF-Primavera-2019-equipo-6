@@ -218,6 +218,8 @@ Para poder crear una réplica de una red social, localizamos dos api que nos ser
 
 ## 3.6 Pasos a seguir para utilizar el proyecto
 
+### Para acceder de forma remota: 
+
 - Crear cuenta de [docker hub](https://hub.docker.com/)
 - clonar el repositorio a docker hub utilizando los dockerfiles con los comandos
 	- docker build
