@@ -218,20 +218,34 @@ Para poder crear una réplica de una red social, localizamos dos api que nos ser
 
 ## 3.6 Pasos a seguir para utilizar el proyecto
 
-- Crear cuenta de docker hub
+- Crear cuenta de [docker hub](https://hub.docker.com/)
 - clonar el repositorio a docker hub utilizando los dockerfiles con los comandos
 	- docker build
 	- docker push
-- Crear una cuenta de digital ocean. 
+- Crear una cuenta de [digital ocean](https://www.digitalocean.com/products/marketplace/?_campaign=Marketplace_Dev_Awareness_G_Search_B_CORE&_adgroup=CORE_DigitalOcean&_keyword=digital%20ocean&_device=c&_copytype=biz_ad&_adposition=1t1&_medium=brand_sem&_source=google&_dkitrig=&_2dkitrig=&gclid=EAIaIQobChMIhdyV-_-K4gIVG7nACh0gMQf1EAAYASAAEgINLvD_BwE). 
 - crear un cluster de kubernetes dentro de digital ocean
 - Descargar kubernetes localmente.
 - Entrar a ~/.kube
 - Modificar los contenidos del archivo config para que contenga lo del archivo cluster999k-config.yaml ubicado al nivel principal de este repositorio.
 - kubectl create -f para crear cada uno de los yams del repositorio. 
 
-### Para acceder localmente:
+- puedes ejecutar el comando kubectl get services para obtener la dirección de nuestro load balancer. 
+- Para acceder únicamente hace falta ingresar en el navegador la dirección obtenida junto con ":" y el puerto especificado como extensión del puerto 80. 
 
-- Para acceder localmente es necesario crear una conexión a neo4j. Ya sea mediante docker o mediante kubernetes utilizando:
+### Para acceder localmente:
+- Primero sería necesario installar node.js:
+	- sudo apt install npm
+	- sudo npm install -g @angular/cli
+	- npm install
+
+- Entrar a la carpeta local de api/users
+	- Renombrar el archivo env a .env
+	- Ejecutar el comando ndm start
+- Entrar a la carpeta local de api/postsV2
+	- Renombrar el archivo env a .env
+	- Ejecutar el comando ndm start
+
+- Crear una conexión a neo4j. Ya sea mediante docker o mediante kubernetes utilizando:
 	- helm install stable/neo4j --name neo-helm --set authEnabled=true --set acceptLicenseAgreement=yes --set neo4jPassword=querty --set neo4jUsername=neo4j
 
 - Después, es necesario habilitar el puerto con nuestra conexión externa:
