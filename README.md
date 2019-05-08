@@ -76,61 +76,61 @@ Además, dentro de neo4j se crearon los siguientes modelos:
 
 - User:
 
-n:User{
-    id: Integer, (Unique)
-    username: String,
-    mail: String, (Unique)
-    password: String,
-    name: String,
-    location: String,
-    description: String,
-    verified: bool,
-    created_at: Date,
-    birthday: Date
-    lang: String,
-    profile_banner_url: String
-    profile_image_url: String,
-}
+	- n:User{
+	    id: Integer, (Unique)
+	    username: String,
+	    mail: String, (Unique)
+	    password: String,
+	    name: String,
+	    location: String,
+	    description: String,
+	    verified: bool,
+	    created_at: Date,
+	    birthday: Date
+	    lang: String,
+	    profile_banner_url: String
+	    profile_image_url: String,
+	}
 
 - Post:
 
-n:Post{
-    id: Integer, (Unique)
-    text: String
-    created_at: String,
-}
+	- n:Post{
+	    id: Integer, (Unique)
+	    text: String
+	    created_at: String,
+	}
 
 Para la interación del usuario dentro de la red social, también se crearon las siguientes relaciones:
 
 - (User)-[CREATED]->(Post)
 
-a:User1 -
-r:CREATED{
-    username1: String,
-    postid: Integer, 
-    created_at: String,
-}
+	- a:User1 -
+	r:CREATED{
+	    username1: String,
+	    postid: Integer, 
+	    created_at: String,
+	}
 -> b:Post
 
 - (User)-[LIKES]->(Post)
 
 a:User1 -
-r:LIKES{
-    username1: String,
-    postid: Integer, 
-    created_at: String,
-}
+	- r:LIKES{
+	    username1: String,
+	    postid: Integer, 
+	    created_at: String,
+	}
 -> b:Post
 
 - (User)-[FOLLOWS]->(User)
 
-a:User1 -
-r:FOLLOWS{
-    username1: String,
-    username2: String, 
-    created_at: String,
-}
--> b:User2
+	- a:User1 -
+	r:FOLLOWS{
+	    username1: String,
+	    username2: String, 
+	    created_at: String,
+	}
+	-> b:User2
 
 
 #### Redis:
