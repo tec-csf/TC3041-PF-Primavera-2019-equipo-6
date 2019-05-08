@@ -6,7 +6,7 @@
                 <h2 class="title">Registro</h2>
                 <form class="formCredentials" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                     <div class="input-group">
-                        <input class="input--style-3" type="text" name="usuario" placeholder="Usuario"
+                        <input class="input--style-3" type="text" name="usuario" placeholder="Usuario *"
                             formControlName="username">
                     </div>
                     <div class="input-group">
@@ -14,15 +14,15 @@
                             formControlName="name">
                     </div>
                     <div class="input-group">
-                        <input class="input--style-3" type="email" name="email" placeholder="Email"
+                        <input class="input--style-3" type="email" name="email" placeholder="Email *"
                             formControlName="mail">
                     </div>
                     <div class="input-group">
-                        <input class="input--style-3" type="password" name="contraseña" placeholder="Contraseña"
+                        <input class="input--style-3" type="password" name="contraseña" placeholder="Contraseña *"
                             formControlName="password">
                     </div>
                     <div class="p-t-10">
-                        <button class="btn btn--pill btn--green" type="submit" title="Completa los datos">
+                        <button class="btn btn--pill btn--green" type="submit" [disabled]="!registerForm.valid" title="Completa los datos">
                             <div class="lds-dual-ring" *ngIf="isLoading"></div>
                             <p *ngIf="!isLoading">Regístrate</p>
                         </button>
