@@ -51,11 +51,11 @@ Como parte de la entrega final del proyecto, se debe incluir la siguiente inform
 
 ## 2. Descripción del proyecto
 
-Red social que ofrece un servicio de microblogging. Este permite a los usuarios realizar y recibir mensajes breves a tráves de la plataforma.
+Las redes sociales son una parte indispensable de nuestro día a día. Nos permiten una mayor facilidad y velocidad para interconectarnos con las personas. Sin embargo, suelen estar tan presentes en nuestra vida diaria que muchas veces pasamos por alto la complejidad que tiene por detrás. Por esto mismo, en este proyecto se pretende crear las bases de una Red social que ofrece un servicio de microblogging. Este permitirá a los usuarios realizar y recibir mensajes breves a tráves de la plataforma, algo similar a Twitter. 
 
 ## 3. Solución
 
-A continuación aparecen descritos los diferentes elementos que forman parte de la solución del proyecto.
+Para solucionar este proyecto, fue necesario hacer uso de distintas herramientas de las cuales aprendimos durante el semestre. Además, se implementaron nuevos conocimientos como la creación de un orquestrador de contenedores y el hosting de nuestros servicios en la nube. A continuación los elementos clave del proyecto:
 
 ### 3.1 Modelos de *bases de datos* utilizados
 
@@ -146,9 +146,11 @@ Para redis únicamente se necesita el uso de un objeto llave valor, como por eje
 
 - ![](Readme_images/architecture.png)
 
+- Nuestra arquitectura consiste en un modelo basado en contenedores en el que se hostean las apis, el frontend y las bases de datos, todas dentro de un orquestrador de contenedores. A su vez, éste orquestrador de contenedores estará ejecutado en la nube para un acceso más fácil a los usuarios y un enfoque más cercano al objetivo final de nuestro proyecto. 
+
 ### 3.3 Frontend
 
-*[Incluya aquí una explicación de la solución utilizada para el frontend del proyecto. No olvide incluir las ligas o referencias donde se puede encontrar información de los lenguajes de programación, frameworks y librerías utilizadas.]*
+- Para el desarrollo del frontend, dado que se trata de una red social, fue necesario hacer uso de herramientas de desarrollo web mayormente. Entre éstas, podemos encontrar el uso de HTML, Javascript y CSS, así como el uso de templates que nos facilitarían algunas funciones dentro de la página. Por otro lado, también se hará uso de postman durante las etapas de desarrollo para poder probar los resultados que estaría recibiendo el usuario. 
 
 Más información disponible en: [README_frontend](frontend/README.md)
 
@@ -170,6 +172,7 @@ Para desarrollar tanto el front-end como los api se utilizó en conjunto:
 - [kompose] (http://kompose.io/) : Herramienta para traducir los archivos de configuración de docker a archivos en kubernets. 
 - [redis] (https://redis.js.org/) : Herramienta para conectar nuestras aplicaciones de javascript con nuestra base de datos en redis.
 - [minikube]( https://kubernetes.io/es/docs/tasks/tools/install-minikube/) : herramienta para utilizar kubernetes y orquestrar nuestro proyecto. 
+- [postman para funciones de prueba](https://www.getpostman.com/)
 
 ### 3.4 Backend
 
@@ -193,14 +196,14 @@ Para desarrollar tanto el front-end como los api se utilizó en conjunto:
 
 Para poder crear una réplica de una red social, localizamos dos api que nos serían necesarios crear:
 
-- User: Este api se encargará de crear los endpoints para todas las funciones que el usuario pueda realizar dentro de la red social. Es decir, se encargará
+- User: Este api se encargará de crear los endpoints para todas las funciones que el usuario pueda realizar dentro de la red social. Es decir, se encargará de las funciones de follow, like, create. 
 
-Más información disponible en: [README_api_user](api/users/README.md)
+- Más información disponible en: [README_api_user](api/users/README.md)
 
-- Post
+- Post: Este api se encargará de crear los endpoints necesarios para visualizar los posts. Es decir, se ecargará de tener /posts/id, /posts/me, /posts/username y /posts/new entre otros. 
 
-Más información disponible en: [README_api_post](api/posts/README.md)
-Más información disponible en: [README_api_postV2](api/postsV2/README.md)
+- Más información disponible en: [README_api_post](api/posts/README.md)
+- Más información disponible en: [README_api_postV2](api/postsV2/README.md)
 
 #### 3.5.1 Lenguaje de programación
 
@@ -208,10 +211,12 @@ Más información disponible en: [README_api_postV2](api/postsV2/README.md)
 - [Python Flask](http://flask.pocoo.org/): Flask es un framework minimalista escrito en Python que permite crear aplicaciones web rápidamente. Está basado en la especificación WSGI de Werkzeug y el motor de templates Jinja2.
 
 #### 3.5.2 Framework
-- [Express](https://expressjs.com/es/guide/routing.html): Framework de aplicaciónes web para Node.js
+
+- Node.js
+
 #### 3.5.3 Librerías de funciones o dependencias
 
-
+- [Express](https://expressjs.com/es/guide/routing.html): Framework de aplicaciónes web para Node.js
 
 ## 3.6 Pasos a seguir para utilizar el proyecto
 
