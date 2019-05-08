@@ -1,0 +1,7 @@
+a:User1 -
+r:FOLLOWS{
+    username1: String,  
+    username2: String, 
+    created_at: String,
+}
+-> b:User2

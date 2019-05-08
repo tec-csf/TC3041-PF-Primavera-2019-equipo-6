@@ -1,0 +1,7 @@
+a:User1 -
+r:CREATED{
+    username1: String,  
+    postid: Integer, 
+    created_at: String,
+}
+-> b:Post
