@@ -1,0 +1,659 @@
+{
+	"info": {
+		"_postman_id": "7e1673d4-175d-4ac6-91c8-330714f76a01",
+		"name": "TwitterClone",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"mail\":\"antony999k@gmail.com\",\n\t\"username\": \"antony999k\",\n\t\"name\": \"Antony Adrian Morales\",\n\t\"password\":\"querty\",\n\t\"description\": \"el hijo del papá\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/user",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"antony999k\",\n\t\"password\":\"qwerty\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/user/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MyUser",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJpdHplbC4xNTA1QGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiaXR6ZWwxNSIsImlhdCI6MTU1NzEzNDIyMCwiZXhwIjoxNTU3MjIwNjIwfQ.ZNi1zeuTMDxzKwoSdcF5fRVAqZdd1b1ZkrFwWVJsXfo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/user/me",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/user/antony999k",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"antony999k"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Follow User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJsdjk5OWtAaG90bWFpbC5jb20iLCJ1c2VybmFtZSI6ImFudG9ueTk5OWsiLCJpYXQiOjE1NTcwOTk4OTYsImV4cCI6MTU1NzE4NjI5Nn0.dxiaxc8u74gWkki0M5dzqEBue3oFBP7_QNMWaJ_yjY0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"antony999k\",\n\t\"usernameTarget\": \"itzel15\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/user/follow",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"follow"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unfollow user",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJsdjk5OWtAaG90bWFpbC5jb20iLCJ1c2VybmFtZSI6ImFudG9ueTk5OWsiLCJpYXQiOjE1NTcwOTk4OTYsImV4cCI6MTU1NzE4NjI5Nn0.dxiaxc8u74gWkki0M5dzqEBue3oFBP7_QNMWaJ_yjY0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"antony999k\",\n\t\"usernameTarget\": \"itzel15\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/user/follow",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"follow"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Followers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/user/itzel15/followers",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"itzel15",
+						"followers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Following",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/user/antony999k/following",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"antony999k",
+						"following"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Health User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/health",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Posts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8001/posts/latest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"posts",
+						"latest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Auth Token",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJsdjk5OWtAaG90bWFpbC5jb20iLCJ1c2VybmFtZSI6ImFudG9ueTk5OWsiLCJpYXQiOjE1NTcwODUwMjMsImV4cCI6MTU1NzE3MTQyM30.iAAbrnAWDUNWe0dJfZuiWSy-TWLE3uOnd_nuPx4QFA0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8000/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post a Post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJsdjk5OWtAaG90bWFpbC5jb20iLCJ1c2VybmFtZSI6ImFudG9ueTk5OWsiLCJpYXQiOjE1NTcwODUwMjMsImV4cCI6MTU1NzE3MTQyM30.iAAbrnAWDUNWe0dJfZuiWSy-TWLE3uOnd_nuPx4QFA0",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\":\"Hola este es un post en colibrí desde Postman\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8001/post",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"post"
+					],
+					"query": [
+						{
+							"key": "Authorization",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Post",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":40\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8001/post",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Likear Post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJwcmVkb25lQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoicGVkcm9uZSIsImlhdCI6MTU1NzA5MDQyNiwiZXhwIjoxNTU3MTc2ODI2fQ.0TjFfXf3G_QL0ZQo4dM3jS6WCXpmw7ZO6itJs3t5cPg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8001/post/42/like",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"post",
+						"42",
+						"like"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deslikear Post",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJwcmVkb25lQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoicGVkcm9uZSIsImlhdCI6MTU1NzA5MDQyNiwiZXhwIjoxNTU3MTc2ODI2fQ.0TjFfXf3G_QL0ZQo4dM3jS6WCXpmw7ZO6itJs3t5cPg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8001/post/41/like",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"post",
+						"41",
+						"like"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Post",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8001/post/27",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"post",
+						"27"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Posts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8001/posts/antony999k",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"posts",
+						"antony999k"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Feed Posts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8001/posts/feed",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"posts",
+						"feed"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get my Posts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJsdjk5OWtAaG90bWFpbC5jb20iLCJ1c2VybmFtZSI6ImFudG9ueTk5OWsiLCJpYXQiOjE1NTcxMDM5ODksImV4cCI6MTU1NzE5MDM4OX0.AXC263qFCEXETBuwxdjapr8hgbqzjQJ7jLMj2zY_mPE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8001/posts/me",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"posts",
+						"me"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "My Followers",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJsdjk5OWtAaG90bWFpbC5jb20iLCJ1c2VybmFtZSI6ImFudG9ueTk5OWsiLCJpYXQiOjE1NTcxMTg2NDEsImV4cCI6MTU1NzIwNTA0MX0.pM8p_dgNakzyq3oCUZ7_nLXJg4lvLRxsBXboUe-F_WA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/user/me/followers",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"me",
+						"followers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MyFollowing",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJsdjk5OWtAaG90bWFpbC5jb20iLCJ1c2VybmFtZSI6ImFudG9ueTk5OWsiLCJpYXQiOjE1NTcxMTg2NDEsImV4cCI6MTU1NzIwNTA0MX0.pM8p_dgNakzyq3oCUZ7_nLXJg4lvLRxsBXboUe-F_WA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/user/me/following",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"me",
+						"following"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
