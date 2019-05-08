@@ -9,7 +9,7 @@ import { AuthService } from '../../services/authentication.service';
 
 @Component({
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  styleUrls: ['../login/login.component.scss'],
   providers: [AuthService]
 })
 
@@ -44,7 +44,8 @@ export class RegisterComponent implements OnInit{
     this.registerForm = this.formBuilder.group({
       password: ['', [Validators.required, Validators.minLength(6)]],
       username: ['', [Validators.required]],
-      mail: ['', [Validators.required, Validators.email]]
+      mail: ['', [Validators.required, Validators.email]],
+      name: ['', []]
     });
   }
 
@@ -57,6 +58,7 @@ export class RegisterComponent implements OnInit{
     this.usuario.username = this.registerForm.value.username;
     this.usuario.password = this.registerForm.value.password;
     this.usuario.mail = this.registerForm.value.mail;
+    this.usuario.mail = this.registerForm.value.name;
     this.usuario.profile_img_url = this.getRandomTemporalProfileImage();
     this.currentUserSubscription = this.authService.register(this.usuario)
     .subscribe(loginStatus => {

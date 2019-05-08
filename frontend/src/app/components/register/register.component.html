@@ -1,14 +1,35 @@
-<section class="register">
-        <div class="registerInner">
-            <h1>Registro</h1>
-            <form class="formCredentials" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                <input type="text" name="usuario" placeholder="Usuario" formControlName="username">
-
-                <input type="email" name="email" placeholder="Email" formControlName="mail">
-    
-                <input type="password" name="contraseña" placeholder="Contraseña" formControlName="password">
-                
-                <button type="submit" title="Completa los datos"><p *ngIf="!isLoading">Regístrate</p></button>
-            </form>
+<div class="page-wrapper bg-gra-01 p-t-180 p-b-100 font-poppins">
+    <div class="wrapper wrapper--w780">
+        <div class="card card-3">
+            <div class="card-heading"></div>
+            <div class="card-body">
+                <h2 class="title">Registro</h2>
+                <form class="formCredentials" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                    <div class="input-group">
+                        <input class="input--style-3" type="text" name="usuario" placeholder="Usuario"
+                            formControlName="username">
+                    </div>
+                    <div class="input-group">
+                        <input class="input--style-3" type="text" name="nombre" placeholder="Nombre"
+                            formControlName="name">
+                    </div>
+                    <div class="input-group">
+                        <input class="input--style-3" type="email" name="email" placeholder="Email"
+                            formControlName="mail">
+                    </div>
+                    <div class="input-group">
+                        <input class="input--style-3" type="password" name="contraseña" placeholder="Contraseña"
+                            formControlName="password">
+                    </div>
+                    <div class="p-t-10">
+                        <button class="btn btn--pill btn--green" type="submit" title="Completa los datos">
+                            <div class="lds-dual-ring" *ngIf="isLoading"></div>
+                            <p *ngIf="!isLoading">Regístrate</p>
+                        </button>
+                    </div>
+                </form>
+                <a routerLink="/login" class="link">Iniciar Sesión</a>
+            </div>
         </div>
-    </section>
+    </div>
+</div>
