@@ -59,7 +59,86 @@ A continuación aparecen descritos los diferentes elementos que forman parte de 
 
 ### 3.1 Modelos de *bases de datos* utilizados
 
-*[Incluya aquí una explicación del análisis realizado y la justificación de los modelos de *bases de datos* seleccionados. Incluya todo lo que considere necesario para que una persona sin conocimientos técnicos pueda entender de que trata su solución.]*
+Se utilizaron las siguientes bases de datos:
+
+- Neo4j: Al querer copiar una red social, haremos uso de neo4j dado que es una base de datos orientada a grafos. De esta manera podemos simular las relaciones entre las personas y los posts y facilitar el manejo de dichas conexiones. Además, es posible que las conexiones estén en constante movimiento, por lo que neo4j nos brindará una gran versatilidad en el manejo de la información. Además, es fácil de escalar y no disminuye su rendimiento a pesar de las cantidades enormes de nodos que puede almacenar,lo cual es extremadamente necesario para una red social.
+
+- Redis: Redis nos permite usar la memoria en caché. A la hora que nuestra aplicación comenzará a obtener las peticiones de los datos, se creará una llave única de redis. De esta manera, la próxima vez que se requiera hacer uso de la información, redis ya contendrá una referencia a los datos de neo4j, permitiendo que nuestra aplicación sea mucho más rápida.
+
+#### Neo4j:
+
+- Para poder levantar nuestra base de datos tuvimos que tomar en cuenta que, al ser una red social, eventualmente se podrían estar manejando una cantidad masiva de datos. Por esto mismo, se pensó en agilizar aún más el proceso mediante la creación de un cluster con tres nodos:
+	- core-0 : nodo líder
+	- core-1 : nodo seguidor
+	- core-2 : nodo seguidor. 
+
+Además, dentro de neo4j se crearon los siguientes modelos:
+
+- User:
+
+n:User{
+    id: Integer, (Unique)
+    username: String,
+    mail: String, (Unique)
+    password: String,
+    name: String,
+    location: String,
+    description: String,
+    verified: bool,
+    created_at: Date,
+    birthday: Date
+    lang: String,
+    profile_banner_url: String
+    profile_image_url: String,
+}
+
+- Post:
+
+n:Post{
+    id: Integer, (Unique)
+    text: String
+    created_at: String,
+}
+
+Para la interación del usuario dentro de la red social, también se crearon las siguientes relaciones:
+
+- (User)-[CREATED]->(Post)
+
+a:User1 -
+r:CREATED{
+    username1: String,
+    postid: Integer, 
+    created_at: String,
+}
+-> b:Post
+
+- (User)-[LIKES]->(Post)
+
+a:User1 -
+r:LIKES{
+    username1: String,
+    postid: Integer, 
+    created_at: String,
+}
+-> b:Post
+
+- (User)-[FOLLOWS]->(User)
+
+a:User1 -
+r:FOLLOWS{
+    username1: String,
+    username2: String, 
+    created_at: String,
+}
+-> b:User2
+
+
+#### Redis:
+
+Para redis únicamente se necesita el uso de un objeto llave valor, como por ejemplo:
+
+- "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJiZXRvX3Bhc2NhbEBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFsYmVydG9QYXNjYWwiLCJpYXQiOjE1NTcyNjM1MTksImV4cCI6MTU1NzM0OTkxOX0.4z4ed7p8MlagT6YX8EYy4Gb4bc5s7wPvFyGGGNc52WA"
+
 
 ### 3.2 Arquitectura de la solución
 
@@ -79,7 +158,7 @@ A continuación aparecen descritos los diferentes elementos que forman parte de 
 
 ### 3.4 Backend
 
-*[Incluya aquí una explicación de la solución utilizada para el backend del proyecto. No olvide incluir las ligas o referencias donde se puede encontrar información de los lenguajes de programación, frameworks y librerías utilizadas.]*
+Como backend se utilizó node.js en conjunto con dos api: user y posts. De esta manera, Es posible comunicar nuestra aplicación con las base de datos de neo4j y de redis para así, eventualmente, mostrar los resultados al usuario en el frontend. 
 
 #### 3.4.1 Lenguaje de programación
 #### 3.4.2 Framework
@@ -87,7 +166,10 @@ A continuación aparecen descritos los diferentes elementos que forman parte de 
 
 ### 3.5 API
 
-*[Incluya aquí una explicación de la solución utilizada para implementar la API del proyecto. No olvide incluir las ligas o referencias donde se puede encontrar información de los lenguajes de programación, frameworks y librerías utilizadas.]*
+Para poder crear una réplica de una red social, localizamos dos api que nos serían necesarios crear:
+
+- User: Este api se encargará de crear los endpoints para todas las funciones que el usuario pueda realizar dentro de la red social. Es decir, se encargará
+- Post
 
 - [Node.js](https://nodejs.org/es/docs/): Node.js es un entorno de ejecución para JavaScript construido con el motor de JavaScript V8 de Chrome.
 - [Python Flask](http://flask.pocoo.org/): Flask es un framework minimalista escrito en Python que permite crear aplicaciones web rápidamente. Está basado en la especificación WSGI de Werkzeug y el motor de templates Jinja2.
