@@ -142,7 +142,7 @@ Para redis únicamente se necesita el uso de un objeto llave valor, como por eje
 
 ### 3.2 Arquitectura de la solución
 
-*[Incluya aquí un diagrama donde se aprecie la arquitectura de la solución propuesta, así como la interacción entre los diferentes componentes de la misma.]*
+- ![](Readme_images/architecture.png)
 
 ### 3.3 Frontend
 
@@ -150,18 +150,39 @@ Para redis únicamente se necesita el uso de un objeto llave valor, como por eje
 
 #### 3.3.1 Lenguaje de programación
 
-#### 3.3.2 Framework
+Para desarrollar tanto el front-end como los api se utilizó en conjunto:
 
+- HTML
+- JavaScript
+- CSS
+- TypeScript
+
+#### 3.3.2 Framework
+- Angular
 #### 3.3.3 Librerías de funciones o dependencias
 - [Reactjs](https://reactjs.org/): Una biblioteca de JavaScript para construir interfaces de usuario
 - [Create React App](https://facebook.github.io/create-react-app/) : Herramienta para crear aplicaciones react. Ofrece una configuración de construcción moderna sin configuración.
+- [Neo4j-driver](https://neo4j.com/developer/javascript/) : Herramienta para poder comunicar nuestro código de javascript con una base de datos hosteada en neo4j. 
+- [kompose] (http://kompose.io/) : Herramienta para traducir los archivos de configuración de docker a archivos en kubernets. 
+- [redis] (https://redis.js.org/) : Herramienta para conectar nuestras aplicaciones de javascript con nuestra base de datos en redis.
+- [minikube]( https://kubernetes.io/es/docs/tasks/tools/install-minikube/) : herramienta para utilizar kubernetes y orquestrar nuestro proyecto. 
 
 ### 3.4 Backend
 
 Como backend se utilizó node.js en conjunto con dos api: user y posts. De esta manera, Es posible comunicar nuestra aplicación con las base de datos de neo4j y de redis para así, eventualmente, mostrar los resultados al usuario en el frontend. 
 
-#### 3.4.1 Lenguaje de programación
-#### 3.4.2 Framework
+#### 3.3.1 Lenguaje de programación
+
+Para desarrollar tanto el front-end como los api se utilizó en conjunto:
+
+- HTML
+- JavaScript
+- CSS
+- TypeScript
+
+#### 3.3.2 Framework
+- Angular
+
 #### 3.4.3 Librerías de funciones o dependencias
 
 ### 3.5 API
