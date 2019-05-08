@@ -209,3 +209,10 @@ Para poder crear una réplica de una red social, localizamos dos api que nos ser
 
 - [Neo4j Considerations in Orchestration Environments](https://medium.com/neo4j/neo4j-considerations-in-orchestration-environments-584db747dca5)
 - [How we use Neo4J on our social network and workaround performance issues](https://blog.deimos.fr/2016/01/15/how-we-use-neo4j-on-our-social-network-and-workaround-performance-issues/)
+- [kubernets implementation](https://matthewpalmer.net/kubernetes-app-developer/articles/install-kubernetes-ubuntu-tutorial.html)
+- [Kubernetes information](https://stackify.com/kubernetes-docker-deployments/)
+- [Neo4j Cluster implementation](https://graphaware.com/neo4j/2018/01/03/casual-cluster-quickstart.html)
+- [Docker compose into kubernetes](http://kompose.io/getting-started/)
+- [Digital Ocean implementation](https://www.youtube.com/watch?v=DwlIn9zOcfc)
+- [Digital Ocean and kubernetes](https://www.digitalocean.com/docs/kubernetes/)
+- [Redis](https://medium.com/tech-tajawal/introduction-to-caching-redis-node-js-e477eb969eab)
