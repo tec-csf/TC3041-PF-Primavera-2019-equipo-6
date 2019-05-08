@@ -218,9 +218,30 @@ Para poder crear una réplica de una red social, localizamos dos api que nos ser
 
 ## 3.6 Pasos a seguir para utilizar el proyecto
 
-### Ejecución local del proyecto:
+- Crear cuenta de docker hub
+- clonar el repositorio a docker hub utilizando los dockerfiles con los comandos
+	- docker build
+	- docker push
+- Crear una cuenta de digital ocean. 
+- crear un cluster de kubernetes dentro de digital ocean
+- Descargar kubernetes localmente.
+- Entrar a ~/.kube
+- Modificar los contenidos del archivo config para que contenga lo del archivo cluster999k-config.yaml ubicado al nivel principal de este repositorio.
+- kubectl create -f para crear cada uno de los yams del repositorio. 
 
-- Crear un contenedor 
+### Para acceder localmente:
+
+- Para acceder localmente es necesario crear una conexión a neo4j. Ya sea mediante docker o mediante kubernetes utilizando:
+	- helm install stable/neo4j --name neo-helm --set authEnabled=true --set acceptLicenseAgreement=yes --set neo4jPassword=querty --set neo4jUsername=neo4j
+
+- Después, es necesario habilitar el puerto con nuestra conexión externa:
+	- kubectl port-forward neo-helm-neo4j-core-0 7474:7687:7687 
+
+- Para acceder localmente únicamente hace falta entrar a la dirección localhost:4200. Ésta yá estará ligada al repositorio que se encuentra en línea. 
+
+- Listo! Ya puedes disfrutar del servicio remoto
+
+
 
 ## 4. Referencias
 
