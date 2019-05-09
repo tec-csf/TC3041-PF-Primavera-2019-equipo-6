@@ -15,9 +15,6 @@ spec:
     name: https
     protocol: TCP
     targetPort: 443
-  - name: http-api1
-    port: 8000
-    targetPort: 8000
   selector:
     run: frontend
   sessionAffinity: None

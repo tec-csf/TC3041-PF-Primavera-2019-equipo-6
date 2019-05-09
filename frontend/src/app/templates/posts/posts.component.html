@@ -7,21 +7,32 @@
   </div>
 
   <div class="postCard" *ngFor="let post of posts">
-    <article>
+    <article *ngIf="!suscriptionError">
       <div class="postCardInner" *ngIf="posts">
         <div class="postCardImage">
-          <a routerLink="/perfil/{{post._fields[2]}}"><img src="./assets/images/profileTemporal/{{post._fields[4]}}" alt="profilePic"></a>
+          <a routerLink="/perfil/{{post._fields[2]}}"><img src="./assets/images/profileTemporal/{{post._fields[4]}}"
+              alt="profilePic"></a>
         </div>
         <div class="postCardInfo">
           <div class="postCardInfoTop">
             <h2 class="postCardInfoTopName" *ngIf="post._fields[3]">{{post._fields[3]}}</h2>
-            <a routerLink="/perfil/{{post._fields[2]}}"><p class="postCardInfoTopUsername">@{{post._fields[2]}}</p></a>
+            <a routerLink="/perfil/{{post._fields[2]}}">
+              <p class="postCardInfoTopUsername">@{{post._fields[2]}}</p>
+            </a>
 
           </div>
           <div class="postCardInfoText">
             <p>{{post._fields[0]}}</p>
           </div>
         </div>
+      </div>
+    </article>
+  </div>
+
+  <div class="postCard" *ngIf="suscriptionError">
+    <article>
+      <div class="postCardInner postCardInner404">
+        <span class="notPost">Parece que no hay ningún post <br> <i class="material-icons">face</i></span>
       </div>
     </article>
   </div>

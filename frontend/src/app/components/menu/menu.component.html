@@ -1,23 +1,25 @@
 <section id="nav">
   <div class="navContainer">
-    <div>
-      <a routerLink="home"><i class="material-icons">home</i></a>
+    <div class="navContainerSelector">
+      <a routerLink="home"><i class="material-icons">home</i><p>Inicio</p></a>
     </div>
 
-    <div>
-      <a routerLink="tendencia"><i class="material-icons">trending_up</i></a>
+    <div class="navContainerSelector">
+      <a routerLink="tendencia"><i class="material-icons">trending_up</i><p>Tendencia</p></a>
     </div>
 
-    <div>
-      <a routerLink="notificaciones"><i class="material-icons">notifications</i></a>
+    <div class="navContainerSelector">
+      <a routerLink="notificaciones"><i class="material-icons">notifications</i><p>Notificaciones</p></a>
     </div>
 
-    <div>
-      <a routerLink="perfil"><i class="material-icons">person</i></a>
-    </div>
-
-    <div>
-      <a role="button" (click)="logout()"><i class="material-icons">highlight_off</i></a>
+    <div class="navContainerRigth">
+        <div class="navContainerSelector">
+            <a routerLink="perfil"><i class="material-icons">person</i></a>
+          </div>
+      
+          <div class="navContainerSelector">
+            <a role="button" (click)="logout()"><i class="material-icons">highlight_off</i></a>
+          </div>
     </div>
 
   </div>

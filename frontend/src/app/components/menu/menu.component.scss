@@ -1,11 +1,38 @@
 #nav{
     background-color: white;
     border-bottom: 1px solid rgba(0,0,0,0.3);
+    height: 55px;
 
     .navContainer{
         display: flex;
         flex-direction: row;
-        height: 55px;
+        height: 100%;
         align-items: center;
+        max-width: 890px;
+        text-align: center;
+        width: auto;
+        margin: 0 auto;
+
+        .navContainerRigth{
+            margin-left: auto;
+            display: flex;
+        }
+        
+        .navContainerSelector{
+            margin-right: 20px;
+            a{
+                display: flex;
+                align-items: center;
+                color: #44933b;
+                &:hover{
+                    color: #58af4f;
+                    text-decoration: none;
+                }
+                i{
+                    font-size: 30px;
+                    margin-right: 5px;
+                }
+            }
+        }
     }
 }

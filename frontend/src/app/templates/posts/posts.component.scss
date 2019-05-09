@@ -6,7 +6,7 @@
         border-bottom: 1px solid rgba(0,0,0,0.15);
 
         article{
-            padding: 10px 15px;
+            padding: 15px;
 
             .postCardInner{
                 display: flex;
@@ -45,5 +45,22 @@
 
     .postCard:hover{
         background-color: #f5f8fa;
+    }
+
+    .postCardInner404{
+        justify-content: center;
+    }
+
+    .notPost{
+        font-family: "Calibri", "Arial", "Helvetica Neue", sans-serif;
+        margin: 100px 0;
+        color: #9b9b9b;
+        font-weight: bold;
+        font-size: 30px;
+        text-align: center;
+        i{
+            margin-top: 5px;
+            font-size: 60px;
+        }
     }
 }

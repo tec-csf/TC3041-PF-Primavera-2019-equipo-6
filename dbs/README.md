@@ -39,7 +39,7 @@ El binario también se puede instalar a través del instalador de línea de coma
 R: pueba los siguientes comandos eh intenta de nuevo (`helm reset`) y (`helm init`)
 
 - ¿Cómo puedo probar si funciona la base de datos?
-R: usa (`kubectl port-forward neo4j-helm-neo4j-core-0 8474:7474 8687:7687`) para probar en [localhost:8474](http://localhost:8474)
+R: usa (`kubectl port-forward neo4j-cluster-neo4j-core-1 7474:7474 7687:7687`) para probar en [localhost:8474](http://localhost:8474)
 
 ## REDIS
 

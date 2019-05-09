@@ -40,6 +40,15 @@ export class PostsComponent implements OnInit {
     }
   }
 
+  public callPosts(){
+    switch (this.component) {
+      case "home": this.getFeedPosts(); break;
+      case "profile": this.getUserPosts(); break;
+      case "trending": this.getTrendingPosts(); break;
+      default: console.error("Posts widget debe tener como parametro el nombre del componente"); break;
+    }
+  }
+
   getFeedPosts() {
     this.isloading = true;
     this.currentPostSubscription = this.postService.getFeedPosts().
@@ -70,7 +79,11 @@ export class PostsComponent implements OnInit {
       this.isloading = true;
     this.currentPostSubscription = this.postService.getUserPosts(this.usernameRoute).
       subscribe(postsReturn => {
-        this.posts = postsReturn
+        this.posts = postsReturn;
+        console.log(this.posts)
+        if(this.posts){
+          console.log("nu hay")
+        }
         this.isloading = false;
       }, err => {
         console.error(err);
@@ -84,8 +97,10 @@ export class PostsComponent implements OnInit {
     this.isloading = true;
     this.currentPostSubscription = this.postService.getTrendingPosts().
       subscribe(postsReturn => {
-        this.posts = postsReturn
-        //console.log(this.posts)
+        this.posts = postsReturn;
+        if(this.posts.length == 0){
+          this.suscriptionError = true;
+        }
         this.isloading = false;
       }, err => {
         console.error(err);

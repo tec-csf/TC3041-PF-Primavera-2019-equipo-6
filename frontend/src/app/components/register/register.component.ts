@@ -58,7 +58,7 @@ export class RegisterComponent implements OnInit{
     this.usuario.username = this.registerForm.value.username;
     this.usuario.password = this.registerForm.value.password;
     this.usuario.mail = this.registerForm.value.mail;
-    this.usuario.mail = this.registerForm.value.name;
+    this.usuario.name = this.registerForm.value.name;
     this.usuario.profile_img_url = this.getRandomTemporalProfileImage();
     this.currentUserSubscription = this.authService.register(this.usuario)
     .subscribe(loginStatus => {

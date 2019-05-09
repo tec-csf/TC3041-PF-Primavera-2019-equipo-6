@@ -43,7 +43,10 @@ export class ProfileComponent implements OnInit {
     /*this.getUser();
     this.getFollowers();
     this.getFollowing();*/
-    Promise.all([this.getUser(), this.getFollowers(), this.getFollowing(), this.getPostNumber()]).then(_ => this.allDataLoaded = true);
+    Promise.all([this.getUser(), this.getFollowers(), this.getFollowing(), this.getPostNumber()]).then(_ =>{
+      this.allDataLoaded = true;
+      console.log(this.usuario);
+    });
   }
 
   getUser() {
@@ -51,6 +54,7 @@ export class ProfileComponent implements OnInit {
     if (this.usernameRoute == null || this.usernameRoute == undefined) {
       this.currentUserSubscription = this.userService.getMyUser().
         subscribe(userReturn => {
+          console.log(userReturn)
           let userReturnJson: any = userReturn
           if (userReturnJson._fields) {
             this.usuario.username = userReturnJson._fields[0].properties.username;
@@ -74,6 +78,7 @@ export class ProfileComponent implements OnInit {
     } else {
       this.currentUserSubscription = this.userService.getUser(this.usernameRoute).
         subscribe(userReturn => {
+          console.log(userReturn)
           let userReturnJson: any = userReturn
           if (userReturnJson._fields) {
             this.usuario.username = userReturnJson._fields[0].properties.username;

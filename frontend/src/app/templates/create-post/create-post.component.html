@@ -1,13 +1,23 @@
 <button class="createPostButton" (click)="changeValue(isOpen)">
-  Abrir modal
+  <i class="material-icons">library_add</i>
 </button>
 
 <div class="createPost" *ngIf="isOpen">
   <div class="createPostInner">
-    <button (click)="changeValue(isOpen)">Cerrar</button>
-      <form class="formPost" [formGroup]="postForm" (ngSubmit)="onSubmit()">
-          <textarea name="textarea" rows="10" cols="50" placeholder="¿Qué estás pensando?" formControlName="text"></textarea>
-          <button *ngIf="!isLoading">Compartir</button>
+    <button (click)="changeValue(isOpen)" class="closeBtn"><i class="material-icons">close</i></button>
+    <div class="createPostHeader">
+      <h3>Redactar un nuevo Post</h3>
+    </div>
+    <div class="createPostBody">
+      <div class="createPostBodyContent">
+        <form class="formPost" [formGroup]="postForm" (ngSubmit)="onSubmit()">
+          <div><textarea name="textarea" rows="10" cols="50" placeholder="¿Qué estás pensando?"
+            formControlName="text"></textarea></div>
+          <div class="createPostBodyContentButtons">
+              <button [disabled]="!postForm.valid" class="btn"><div class="lds-dual-ring" *ngIf="isLoading"></div><p *ngIf="!isLoading">Compartir</p></button>
+          </div>
         </form>
+      </div>
+    </div>
   </div>
 </div>
