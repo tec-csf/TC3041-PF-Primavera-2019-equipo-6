@@ -139,7 +139,7 @@ a:User1 -
 
 Para redis únicamente se necesita el uso de un objeto llave valor, como por ejemplo:
 
-- "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJiZXRvX3Bhc2NhbEBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkFsYmVydG9QYXNjYWwiLCJpYXQiOjE1NTcyNjM1MTksImV4cCI6MTU1NzM0OTkxOX0.4z4ed7p8MlagT6YX8EYy4Gb4bc5s7wPvFyGGGNc52WA"
+- "user.all": "<Body con toda la respuesta de usuarios>"
 
 
 ### 3.2 Arquitectura de la solución
@@ -150,7 +150,7 @@ Para redis únicamente se necesita el uso de un objeto llave valor, como por eje
 
 ### 3.3 Frontend
 
-- Para el desarrollo del frontend, dado que se trata de una red social, fue necesario hacer uso de herramientas de desarrollo web mayormente. Entre éstas, podemos encontrar el uso de HTML, Javascript y CSS, así como el uso de templates que nos facilitarían algunas funciones dentro de la página. Por otro lado, también se hará uso de postman durante las etapas de desarrollo para poder probar los resultados que estaría recibiendo el usuario. 
+- Para el desarrollo del frontend podemos encontrar el uso de HTML, Javascript y CSS. Cómo framework se utilizo Angular 7, este hace uso de Typescript
 
 Más información disponible en: [README_frontend](frontend/README.md)
 
@@ -166,17 +166,15 @@ Para desarrollar tanto el front-end como los api se utilizó en conjunto:
 #### 3.3.2 Framework
 - Angular
 #### 3.3.3 Librerías de funciones o dependencias
-- [Reactjs](https://reactjs.org/): Una biblioteca de JavaScript para construir interfaces de usuario
-- [Create React App](https://facebook.github.io/create-react-app/) : Herramienta para crear aplicaciones react. Ofrece una configuración de construcción moderna sin configuración.
+- [Angular 7](https://angular.io/docs)
 - [Neo4j-driver](https://neo4j.com/developer/javascript/) : Herramienta para poder comunicar nuestro código de javascript con una base de datos hosteada en neo4j. 
 - [kompose] (http://kompose.io/) : Herramienta para traducir los archivos de configuración de docker a archivos en kubernets. 
 - [redis] (https://redis.js.org/) : Herramienta para conectar nuestras aplicaciones de javascript con nuestra base de datos en redis.
-- [minikube]( https://kubernetes.io/es/docs/tasks/tools/install-minikube/) : herramienta para utilizar kubernetes y orquestrar nuestro proyecto. 
-- [postman para funciones de prueba](https://www.getpostman.com/)
+- [Pruebas de api con Postman](https://www.getpostman.com/)
 
 ### 3.4 Backend
 
-Como backend se utilizó node.js en conjunto con dos api: user y posts. De esta manera, Es posible comunicar nuestra aplicación con las base de datos de neo4j y de redis para así, eventualmente, mostrar los resultados al usuario en el frontend. 
+Como backend se utilizó node.js para desarrollar dos microservicios, api: user y posts. De esta manera, Es posible comunicar nuestra aplicación con las base de datos de neo4j y de redis para así, eventualmente, mostrar los resultados al usuario en el frontend. 
 
 #### 3.3.1 Lenguaje de programación
 
@@ -198,10 +196,10 @@ Para poder crear una réplica de una red social, localizamos dos api que nos ser
 
 - Más información disponible en: [README_api_user](api/users/README.md)
 
-- Post: Este api se encargará de crear los endpoints necesarios para visualizar los posts. Es decir, se ecargará de tener /posts/id, /posts/me, /posts/username y /posts/new entre otros. 
+- Post: Este api se encargará de crear los endpoints necesarios para visualizar los posts.
 
-- Más información disponible en: [README_api_post](api/posts/README.md)
 - Más información disponible en: [README_api_postV2](api/postsV2/README.md)
+- Más información disponible en: [README_api_post (Deprecated)](api/posts/README.md)
 
 #### 3.5.1 Lenguaje de programación
 
