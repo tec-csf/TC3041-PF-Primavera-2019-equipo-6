@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
   isLoadingGetFollowers: boolean;
   isLoadingGetFollowing: boolean;
   allDataLoaded: boolean;
+  isFollowed: boolean;
 
   suscriptionError: boolean;
   suscriptionErrorMsj: string;
@@ -34,6 +35,7 @@ export class ProfileComponent implements OnInit {
     this.isLoadingGetFollowing = false;
     this.isLoadingGetPostN = false;
     this.allDataLoaded = false;
+    this.isFollowed = false;
 
     this.suscriptionErrorMsj = "";
     this.usernameRoute = this.route.snapshot.paramMap.get("username")
@@ -214,6 +216,18 @@ export class ProfileComponent implements OnInit {
           this.suscriptionErrorMsj = err;
         }/*,() => console.log('Observer got a complete notification')*/)
     }
+  }
+
+  followUser(){
+    this.currentUserSubscription = this.userService.followUser(this.usernameRoute).
+    subscribe(response =>{
+      this.isFollowed = true;
+      console.log(response)
+    }, err => {
+      console.error(err);
+      this.suscriptionError = true;
+      this.suscriptionErrorMsj = err;
+    }/*,() => console.log('Observer got a complete notification')*/)
   }
 
 }

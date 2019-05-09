@@ -27,6 +27,7 @@ import { NotFoundComponent } from './components/notFound/notFound.component';
 import { PostsComponent } from './templates/posts/posts.component';
 import { CreatePostComponent } from './templates/create-post/create-post.component';
 import { ApiStatusComponent } from './templates/api-status/api-status.component';
+import { NotificationsComponent } from './templates/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ApiStatusComponent } from './templates/api-status/api-status.component'
     LoginComponent,
     PostsComponent,
     CreatePostComponent,
-    ApiStatusComponent
+    ApiStatusComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,

@@ -40,6 +40,11 @@
                     <span>218</span>
                     <p>Favoritos</p>
                 </div>
+
+                <div class="profileInfoInnerFollow">
+                    <button (click)="followUser()" *ngIf="!isFollowed">Seguir</button>
+                    <button (click)="followUser()" *ngIf="isFollowed" class="unfollow">No Seguir</button>
+                </div>
             </div>
         </div>
     </div>

@@ -221,14 +221,14 @@ exports.loginUser = (req, res, next) => {
 
 //FOLLOW follow a un usuario ********************************************************************************
 exports.followUser = (req, res, next) => {
-  if ((req.body.username == null || req.body.username == undefined) || (req.body.usernameTarget == null || req.body.usernameTarget == undefined)) {
-    let e = new Error('Se debe ingresar un username y un usernameTarget');
+  if (req.body.usernameTarget == null || req.body.usernameTarget == undefined) {
+    let e = new Error('Se debe ingresar un usernameTarget');
     e.name = "badRequest";
     return next(e);
   }
 
   session
-    .run('MATCH(n:User {username:"' + req.body.username + '"}),(m:User {username:"' + req.body.usernameTarget + '"}) MERGE (n)-[r:FOLLOWS]->(m)')
+    .run('MATCH(n:User {username:"' + res.locals.tokenDecoded.username + '"}),(m:User {username:"' + req.body.usernameTarget + '"}) MERGE (n)-[r:FOLLOWS]->(m)')
     .then(function (result) {
       if (result.summary.updateStatistics._stats.relationshipsCreated == 0) {
         let e = new Error("No se pudo seguir al usuario, es posible que ya lo sigas");
@@ -254,14 +254,14 @@ exports.followUser = (req, res, next) => {
 
 //UNFOLLOW unfollow a un usuario ********************************************************************************
 exports.unfollowUser = (req, res, next) => {
-  if ((req.body.username == null || req.body.username == undefined) || (req.body.usernameTarget == null || req.body.usernameTarget == undefined)) {
-    let e = new Error('Se debe ingresar un username y un usernameTarget');
+  if (req.body.usernameTarget == null || req.body.usernameTarget == undefined) {
+    let e = new Error('Se debe ingresar un usernameTarget');
     e.name = "badRequest";
     return next(e);
   }
 
   session
-    .run('MATCH (n:User {username:"' + req.body.username + '"})-[r:FOLLOWS]->(m:User {username:"' + req.body.usernameTarget + '"}) delete(r)')
+    .run('MATCH (n:User {username:"' + res.locals.tokenDecoded.username + '"})-[r:FOLLOWS]->(m:User {username:"' + req.body.usernameTarget + '"}) delete(r)')
     .then(function (result) {
       if (result.summary.updateStatistics._stats.relationshipsDeleted == 0) {
         let e = new Error("No se pudo dejar de seguir al usuario, es posible que no lo sigas");

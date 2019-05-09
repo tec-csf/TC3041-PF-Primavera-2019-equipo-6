@@ -102,4 +102,36 @@ export class UserService {
       }));
   }
 
+  followUser(username: string){
+    let token:string = localStorage.getItem("token_colibri");
+    let body = {
+      "usernameTarget": username
+    }
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization':token }) };
+    return this.http.post(this.apiUrl + '/user/follow',body,  httpOptions)
+      .pipe(/*catchError(err => {
+      console.log("Next Error is handled: ");
+      console.error(err.message);
+      return err;
+    }),*/map(res => {
+        return res;
+      }));
+  }
+
+  unfollowUser(username: string){
+    let token:string = localStorage.getItem("token_colibri");
+    let body = {
+      "usernameTarget": username
+    }
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization':token }) };
+    return this.http.post(this.apiUrl + '/user/unfollow',body,  httpOptions)
+      .pipe(/*catchError(err => {
+      console.log("Next Error is handled: ");
+      console.error(err.message);
+      return err;
+    }),*/map(res => {
+        return res;
+      }));
+  }
+
 }
