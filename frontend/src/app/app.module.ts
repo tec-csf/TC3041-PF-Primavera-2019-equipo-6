@@ -26,6 +26,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { NotFoundComponent } from './components/notFound/notFound.component';
 import { PostsComponent } from './templates/posts/posts.component';
 import { CreatePostComponent } from './templates/create-post/create-post.component';
+import { ApiStatusComponent } from './templates/api-status/api-status.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { CreatePostComponent } from './templates/create-post/create-post.compone
     RegisterComponent,
     LoginComponent,
     PostsComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    ApiStatusComponent
   ],
   imports: [
     BrowserModule,

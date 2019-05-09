@@ -14,6 +14,18 @@ export class PostService {
     this.apiUrl = Config.apiPostUrl;
   }
 
+  health() {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.get(this.apiUrl + '/health', httpOptions)
+      .pipe(/*catchError(err => {
+      console.log("Next Error is handled: ");
+      console.error(err.message);
+      return err;
+    }),*/map(res => {
+        return res;
+      }));
+  }
+
   getFeedPosts() {
     let token: string = localStorage.getItem("token_colibri");
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', "Authorization": token }) };

@@ -15,6 +15,18 @@ export class UserService {
     this.apiUrl = Config.apiUserUrl;
   }
 
+  health() {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.get(this.apiUrl + '/health', httpOptions)
+      .pipe(/*catchError(err => {
+      console.log("Next Error is handled: ");
+      console.error(err.message);
+      return err;
+    }),*/map(res => {
+        return res;
+      }));
+  }
+
   getUser(username: string) {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
     return this.http.get(this.apiUrl + '/user/' + username, httpOptions)

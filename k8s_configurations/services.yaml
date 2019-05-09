@@ -7,14 +7,17 @@ metadata:
   namespace: default
 spec:
   ports:
-  - name: http
-    port: 80
+  - port: 80
+    name: http
     protocol: TCP
     targetPort: 80
-  - name: https
-    port: 443
+  - port: 443
+    name: https
     protocol: TCP
     targetPort: 443
+  - name: http-api1
+    port: 8000
+    targetPort: 8000
   selector:
     run: frontend
   sessionAffinity: None
@@ -55,7 +58,7 @@ metadata:
   namespace: default
 spec:
   ports:
-  - name: http-api1
+  - name: http-api2
     port: 8001
     protocol: TCP
     targetPort: 8001

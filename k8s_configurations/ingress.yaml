@@ -14,7 +14,14 @@ spec:
         backend:
           serviceName: frontend-service
           servicePort: 80
+  - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: backend-user-service
+          servicePort: 8000
   tls:
   - secretName: frontend-tls
     hosts:
     - quiztar.me
+    - api.quiztar.me

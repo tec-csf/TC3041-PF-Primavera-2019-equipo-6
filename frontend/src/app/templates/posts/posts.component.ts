@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from 'rxjs';
-import { DomSanitizer } from '@angular/platform-browser';
 
 import { PostService } from '../../services/post.service';
 //import { Post } from '../../models/post.model';
