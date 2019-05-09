@@ -31,5 +31,6 @@ app.use('/', router);
 // Listen ========================================================
 const port = process.env.PORT || 8000
 app.listen(port, () => {
-    debug('User-api: http://127.0.0.1:' + port);
+    //debug('User-api: http://127.0.0.1:' + port);
+    console.log('User-api: http://127.0.0.1:' + process.env.PORT);
 });

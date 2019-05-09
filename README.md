@@ -270,3 +270,4 @@ Para poder crear una réplica de una red social, localizamos dos api que nos ser
 - [Digital Ocean implementation](https://www.youtube.com/watch?v=DwlIn9zOcfc)
 - [Digital Ocean and kubernetes](https://www.digitalocean.com/docs/kubernetes/)
 - [Redis](https://medium.com/tech-tajawal/introduction-to-caching-redis-node-js-e477eb969eab)
+- [Host your application on Google Kubernetes Engine](https://medium.com/the-andela-way/how-to-host-an-application-on-gke-e95e7b1177eb) 
